@@ -8,7 +8,7 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
                 templateUrl: 'app/main/main.html',
                 controller: 'MainCtrl',
                 onEnter: function ($state) {
-                    if (true) {
+                    if (false) {
                         $state.go('login');
                     }
                 }
@@ -16,20 +16,26 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/account/login.html',
-                controller: 'LoginCtrl',
+                controller: 'AccountCtrl',
                 onEnter: function ($state) {
 
                 }
             })
-            .state('user', {
+            .state('home.user', {
                 url: '/user',
                 templateUrl: 'app/user/user.html',
                 controller: 'UserCtrl'
+            })
+            .state('home.terminal', {
+                url: '/terminal',
+                templateUrl: 'app/terminal/terminal.html',
+                controller: 'TerminalCtrl'
             });
 
         $urlRouterProvider.otherwise('/');
     })
     .config(function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('http://10.192.17.95/api');
+        RestangularProvider.setBaseUrl('/api');
+        RestangularProvider.setDefaultHeaders({'Access-Control-Allow-Origin': '*'});
     })
 ;
