@@ -1,0 +1,14 @@
+<div layout="row" layout-align="center center">
+    <md-content>
+        <md-input-container>
+            <label>用户名</label>
+            <input ng-model="account.userName" type="text" required="true">
+        </md-input-container>
+        <md-input-container>
+            <label>密码</label>
+            <input ng-model="account.passWord" type="password" required="true">
+        </md-input-container>
+        <md-switch ng-model="account.rememberMe">记住我</md-switch>
+        <md-button ng-click="login()" class="md-raised">登陆</md-button>
+    </md-content>
+</div>
