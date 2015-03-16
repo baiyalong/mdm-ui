@@ -1,5 +1,29 @@
-<div layout="vertical" layout-fill>
-    <p>{{msg}}</p>
+<div layout="row">
+    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open"
+                md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1">
+        <md-toolbar class="md-default-theme">
+            <h1 class="md-toolbar-tools"><a ng-href="/">MDM</a></h1>
+        </md-toolbar>
+        <md-content></md-content>
+    </md-sidenav>
+
+    <!--
+    <a ui-sref=".user">user</a>
+    <a ui-sref=".terminal">terminal</a>
+    <a ui-sref=".command">command</a>
+    <a ui-sref=".application">application</a>
+    <a ui-sref=".strategy">strategy</a>
+    <a ui-sref=".record">record</a>
+    -->
 
 
+    <div layout="column" tabindex="-1" role="main" flex="">
+        <md-toolbar class="md-default-theme">
+            <p>{{userName}}</p>
+            <button ng-click="logout()">注销</button>
+        </md-toolbar>
+        <md-content md-scroll-y flex class="md-padding ng-scope md-default-theme">
+            <div ui-view></div>
+        </md-content>
+    </div>
 </div>

@@ -4,11 +4,14 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
-                url: '/',
+                // abstract: true,
+                url: '/home',
                 templateUrl: 'app/main/main.html',
                 controller: 'MainCtrl',
-                onEnter: function ($state) {
-                    if (false) {
+                onEnter: function ($state, AccountService) {
+                    if (AccountService.isLogin()) {
+                        AccountService.userName();
+                    } else {
                         $state.go('login');
                     }
                 }
@@ -16,9 +19,13 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/account/login.html',
-                controller: 'AccountCtrl',
-                onEnter: function ($state) {
-
+                controller: 'LoginCtrl',
+                onEnter: function ($state, AccountService) {
+                    if (AccountService.isLogin()) {
+                        $state.go('home');
+                    } else {
+                        AccountService.remember();
+                    }
                 }
             })
             .state('home.user', {
@@ -30,12 +37,31 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
                 url: '/terminal',
                 templateUrl: 'app/terminal/terminal.html',
                 controller: 'TerminalCtrl'
+            })
+            .state('home.command', {
+                url: '/command',
+                templateUrl: 'app/command/command.html',
+                controller: 'CommandCtrl'
+            })
+            .state('home.application', {
+                url: '/application',
+                templateUrl: 'app/application/application.html',
+                controller: 'ApplicationCtrl'
+            })
+            .state('home.strategy', {
+                url: '/strategy',
+                templateUrl: 'app/strategy/strategy.html',
+                controller: 'StrategyCtrl'
+            })
+            .state('home.record', {
+                url: '/record',
+                templateUrl: 'app/record/record.html',
+                controller: 'RecordCtrl'
             });
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/home');
     })
     .config(function (RestangularProvider) {
         RestangularProvider.setBaseUrl('/api');
-        RestangularProvider.setDefaultHeaders({'Access-Control-Allow-Origin': '*'});
-    })
-;
+        // RestangularProvider.setDefaultHeaders({'Access-Control-Allow-Origin': '*'});
+    });

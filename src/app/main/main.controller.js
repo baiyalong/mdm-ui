@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('mdmUi')
-    .controller('MainCtrl', function ($scope) {
+    .controller('MainCtrl', function ($scope, AccountService) {
+        var self = $scope;
 
-        $scope.msg = 'hello';
+        self.userName = AccountService.account.userName;
+        self.logout = function () {
+            AccountService.logout();
+            window.location.href = '/';
+        };
     });
