@@ -4,7 +4,6 @@
 angular.module('mdmUi')
     .service('AccountService', function () {
         var self = this;
-        self.account = {};
 
         self.login = function (account) {
             sessionStorage.clear();
@@ -20,11 +19,10 @@ angular.module('mdmUi')
             }
         };
         self.logout = function () {
-            sessionStorage.clear();
-            this.account = {};
+            sessionStorage.removeItem('token');
         };
         self.isLogin = function () {
-            return sessionStorage.length;
+            return sessionStorage.getItem('token') != null;
         };
         self.remember = function () {
             self.account = {

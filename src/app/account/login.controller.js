@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('mdmUi')
-    .controller('LoginCtrl', function ($scope, Restangular, AccountService) {
+    .controller('LoginCtrl', function ($scope, Restangular, AccountService, BackgroundImageService) {
         var self = $scope;
         self.account = AccountService.account;
         self.remember = true;
@@ -13,6 +13,7 @@ angular.module('mdmUi')
                 self.account.token = res.token;
                 self.account.remember = self.remember;
                 AccountService.login(self.account);
+                BackgroundImageService.rmBackgroundImage();
                 window.location.href = '/';
             }, function (e) {
                 alert("error");
