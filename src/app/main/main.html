@@ -1,10 +1,36 @@
-<div layout="row">
-    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open"
-                md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" tabindex="-1">
-        <md-toolbar class="md-default-theme">
-            <h1 class="md-toolbar-tools"><a ng-href="/">MDM</a></h1>
+<div layout="row" class="maxHeight">
+    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')" class="maxHeight">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <a ui-sref="." layout="row" flex>
+                    <div class="docs-logotype">MDM</div>
+                </a>
+            </div>
         </md-toolbar>
-        <md-content></md-content>
+        <ul class="skip-links">
+            <li class="md-whiteframe-z2">
+                <md-button ng-click="focusMainContent($event)" href="#">Skip to content</md-button>
+            </li>
+        </ul>
+        <md-content flex role="navigation" class="sideNav">
+            <ul class="docs-menu">
+                <li ng-repeat="section in menu.sections" class="parent-list-item"
+                    ng-class="{'parentActive' : isSectionSelected(section)}">
+                    <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                        id="heading_{{ section.name | nospace }}">
+                        {{section.name}}
+                    </h2>
+                    <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                    <ul ng-if="section.children" class="menu-nested-list">
+                        <li ng-repeat="child in section.children" ng-class="{'childActive' : isSectionSelected(child)}">
+                            <menu-toggle section="child"></menu-toggle>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </md-content>
     </md-sidenav>
 
     <!--
@@ -17,10 +43,15 @@
     -->
 
 
-    <div layout="column" tabindex="-1" role="main" flex="">
-        <md-toolbar class="md-default-theme">
-            <p>{{userName}}</p>
-            <button ng-click="logout()">注销</button>
+    <div layout="column" tabindex="-1" role="main" flex>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <button class="doc-menu-icon" hide-gt-sm aria-label="Toggle Label" ng-click="openLeftMenu()"></button>
+                <span>移动终端管理平台</span>
+                <span flex></span>
+                <span ng-bind="userName"></span>
+                <md-button ng-click="logout()">注销</md-button>
+            </div>
         </md-toolbar>
         <md-content md-scroll-y flex class="md-padding ng-scope md-default-theme">
             <div ui-view></div>

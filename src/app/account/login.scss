@@ -2,8 +2,17 @@
 
 md-content {
   margin-top: 200px;
+  background-color: #ffffff;
+  /* for IE */
+  filter: alpha(opacity=60);
+  /* CSS3 standard */
+  opacity: 0.6;
 }
 
-md-switch {
-  margin-left: 2px;
+.backgroundImage {
+  background: url("/assets/images/login.png") no-repeat fixed;
+  background-size: 100% 100%;
+  -webkit-background-origin: content-box; /* Safari */
+  background-origin: content-box;
 }
+

@@ -8,3 +8,4 @@ angular.module('mdmUi')
 
         $scope.msg = 'user';
     });
+
