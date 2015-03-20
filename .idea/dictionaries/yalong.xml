@@ -2,7 +2,10 @@
   <dictionary name="yalong">
     <words>
       <w>sidenav</w>
+<<<<<<< HEAD
       <w>submenu</w>
+=======
+>>>>>>> origin/master
     </words>
   </dictionary>
 </component>
