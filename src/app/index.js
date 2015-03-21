@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
+angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'ui.grid', 'ui.grid.autoResize'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
@@ -10,7 +10,6 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
                 controller: 'MainCtrl',
                 onEnter: function ($state, AccountService) {
                     if (AccountService.isLogin()) {
-                        AccountService.userName();
                     } else {
                         $state.go('login');
                     }
@@ -46,8 +45,18 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
             })
             .state('home.terminal', {
                 url: '/terminal',
-                templateUrl: 'app/terminal/terminal.html',
-                controller: 'TerminalCtrl'
+                templateUrl: 'app/terminal/terminal.html'
+                //controller: 'TerminalCtrl'
+            })
+            .state('home.terminal.info', {
+                url: '/info',
+                templateUrl: 'app/terminal/terminal.info.html',
+                controller: 'TerminalInfoCtrl'
+            })
+            .state('home.terminal.app', {
+                url: '/app',
+                templateUrl: 'app/terminal/terminal.app.html',
+                controller: 'TerminalAppCtrl'
             })
             .state('home.command', {
                 url: '/command',
@@ -74,5 +83,22 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
     })
     .config(function (RestangularProvider) {
         RestangularProvider.setBaseUrl('/api');
+        RestangularProvider.setDefaultHeaders({Authorization: "Token " + sessionStorage.getItem('token')});
         // RestangularProvider.setDefaultHeaders({'Access-Control-Allow-Origin': '*'});
+
+        /*
+         RestangularProvider.setResponseExtractor(function (response) {
+         var newResponse = response;
+         if (angular.isArray(response)) {
+         angular.forEach(newResponse, function (value, key) {
+         newResponse[key].originalElement = angular.copy(value);
+         });
+         } else {
+         newResponse.originalElement = angular.copy(response);
+         }
+
+         return newResponse;
+         });
+         */
+
     });

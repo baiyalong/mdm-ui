@@ -12,7 +12,7 @@ angular.module('mdmUi')
             self.closeMenu(), this && this.autoFocusContent && (self.focusMainContent(), this.autoFocusContent = !1)
         });
 
-        self.userName = AccountService.account.userName;
+        self.userName = AccountService.userName();
         self.logout = function () {
             AccountService.logout();
             BackgroundImageService.addBackgroundImage();
