@@ -9,7 +9,7 @@ angular.module('mdmUi')
         var y = document.querySelector("[role='main']");
 
         $rootScope.$on("$locationChangeSuccess", function () {
-            self.closeMenu(), this.autoFocusContent && (self.focusMainContent(), this.autoFocusContent = !1)
+            self.closeMenu(), this && this.autoFocusContent && (self.focusMainContent(), this.autoFocusContent = !1)
         });
 
         self.userName = AccountService.account.userName;
@@ -61,7 +61,6 @@ angular.module('mdmUi')
         };
 
         this.autoFocusContent = !1;
-        self.COMPONENTS = COMPONENTS;
         self.menu = menu;
         self.path = $location.path();
         // self.sections = SidenavService.sections;

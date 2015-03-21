@@ -29,9 +29,20 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
                 }
             })
             .state('home.user', {
+                abstract: true,
                 url: '/user',
-                templateUrl: 'app/user/user.html',
+                templateUrl: 'app/user/user.html'
+                // controller: 'UserCtrl'
+            })
+            .state('home.user.user', {
+                url: '/user',
+                templateUrl: 'app/user/user.user.html',
                 controller: 'UserCtrl'
+            })
+            .state('home.user.userGroup', {
+                url: '/userGroup',
+                templateUrl: 'app/user/user.userGroup.html',
+                controller: 'UserGroupCtrl'
             })
             .state('home.terminal', {
                 url: '/terminal',

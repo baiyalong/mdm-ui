@@ -17,17 +17,21 @@
             <ul class="docs-menu">
                 <li ng-repeat="section in menu.sections" class="parent-list-item"
                     ng-class="{'parentActive' : isSectionSelected(section)}">
+                    <!--
                     <h2 class="menu-heading" ng-if="section.type === 'heading'"
                         id="heading_{{ section.name | nospace }}">
                         {{section.name}}
                     </h2>
                     <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                    <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-                    <ul ng-if="section.children" class="menu-nested-list">
-                        <li ng-repeat="child in section.children" ng-class="{'childActive' : isSectionSelected(child)}">
+                    -->
+                    <menu-toggle section="section" ng-if="section.state === undefined"></menu-toggle>
+                    <!--
+                    <ul ng-if="section.submenu" class="menu-nested-list">
+                        <li ng-repeat="child in section.submenu" ng-class="{'childActive' : isSectionSelected(child)}">
                             <menu-toggle section="child"></menu-toggle>
                         </li>
                     </ul>
+                    -->
                 </li>
             </ul>
         </md-content>
@@ -46,15 +50,16 @@
     <div layout="column" tabindex="-1" role="main" flex>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <button class="doc-menu-icon" hide-gt-sm aria-label="Toggle Label" ng-click="openLeftMenu()"></button>
+                <button ng-click="openMenu()" class="docs-menu-icon" hide-gt-sm aria-label="Toggle Menu">
+                    <md-icon md-svg-src="img/icons/ic_menu_24px.svg"></md-icon>
+                </button>
                 <span>移动终端管理平台</span>
                 <span flex></span>
                 <span ng-bind="userName"></span>
                 <md-button ng-click="logout()">注销</md-button>
             </div>
         </md-toolbar>
-        <md-content md-scroll-y flex class="md-padding ng-scope md-default-theme">
-            <div ui-view></div>
+        <md-content ui-view md-scroll-y flex class="md-padding mainContent">
         </md-content>
     </div>
 </div>

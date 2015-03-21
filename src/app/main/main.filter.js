@@ -1,6 +1,9 @@
 /**
  * Created by yalong on 2015/3/20.
  */
+
+'use strict';
+
 angular.module('mdmUi')
     .filter("nospace", function () {
         return function (e) {

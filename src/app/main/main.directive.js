@@ -1,6 +1,8 @@
 /**
  * Created by yalong on 2015/3/19.
  */
+'use strict';
+
 
 angular.module('mdmUi')
 
