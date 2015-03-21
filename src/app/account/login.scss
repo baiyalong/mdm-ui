@@ -1,18 +1,26 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
 
+/*
 md-content {
   margin-top: 200px;
   background-color: #ffffff;
   /* for IE */
-  filter: alpha(opacity=60);
-  /* CSS3 standard */
-  opacity: 0.6;
-}
+//filter: alpha(opacity=60);
+/* CSS3 standard */
+// opacity: 0.6;
+//}
 
 .backgroundImage {
-  background: url("/assets/images/login.png") no-repeat fixed;
-  background-size: 100% 100%;
-  -webkit-background-origin: content-box; /* Safari */
-  background-origin: content-box;
+  background: url("/img/login.jpg") no-repeat fixed;
+  background-size: cover;
 }
 
+md-content.transparent {
+  background: transparent;
+}
+
+h1.title {
+  font-weight: bolder;
+  font-size: 50px;
+  text-shadow: 2px 2px 1px #455645;
+}

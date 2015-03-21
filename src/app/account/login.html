@@ -1,14 +1,33 @@
-<div layout="row" layout-align="center center">
-    <md-content>
-        <md-input-container>
-            <label>用户名</label>
-            <input ng-model="account.userName" type="text" required="true">
-        </md-input-container>
-        <md-input-container>
-            <label>密码</label>
-            <input ng-model="account.password" type="password" required="true">
-        </md-input-container>
-        <md-switch ng-model="remember">记住密码</md-switch>
-        <md-button ng-click="login()" class="md-raised">登陆</md-button>
-    </md-content>
+<div layout="row" layout-align="center center" class="maxHeight" layout-margin layout-fill
+     layout-padding>
+    <div flex="50">
+
+        <!--div layout="row" layout-align="center center">
+            <!-- md-icon md-svg-src="img/icons/ic_phone_iphone_24px.svg"></md-icon -->
+        <!--h1>CUC MDM</h1>
+    </div-->
+
+        <div layout="row" layout-align="center center">
+            <h1 class="title">移动终端管理平台</h1>
+        </div>
+
+        <div layout="row" layout-align="center center" class="md-whiteframe-z2" layout-margin layout-fill
+             layout-padding>
+            <div class="transparent">
+                <md-input-container>
+                    <md-icon md-svg-src="img/icons/ic_perm_identity_24px.svg"></md-icon>
+                    <input ng-model="account.userName" type="text" required="true" ng-enter="login()">
+                </md-input-container>
+                <md-input-container>
+                    <md-icon md-svg-src="img/icons/ic_lock_outline_24px.svg"></md-icon>
+                    <input ng-model="account.password" type="password" required="true" ng-enter="login()">
+                </md-input-container>
+                <div layout="row" layout-fill>
+                    <md-switch ng-model="remember">记住密码</md-switch>
+                    <md-button flex ng-click="login()">登陆</md-button>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

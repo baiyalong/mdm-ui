@@ -1,0 +1,60 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span>{{items.title}}</span>
+        </div>
+    </md-toolbar>
+
+    <md-content layout="row" layout-wrap>
+        <md-input-container>
+            <label>命令编码</label>
+            <input type="text" ng-model="element.commandId" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>描述</label>
+            <input type="text" ng-model="element.commandName" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>用户名</label>
+            <input type="text" ng-model="element.user" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>手机号</label>
+            <input type="text" ng-model="element.phoneNumber" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>终端</label>
+            <input type="text" ng-model="element.deviceName" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>IMEI</label>
+            <input type="text" ng-model="element.imei" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>发送时间</label>
+            <input type="text" ng-model="element.sendTime" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>更新时间</label>
+            <input type="text" ng-model="element.updateTime" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>状态</label>
+            <input type="text" ng-model="element.statusName" ng-disabled="items.state=='detail'">
+        </md-input-container>
+    </md-content>
+
+
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</md-dialog>

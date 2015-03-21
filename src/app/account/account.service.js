@@ -31,6 +31,9 @@ angular.module('mdmUi')
             }
         };
         self.userName = function () {
-            self.account = {userName: sessionStorage.getItem('userName')}
-        }
+            return sessionStorage.getItem('userName')
+        };
+        self.token = function () {
+            return sessionStorage.getItem('token')
+        };
     });

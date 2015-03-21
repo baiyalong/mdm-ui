@@ -1,0 +1,59 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span>{{items.title}}</span>
+        </div>
+    </md-toolbar>
+
+    <md-content layout="row" layout-wrap>
+        <md-input-container>
+            <label>开始时间</label>
+            <input type="text" ng-model="element.startTime" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>结束时间</label>
+            <input type="text" ng-model="element.endTime" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>地理围栏</label>
+            <input type="text" ng-model="element.reginalInterval" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>参数</label>
+            <input type="text" ng-model="element.parameters" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <div flex="33">
+            <label>策略</label>
+            <md-select ng-model="element.strategyID" ng-disabled="items.state=='detail'">
+                <md-option ng-repeat="s in items.strategy" ng-value="s.iD">{{s.name}}</md-option>
+            </md-select>
+        </div>
+        <div flex="33">
+            <label>惩罚</label>
+            <md-select ng-model="element.punishmentID" ng-disabled="items.state=='detail'">
+                <md-option ng-repeat="p in items.punishment" ng-value="p.iD">{{p.name}}</md-option>
+            </md-select>
+        </div>
+        <div flex="33">
+            <label>策略组</label>
+            <md-select ng-model="element.groupID" ng-disabled="items.state=='detail'">
+                <md-option ng-repeat="g in items.strategyGroup" ng-value="g.iD">{{g.name}}</md-option>
+            </md-select>
+        </div>
+        <md-input-container flex="100"></md-input-container>
+    </md-content>
+
+
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</md-dialog>

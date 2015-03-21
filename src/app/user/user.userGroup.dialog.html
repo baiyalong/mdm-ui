@@ -1,0 +1,35 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span>{{items.title}}</span>
+        </div>
+    </md-toolbar>
+
+    <md-content layout="row" layout-wrap>
+        <md-input-container>
+            <label>用户组名</label>
+            <input type="text" ng-model="element.name" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>描述</label>
+            <input type="text" ng-model="element.description" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container flex="100">
+            <md-table collection="subCollection"></md-table>
+        </md-input-container>
+    </md-content>
+
+
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</md-dialog>

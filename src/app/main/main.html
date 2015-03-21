@@ -4,7 +4,7 @@
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <a ui-sref="." layout="row" flex>
-                    <div class="docs-logotype">MDM</div>
+                    MDM
                 </a>
             </div>
         </md-toolbar>
@@ -24,6 +24,7 @@
                     </h2>
                     <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
                     -->
+                    <menu-link section="section" ng-if="section.state"></menu-link>
                     <menu-toggle section="section" ng-if="section.state === undefined"></menu-toggle>
                     <!--
                     <ul ng-if="section.submenu" class="menu-nested-list">

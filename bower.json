@@ -9,8 +9,7 @@
     "restangular": "latest",
     "angular-ui-router": "latest",
     "angular-material": "latest",
-    "angular": "latest",
-    "angular-ui-grid":"latest"
+    "angular": "latest"
   },
   "devDependencies": {
     "angular-mocks": "latest"

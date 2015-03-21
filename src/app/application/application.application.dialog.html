@@ -1,0 +1,57 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span>{{items.title}}</span>
+        </div>
+    </md-toolbar>
+
+    <md-content layout="row" layout-wrap>
+        <md-input-container>
+            <label>应用名称</label>
+            <input type="text" ng-model="element.appName" ng-disabled="items.state=='detail'">
+        </md-input-container>
+
+        <md-input-container>
+            <label>版本</label>
+            <input type="text" ng-model="element.version" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <md-checkbox ng-model="element.isMandatory" ng-disabled="items.state=='detail'">强制</md-checkbox>
+        </md-input-container>
+        <md-input-container>
+            <md-checkbox ng-model="element.isRecommended" ng-disabled="items.state=='detail'">推荐</md-checkbox>
+        </md-input-container>
+        <div flex="33">
+            <label>目录</label>
+            <md-select ng-model="element.classify" ng-disabled="items.state=='detail'">
+                <md-option ng-repeat="p in items.classification" ng-value="p.iD">{{p.classifyName}}</md-option>
+            </md-select>
+        </div>
+        <md-input-container>
+            <label>授权</label>
+            <input type="text" ng-model="element.authorizedby" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>制作</label>
+            <input type="text" ng-model="element.producers" ng-disabled="items.state=='detail'">
+        </md-input-container>
+        <md-input-container flex="100">
+            <label>描述</label>
+            <textarea ng-model="element.description" ng-disabled="items.state=='detail'"></textarea>
+        </md-input-container>
+    </md-content>
+
+
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</md-dialog>

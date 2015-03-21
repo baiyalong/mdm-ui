@@ -1,0 +1,76 @@
+<table class="md-table">
+    <thead>
+    <tr class="md-table-header-row">
+        <th ng-if="collection.check" class="md-table-header checkbox">
+            <md-checkbox aria-label="checkAll" ng-model="checkAll" ng-change="checkChange(null,checkAll)"
+                         ng-init="false"></md-checkbox>
+        </th>
+        <th class="md-table-header" ng-repeat='h in collection.header'>
+            <div layout="row" style="height: 40px">
+                <p class="elementHeader">
+                    <a href='#' ng-if='handleSort(h.field)' ng-click='reverse=!reverse;order(h.field,reverse)'>
+                        {{h.name}}
+                        <i ng-show='reverse && h.field == predicate'></i>
+                        <i ng-show='!reverse && h.field == predicate'></i>
+                    </a>
+                </p>
+                <span ng-if='!handleSort(h.field)'>{{h.name}}</span>
+                <!--md-input-container flex>
+                    <input ng-model="search.$">
+                </md-input-container-->
+            </div>
+        </th>
+        <th class="md-table-header">
+            <div layout="row" style="height: 30px">
+                <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined">添加</md-button>
+                <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined">刷新</md-button>
+                <md-button flex ng-click="collection.sendCommand($event)" ng-if="collection.sendCommand!==undefined">
+                    发命令
+                </md-button>
+                <md-button flex ng-click="collection.sendMessage($event)" ng-if="collection.sendMessage!==undefined">
+                    发消息
+                </md-button>
+                <!--md-input-container flex style="padding-bottom: 5px">
+                    <input ng-model="search.$">
+                </md-input-container-->
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="md-table-content-row"
+        ng-repeat='c in collection.content | filter:collection.filters | startFrom:tablePage*collection.count | limitTo: collection.count'>
+        <td ng-if="collection.check" class="md-table-content checkbox">
+            <md-checkbox aria-label="check" ng-model="c.check" ng-change="checkChange(c)"></md-checkbox>
+        </td>
+        <td class="md-table-content" ng-repeat='h in collection.header' ng-class='customClass[h.field]'>
+            {{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}
+        </td>
+        <td class="md-table-td-more">
+            <md-button flex ng-click="collection.detail($event,c)" ng-if="collection.detail!==undefined">详情</md-button>
+            <md-button flex ng-click="collection.edit($event,c)" ng-if="collection.edit!==undefined">编辑</md-button>
+            <md-button flex ng-click="collection.remove(c)" ng-if="collection.remove!==undefined">删除</md-button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="md-table-footer" layout="row">
+    <span flex></span>
+    <span ng-show='nbOfPages() > 1'>
+        <md-button class="md-primary md-hue-2" ng-disabled='tablePage==0' ng-click='tablePage=tablePage-1'
+                   aria-label='Previous Page'>
+            <i class="ion-chevron-left" style="font-size:16px;"></i>
+        </md-button>
+        <a href='#' ng-repeat='i in getNumber(nbOfPages()) track by $index'>
+            <md-button class="md-primary md-hue-2 md-table-footer-item" ng-click='goToPage($index)'>
+                <span ng-class="{ 'md-table-active-page': tablePage==$index}"> {{$index+1}}
+                </span>
+            </md-button>
+        </a>
+        <md-button class="md-primary md-hue-2" ng-disabled='tablePage==nbOfPages()-1' ng-click='tablePage=tablePage+1'
+                   aria-label='Next Page'>
+            <i class="ion-chevron-right" style="font-size:16px;"></i>
+        </md-button>
+    </span>
+</div>
+
