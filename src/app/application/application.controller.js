@@ -158,8 +158,7 @@ angular.module('mdmUi')
         };
     })
 
-    .controller('ApplicationCtrl', function ($scope, $mdDialog, Restangular) {
-
+    .controller('ApplicationCtrl', function ($scope, $upload, $mdDialog, Restangular) {
 
         var Rest = Restangular.all('app');
         var RestClassification = Restangular.all('appClassify');
@@ -184,11 +183,33 @@ angular.module('mdmUi')
                         title: '应用 添加',
                         state: 'add',
                         save: save,
-                        classification: classification
+                        classification: classification,
+                        upload: upload
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
                     $scope.items = items;
+                    $scope.$watch('icon', function () {
+                        $scope.upload($scope.icon);
+                    });
+                    $scope.$watch('images', function () {
+                        $scope.upload($scope.images);
+                    });
+                    $scope.$watch('pkg', function () {
+                        $scope.upload($scope.pkg);
+                    });
+                    $scope.upload = function (files) {
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/files', file: files})
+                                .progress(function (evt) {
+                                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                                });
+                        }
+                    };
                     $scope.save = function () {
                         items.save($scope.element);
                         $mdDialog.hide();
@@ -270,9 +291,9 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'appName', name: '应用名称'},
-                {field: 'version', name: '版本'},
-                {field: 'isMandatory', name: '强制'},
-                {field: 'isRecommended', name: '推荐'},
+                //  {field: 'version', name: '版本'},
+                //  {field: 'isMandatory', name: '强制'},
+                //  {field: 'isRecommended', name: '推荐'},
                 {field: 'classification', name: '目录'},
                 {field: 'authorizedby', name: '授权'},
                 {field: 'producers', name: '制作'},

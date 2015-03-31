@@ -3,9 +3,10 @@
                 md-is-locked-open="$mdMedia('gt-sm')" class="maxHeight">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <a ui-sref="." layout="row" flex>
+                <!--a ui-sref="." layout="row" flex>
                     MDM
-                </a>
+                </a-->
+                <span>移动终端管理平台</span>
             </div>
         </md-toolbar>
         <ul class="skip-links">
@@ -54,7 +55,6 @@
                 <button ng-click="openMenu()" class="docs-menu-icon" hide-gt-sm aria-label="Toggle Menu">
                     <md-icon md-svg-src="assets/images/icons/ic_menu_24px.svg"></md-icon>
                 </button>
-                <span>移动终端管理平台</span>
                 <span flex></span>
                 <span ng-bind="userName"></span>
                 <md-button ng-click="logout()">注销</md-button>

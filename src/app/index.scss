@@ -1,4 +1,9 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+//@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+
+@font-face {
+  font-family: yh;
+  src: url('/assets/yh.ttf');
+}
 
 .browsehappy {
   margin: 0.2em 0;
@@ -52,7 +57,7 @@ html h3, body h3 {
 }
 
 button, select, html, textarea, input {
-  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  font-family: yh, RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -66,7 +71,7 @@ body {
 }
 
 button {
-  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  font-family: yh, RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 }
 
 a {
@@ -3817,7 +3822,7 @@ md-bottom-sheet.ng-leave-active {
 
 md-bottom-sheet .md-subheader {
   background-color: transparent;
-  font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
+  font-family: yh, RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
   line-height: 56px;
   padding: 0;
   white-space: nowrap;
@@ -8610,7 +8615,7 @@ md-tooltip.md-show {
   padding: 0.5em;
   background: #222;
   color: #fff;
-  font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+  font-family: yh, Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
   line-height: 1.45;
   tab-size: 2;
   -webkit-font-smoothing: auto;
@@ -8898,7 +8903,7 @@ pre > code.highlight {
 pre, code {
   margin: 0;
   padding: 0;
-  font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+  font-family: yh, Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
   overflow-wrap: break-word;
 }
 

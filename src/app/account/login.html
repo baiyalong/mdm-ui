@@ -12,13 +12,13 @@
         </div>
 
         <div layout="row" layout-align="center center" class="md-whiteframe-z2" layout-margin layout-fill
-             layout-padding>
-            <div class="transparent">
-                <md-input-container>
+             layout-padding id="loginPanel">
+            <div>
+                <md-input-container class="loginInput">
                     <md-icon md-svg-src="assets/images/icons/ic_perm_identity_24px.svg"></md-icon>
                     <input ng-model="account.userName" type="text" required="true" ng-enter="login()">
                 </md-input-container>
-                <md-input-container>
+                <md-input-container class="loginInput">
                     <md-icon md-svg-src="assets/images/icons/ic_lock_outline_24px.svg"></md-icon>
                     <input ng-model="account.password" type="password" required="true" ng-enter="login()">
                 </md-input-container>

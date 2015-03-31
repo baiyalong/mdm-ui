@@ -51,7 +51,8 @@
             <md-checkbox aria-label="check" ng-model="c.check" ng-change="checkChange(c)"></md-checkbox>
         </td>
         <td class="md-table-content" ng-repeat='h in collection.header' ng-class='customClass[h.field]'>
-            {{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}
+            <!--  {{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}-->
+            {{c[h.field]}}
         </td>
         <td class="md-table-td-more">
             <md-button flex ng-click="collection.detail($event,c)" ng-if="collection.detail!==undefined">详情</md-button>

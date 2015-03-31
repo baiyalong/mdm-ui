@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial'])
+angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileUpload'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
-                // abstract: true,
+                //abstract: true,
                 url: '/home',
                 templateUrl: 'app/main/main.html',
                 controller: 'MainCtrl',

@@ -39,6 +39,23 @@
             <label>描述</label>
             <textarea ng-model="element.description" ng-disabled="items.state=='detail'"></textarea>
         </md-input-container>
+        <div layout="column" flex="100" style="height: 100px">
+            <div style="height: 30px">
+                <label>图标</label>
+                <md-button ng-file-select ng-model="icon">选择文件</md-button>
+                <span flex></span>
+            </div>
+            <div style="height: 30px">
+                <label>图片</label>
+                <md-button ng-file-select ng-multiple="true" ng-model="images">选择文件</md-button>
+                <span flex></span>
+            </div>
+            <div style="height: 30px">
+                <label>安装包</label>
+                <md-button ng-file-select ng-model="pkg">选择文件</md-button>
+                <span flex></span>
+            </div>
+        </div>
     </md-content>
 
 

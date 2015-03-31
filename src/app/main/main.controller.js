@@ -2,6 +2,13 @@
 
 angular.module('mdmUi')
     .controller('MainCtrl', function ($rootScope, $scope, $mdSidenav, AccountService, BackgroundImageService, MenuService, $location, $timeout) {
+
+        var redirect = function () {
+            if (window.location.hash == '#/home') {
+                window.location.hash = '#/home/user/user';
+            }
+        };
+        redirect();
         var self = $scope;
         var e = $scope;
         var menu = MenuService;
