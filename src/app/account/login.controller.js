@@ -16,7 +16,7 @@ angular.module('mdmUi')
                 BackgroundImageService.rmBackgroundImage();
                 window.location.href = '/';
             }, function (e) {
-                alert("error");
+                // alert("error");
             });
         };
     });

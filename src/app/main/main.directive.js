@@ -62,6 +62,7 @@ angular.module('mdmUi')
             },
             controller: function ($scope, $filter, $window) {
                 $scope.collection.count = $scope.collection.count || 100;
+                $scope.search = {};
                 var orderBy = $filter('orderBy');
                 $scope.tablePage = 0;
                 $scope.nbOfPages = function () {

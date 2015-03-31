@@ -2,44 +2,51 @@
     <thead>
     <tr class="md-table-header-row">
         <th ng-if="collection.check" class="md-table-header checkbox">
-            <md-checkbox aria-label="checkAll" ng-model="checkAll" ng-change="checkChange(null,checkAll)"
-                         ng-init="false"></md-checkbox>
+            <div style="margin-top: -30px">
+                <md-checkbox aria-label="checkAll" ng-model="checkAll" ng-change="checkChange(null,checkAll)"
+                             ng-init="false"></md-checkbox>
+            </div>
         </th>
         <th class="md-table-header" ng-repeat='h in collection.header'>
-            <div layout="row" style="height: 40px">
-                <p class="elementHeader">
+            <div layout="column" style="height: 80px">
+                <p class="elementHeader" style="margin-bottom: 0">
                     <a href='#' ng-if='handleSort(h.field)' ng-click='reverse=!reverse;order(h.field,reverse)'>
                         {{h.name}}
-                        <i ng-show='reverse && h.field == predicate'></i>
-                        <i ng-show='!reverse && h.field == predicate'></i>
+                        <!--i ng-show='reverse && h.field == predicate'></i>
+                        <i ng-show='!reverse && h.field == predicate'></i-->
                     </a>
                 </p>
-                <span ng-if='!handleSort(h.field)'>{{h.name}}</span>
-                <!--md-input-container flex>
-                    <input ng-model="search.$">
-                </md-input-container-->
+                <!--span ng-if='!handleSort(h.field)'>{{h.name}}</span-->
+                <md-input-container flex class="searchColumn">
+                    <input ng-model="search[h.field]">
+                </md-input-container>
             </div>
         </th>
         <th class="md-table-header">
-            <div layout="row" style="height: 30px">
-                <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined">添加</md-button>
-                <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined">刷新</md-button>
-                <md-button flex ng-click="collection.sendCommand($event)" ng-if="collection.sendCommand!==undefined">
-                    发命令
-                </md-button>
-                <md-button flex ng-click="collection.sendMessage($event)" ng-if="collection.sendMessage!==undefined">
-                    发消息
-                </md-button>
-                <!--md-input-container flex style="padding-bottom: 5px">
+            <div layout="column" style="height: 80px">
+                <div layout="row" style="margin-top: 10px">
+                    <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined">添加</md-button>
+                    <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined">刷新
+                    </md-button>
+                    <md-button flex ng-click="collection.sendCommand($event)"
+                               ng-if="collection.sendCommand!==undefined">
+                        发命令
+                    </md-button>
+                    <md-button flex ng-click="collection.sendMessage($event)"
+                               ng-if="collection.sendMessage!==undefined">
+                        发消息
+                    </md-button>
+                </div>
+                <md-input-container flex class="searchAll">
                     <input ng-model="search.$">
-                </md-input-container-->
+                </md-input-container>
             </div>
         </th>
     </tr>
     </thead>
     <tbody>
     <tr class="md-table-content-row"
-        ng-repeat='c in collection.content | filter:collection.filters | startFrom:tablePage*collection.count | limitTo: collection.count'>
+        ng-repeat='c in collection.content | filter:search | startFrom:tablePage*collection.count | limitTo: collection.count'>
         <td ng-if="collection.check" class="md-table-content checkbox">
             <md-checkbox aria-label="check" ng-model="c.check" ng-change="checkChange(c)"></md-checkbox>
         </td>
