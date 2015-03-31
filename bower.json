@@ -9,7 +9,9 @@
     "restangular": "latest",
     "angular-ui-router": "latest",
     "angular-material": "latest",
-    "angular": "latest"
+    "angular": "latest",
+    "ng-file-upload-shim":"latest",
+    "ng-file-upload":"latest"
   },
   "devDependencies": {
     "angular-mocks": "latest"
