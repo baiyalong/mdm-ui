@@ -135,7 +135,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['应用管理', '应用目录']
         };
         $scope.subCollection = {
             toggleSearch: false,
@@ -183,14 +184,25 @@ angular.module('mdmUi')
                         title: '应用 添加',
                         state: 'add',
                         save: save,
-                        classification: classification,
-                        upload: upload
+                        classification: classification
+                        // upload: upload
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
                     $scope.items = items;
+                    $scope.iconProgress = 0;
                     $scope.$watch('icon', function () {
-                        $scope.upload($scope.icon);
+                        //$scope.upload($scope.icon);
+                        var files = $scope.icon;
+                        $upload.upload({url: 'api/files', file: files})
+                            .progress(function (evt) {
+                                $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                            })
+                            .success(function (data, status, headers, config) {
+                                $scope.element.iconId = data;
+
+
+                            });
                     });
                     $scope.$watch('images', function () {
                         $scope.upload($scope.images);
@@ -304,7 +316,9 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['应用管理', '应用列表']
+
         };
     })
 
@@ -477,7 +491,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['应用管理', '应用模版']
         };
         $scope.subCollection = {
             toggleSearch: false,

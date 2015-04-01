@@ -1,12 +1,12 @@
 <div layout="row" class="maxHeight">
-    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left"
+    <md-sidenav class="site-sidenav md-sidenav-left" md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-sm')" class="maxHeight">
-        <md-toolbar>
+        <md-toolbar style="background-color: rgb(255,255,255);">
             <div class="md-toolbar-tools">
                 <!--a ui-sref="." layout="row" flex>
                     MDM
                 </a-->
-                <span>移动终端管理平台</span>
+                <span style="color: rgb(145,44,44);">移动终端管理平台</span>
             </div>
         </md-toolbar>
         <ul class="skip-links">
@@ -14,7 +14,8 @@
                 <md-button ng-click="focusMainContent($event)" href="#">Skip to content</md-button>
             </li>
         </ul>
-        <md-content flex role="navigation" class="sideNav">
+        <md-content flex role="navigation" class="sideNav"
+                    style="background-color:rgb(62,62,62);color:rgb(251,250,250);">
             <ul class="docs-menu">
                 <li ng-repeat="section in menu.sections" class="parent-list-item"
                     ng-class="{'parentActive' : isSectionSelected(section)}">
@@ -49,18 +50,27 @@
     -->
 
 
-    <div layout="column" tabindex="-1" role="main" flex>
-        <md-toolbar>
+    <div layout="column" tabindex="-1" role="main" flex style="height: 100%">
+        <md-toolbar style="background-color: rgb(255,255,255);">
             <div class="md-toolbar-tools">
                 <button ng-click="openMenu()" class="docs-menu-icon" hide-gt-sm aria-label="Toggle Menu">
                     <md-icon md-svg-src="assets/images/icons/ic_menu_24px.svg"></md-icon>
                 </button>
                 <span flex></span>
-                <span ng-bind="userName"></span>
-                <md-button ng-click="logout()">注销</md-button>
+
+                <div style="background-color:#ececec;border-radius: 15px;padding: 3px 15px 0;color:#535353;font-size:small">
+                    <span>用户 : </span>
+                    <md-select ng-model="userName" style="margin: 0;border:0">
+                        <md-select-label style="margin: 0;border:0">{{userName}}</md-select-label>
+                        <md-option ng-click="logout()" value="">注销</md-option>
+                    </md-select>
+                </div>
             </div>
         </md-toolbar>
-        <md-content ui-view md-scroll-y flex class="md-padding mainContent">
-        </md-content>
+        <div style="background-color: rgb(236,236,236);height: 100%">
+            <md-content ui-view md-scroll-y flex class="md-padding mainContent"
+                        style="border-radius: 10px;margin: 10px;background-color: rgb(255,253,253);">
+            </md-content>
+        </div>
     </div>
 </div>

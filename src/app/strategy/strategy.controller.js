@@ -289,7 +289,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['策略管理', '策略组']
         };
         $scope.subCollection = {
             toggleSearch: false,
@@ -542,7 +543,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['策略管理', '策略']
         };
     })
 
@@ -656,7 +658,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['策略管理', '惩罚']
         };
     });
 

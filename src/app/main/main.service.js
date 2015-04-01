@@ -41,6 +41,9 @@ angular.module('mdmUi')
                 },
                 isPageSelected: function (e) {
                     return u.currentPage === e
+                },
+                pageSelect: function (e) {
+                    u.currentPage = e
                 }
             }
     });

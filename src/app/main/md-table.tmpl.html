@@ -1,14 +1,54 @@
+<div ng-if="collection.title!=undefined">
+    <p style="margin:0;color: rgb(198,111,119)">
+        <span>{{collection.title[0]}}</span>
+        <span ng-if="collection.title[1]!=undefined">  >  {{collection.title[1]}}</span>
+    </p>
+
+    <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+    </div>
+</div>
+
+<div layout="row">
+    <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined" class="md-raised md-warn"
+               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+        添加
+    </md-button>
+    <span style="width: 10px" ng-if="collection.add!==undefined"></span>
+    <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined" class="md-raised md-warn"
+               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+        刷新
+    </md-button>
+    <span style="width: 10px" ng-if="collection.sendCommand!==undefined"></span>
+    <md-button ng-click="collection.sendCommand($event)"
+               ng-if="collection.sendCommand!==undefined" class="md-raised md-warn"
+               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+        发命令
+    </md-button>
+    <span style="width: 10px" ng-if="collection.sendMessage!==undefined"></span>
+    <md-button ng-click="collection.sendMessage($event)"
+               ng-if="collection.sendMessage!==undefined" class="md-raised md-warn"
+               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+        发消息
+    </md-button>
+    <span flex></span>
+
+    <embed src="/assets/images/icons/9.svg" width="40" height="40" type='image/svg+xml'
+           style="background-color: rgb(174,173,173);border:0;border-radius: 3px 0 0 3px"/>
+    <input ng-model="search.$" placeholder="请输入关键字" id="search"
+           style="padding:0;color:rgb(255,253,253);background-color: rgb(174,173,173);border:0;border-radius:0 3px 3px 0;width: 200px;height: 40px">
+</div>
+
 <table class="md-table">
     <thead>
     <tr class="md-table-header-row">
         <th ng-if="collection.check" class="md-table-header checkbox">
-            <div style="margin-top: -30px">
+            <div style="margin-top: -15px">
                 <md-checkbox aria-label="checkAll" ng-model="checkAll" ng-change="checkChange(null,checkAll)"
                              ng-init="false"></md-checkbox>
             </div>
         </th>
         <th class="md-table-header" ng-repeat='h in collection.header'>
-            <div layout="column" style="height: 80px">
+            <div layout="column" style="height: 35px">
                 <p class="elementHeader" style="margin-bottom: 0">
                     <a href='#' ng-if='handleSort(h.field)' ng-click='reverse=!reverse;order(h.field,reverse)'>
                         {{h.name}}
@@ -17,13 +57,13 @@
                     </a>
                 </p>
                 <!--span ng-if='!handleSort(h.field)'>{{h.name}}</span-->
-                <md-input-container flex class="searchColumn">
+                <!--md-input-container flex class="searchColumn">
                     <input ng-model="search[h.field]">
-                </md-input-container>
+                </md-input-container-->
             </div>
         </th>
         <th class="md-table-header">
-            <div layout="column" style="height: 80px">
+            <!--div layout="column" style="height: 80px">
                 <div layout="row" style="margin-top: 10px">
                     <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined">添加</md-button>
                     <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined">刷新
@@ -40,7 +80,7 @@
                 <md-input-container flex class="searchAll">
                     <input ng-model="search.$">
                 </md-input-container>
-            </div>
+            </div-->
         </th>
     </tr>
     </thead>
@@ -55,13 +95,26 @@
             {{c[h.field]}}
         </td>
         <td class="md-table-td-more">
-            <md-button flex ng-click="collection.detail($event,c)" ng-if="collection.detail!==undefined">详情</md-button>
-            <md-button flex ng-click="collection.edit($event,c)" ng-if="collection.edit!==undefined">编辑</md-button>
-            <md-button flex ng-click="collection.remove(c)" ng-if="collection.remove!==undefined">删除</md-button>
+            <md-button flex ng-click="collection.detail($event,c)" ng-if="collection.detail!==undefined"
+                       class='md-raised'
+                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+                详情
+            </md-button>
+            <md-button flex ng-click="collection.edit($event,c)" ng-if="collection.edit!==undefined"
+                       class='md-raised'
+                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+                修改
+            </md-button>
+            <md-button flex ng-click="collection.remove(c)" ng-if="collection.remove!==undefined"
+                       class='md-raised'
+                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+                删除
+            </md-button>
         </td>
     </tr>
     </tbody>
 </table>
+
 <div class="md-table-footer" layout="row">
     <span flex></span>
     <span ng-show='nbOfPages() > 1'>
@@ -81,4 +134,3 @@
         </md-button>
     </span>
 </div>
-

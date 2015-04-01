@@ -1,6 +1,12 @@
-<md-button ng-class="{'active' : isSelected()}" ui-sref="{{section.state}}" ng-click="focusSection()">
+<md-button ng-class="{'active md-raised md-warn md-hue-2' : isSelected(),'indent':isSubmenu(),'menuIcon':menuIcon()}"
+           ui-sref="{{section.state}}"
+           ng-click="focusSection()" flex layout="row"
+           ng-style="selectedColor()">
+    <span style="background:url({{section.icon}});width: 40px;height: 40px" ng-if="menuIcon()"></span>
     {{section | humanizeDoc}}
-    <span class="visually-hidden" ng-if="isSelected()">
+    <span class="visually-hidden" ng-if="isSelected">
         current page
     </span>
 </md-button>
+
+

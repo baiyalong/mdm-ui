@@ -153,7 +153,8 @@ angular.module('mdmUi')
             remove: remove,
             sendCommand: sendCommand,
             sendMessage: sendMessage,
-            check: true
+            check: true,
+            title: ['终端管理']
         };
         $scope.subCollection = {
             toggleSearch: false,

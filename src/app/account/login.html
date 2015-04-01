@@ -1,33 +1,40 @@
 <div layout="row" layout-align="center center" class="maxHeight" layout-margin layout-fill
      layout-padding>
-    <div flex="50">
+    <div flex>
 
-        <!--div layout="row" layout-align="center center">
-            <!-- md-icon md-svg-src="assets/images/icons/ic_phone_iphone_24px.svg"></md-icon -->
-        <!--h1>CUC MDM</h1>
-    </div-->
-
-        <div layout="row" layout-align="center center">
-            <h1 class="title">移动终端管理平台</h1>
+        <div layout="row" layout-align="center center" layout-margin layout-fill
+             layout-padding>
+            <p><img src="/assets/images/logo.png"/></p>
         </div>
 
-        <div layout="row" layout-align="center center" class="md-whiteframe-z2" layout-margin layout-fill
-             layout-padding id="loginPanel">
-            <div>
-                <md-input-container class="loginInput">
-                    <md-icon md-svg-src="assets/images/icons/ic_perm_identity_24px.svg"></md-icon>
-                    <input ng-model="account.userName" type="text" required="true" ng-enter="login()">
-                </md-input-container>
-                <md-input-container class="loginInput">
-                    <md-icon md-svg-src="assets/images/icons/ic_lock_outline_24px.svg"></md-icon>
-                    <input ng-model="account.password" type="password" required="true" ng-enter="login()">
-                </md-input-container>
-                <div layout="row" layout-fill>
-                    <md-switch ng-model="remember">记住密码</md-switch>
-                    <md-button flex ng-click="login()">登陆</md-button>
-                </div>
+        <div layout="row" layout-align="center center" layout-margin layout-fill
+             layout-padding>
+            <p><img src="/assets/images/title.png"/></p>
+        </div>
+
+        <div layout="row" layout-align="center center" layout-margin layout-fill
+             layout-padding>
+            <div class="bj_into3">
+                <ul>
+                    <li>
+                        <input ng-model="account.userName" type="text" required="true" ng-enter="login()"
+                               class="Username" placeholder="用户名">
+                    </li>
+                    <li>
+                        <input ng-model="account.password" type="password" required="true" ng-enter="login()"
+                               class="password" placeholder="密码">
+                        <span>
+                            <a href="#" ng-click="login()"
+                               style="text-decoration: none;  font-size: 16px;  float: left;   font-family: Arial, '微软雅黑';">
+                                登陆
+                            </a>
+                        </span>
+                    </li>
+                    <li id="mima" class="mima" ng-model="remember"><p>记住密码</p></li>
+                </ul>
             </div>
         </div>
 
     </div>
 </div>
+

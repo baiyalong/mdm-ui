@@ -8,20 +8,25 @@ angular.module('mdmUi')
         {
             label: '用户管理',
             //state: 'home.user',
+            icon: '/assets/images/icons/1.svg',
             submenu: [
                 {
                     label: '用户组',
-                    state: 'home.user.userGroup'
+                    state: 'home.user.userGroup',
+                    submenu: true
                 },
                 {
                     label: '用户',
-                    state: 'home.user.user'
+                    state: 'home.user.user',
+                    submenu: true
+
                 },
             ]
         },
         {
             label: '终端管理',
-            state: 'home.terminal'
+            state: 'home.terminal',
+            icon: '/assets/images/icons/6.svg'
             /*
              submenu: [
              {
@@ -37,7 +42,8 @@ angular.module('mdmUi')
         },
         {
             label: '命令管理',
-            state: 'home.command'
+            state: 'home.command',
+            icon: '/assets/images/icons/3.svg'
             /*
              submenu: [
              {
@@ -57,27 +63,37 @@ angular.module('mdmUi')
         },
         {
             label: '应用管理',
+            icon: '/assets/images/icons/2.svg',
             submenu: [
                 {
                     label: '应用目录',
-                    state: 'home.application.classify'
+                    state: 'home.application.classify',
+                    submenu: true
+
                 },
                 {
                     label: '应用列表',
-                    state: 'home.application.application'
+                    state: 'home.application.application',
+                    submenu: true
+
                 },
                 {
                     label: '应用模版',
-                    state: 'home.application.template'
+                    state: 'home.application.template',
+                    submenu: true
+
                 }
             ]
         },
         {
             label: '策略管理',
+            icon: '/assets/images/icons/4.svg',
             submenu: [
                 {
                     label: '策略组',
-                    state: 'home.strategy.strategyGroup'
+                    state: 'home.strategy.strategyGroup',
+                    submenu: true
+
                 },
                 /*
                  {
@@ -87,24 +103,33 @@ angular.module('mdmUi')
                  */
                 {
                     label: '策略',
-                    state: 'home.strategy.strategy'
+                    state: 'home.strategy.strategy',
+                    submenu: true
+
                 },
                 {
                     label: '惩罚',
-                    state: 'home.strategy.punishment'
+                    state: 'home.strategy.punishment',
+                    submenu: true
+
                 }
             ]
         },
         {
             label: '操作记录',
+            icon: '/assets/images/icons/5.svg',
             submenu: [
                 {
                     label: '命令发送记录',
-                    state: 'home.record.command'
+                    state: 'home.record.command',
+                    submenu: true
+
                 },
                 {
                     label: '消息发送记录',
-                    state: 'home.record.message'
+                    state: 'home.record.message',
+                    submenu: true
+
                 }
             ]
         }

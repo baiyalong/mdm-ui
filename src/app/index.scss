@@ -8998,8 +8998,19 @@ code:not(.highlight) {
   padding: 0;
 }
 
-.docs-menu .md-button.active {
-  color: #03a9f4;
+.docs-menu .md-button.active,
+.docs-menu .md-button:hover,
+{
+  //color: #03a9f4;
+  background-color: #b63745;
+}
+
+.indent span {
+  padding-left: 55px;
+}
+
+.menuIcon {
+
 }
 
 .menu-heading {
@@ -9016,11 +9027,11 @@ code:not(.highlight) {
 
 .docs-menu li.parentActive,
 .docs-menu li.parentActive .menu-toggle-list {
-  background-color: #f6f6f6;
+  background-color: #3e3e3e;
 }
 
 .menu-toggle-list {
-  background: #fff;
+  background: #3e3e3e;
   max-height: 1300px;
   overflow: hidden;
   position: relative;
@@ -9044,7 +9055,7 @@ code:not(.highlight) {
 }
 
 .md-button-toggle .md-toggle-icon {
-  background: transparent url(../assets/images/icons/list_control_down.png) no-repeat center center;
+  background: transparent url(../assets/images/icons/7.svg) no-repeat center center;
   background-size: 100% auto;
   display: inline-block;
   height: 24px;
@@ -9056,8 +9067,17 @@ code:not(.highlight) {
 }
 
 .md-button-toggle .md-toggle-icon.toggled {
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
+  background: transparent url(../assets/images/icons/8.svg) no-repeat center center;
+  background-size: 100% auto;
+  display: inline-block;
+  height: 24px;
+  margin: auto 0 auto auto;
+  speak: none;
+  width: 24px;
+  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  //  transform: rotate(180deg);
+  // -webkit-transform: rotate(180deg);
 }
 
 /* End Docs Menu */
@@ -9234,6 +9254,7 @@ md-toolbar.demo-toolbar .md-button:hover,
 md-toolbar.demo-toolbar .md-button:focus,
 md-toolbar.demo-toolbar .md-button.active {
   background: rgba(0, 0, 0, 0.1);
+  //color: #b63745;
 }
 
 md-toolbar.demo-toolbar .md-button {
@@ -9252,151 +9273,6 @@ md-toolbar.demo-toolbar .md-button {
 
 .show-source div[demo-include] {
   border-top: #ddd solid 2px;
-}
-
-/***************
- * Landing Page
- ***************/
-ul.buckets {
-  margin: 24px 0;
-  padding: 0;
-}
-
-ul.buckets li {
-  list-style: none;
-  margin: 0;
-  text-align: center;
-}
-
-ul.buckets li md-card md-card-content {
-  padding: 0;
-}
-
-ul.buckets li a {
-  background-color: transparent;
-  display: block;
-  font-weight: 500;
-  padding: 16px 0;
-  text-decoration: none;
-  -webkit-transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
-  transition: all 0.45s cubic-bezier(0.35, 0, 0.25, 1);
-}
-
-ul.buckets li a:hover,
-ul.buckets li a:focus {
-  background-color: #03a9f4;
-  color: white;
-}
-
-/************
- * API DOCS
- ************/
-.api-options-bar .md-button {
-  margin: 4px;
-  padding: 4px;
-}
-
-.api-options-bar .md-button:hover,
-.api-options-bar .md-button:focus {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.api-options-bar.with-icon md-icon {
-  position: absolute;
-  top: -3px;
-  left: 2px;
-}
-
-.api-options-bar.with-icon .md-button span {
-  margin-left: 22px;
-}
-
-.api-params-item {
-  min-height: 72px;
-  border-bottom: 1px solid #ddd;
-}
-
-.api-params-label {
-  margin-right: 8px;
-  text-align: center;
-  margin-top: 14px;
-  -webkit-align-self: flex-start;
-  -moz-align-self: flex-start;
-  -ms-flex-item-align: start;
-  align-self: flex-start;
-}
-
-.api-params-title {
-  color: #888;
-}
-
-code.api-type {
-  font-weight: bold;
-}
-
-.layout-title {
-  color: #999999;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.api-params-content ul {
-  padding-left: 4px;
-}
-
-ul.methods > li {
-  margin-bottom: 48px;
-}
-
-ul.methods .method-function-syntax {
-  font-weight: normal;
-  font-size: 20px;
-  margin: 0;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-}
-
-@media (max-width: 600px) {
-  ul.methods > li {
-    padding-left: 0;
-    border-left: none;
-    list-style: default;
-  }
-  ul.methods .method-function-syntax {
-    font-size: 14px;
-  }
-}
-
-.demo-source-container pre,
-.demo-source-container code {
-  min-height: 100%;
-}
-
-md-content.demo-source-container {
-  background-color: transparent;
-  border: none;
-}
-
-md-content.demo-source-container > hljs > pre > code.highlight {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-}
-
-.dashed-bottom {
-  border-bottom: dashed 1px rgb(224, 224, 224);;
-  padding-bottom: 10px;
-}
-
-.dashed-top {
-  border-top: dashed 1px rgb(224, 224, 224);
-  margin-top: 10px;
-}
-
-.api-section h3 {
-  padding-top: 20px;
 }
 
 // injector

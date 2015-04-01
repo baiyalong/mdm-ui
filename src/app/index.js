@@ -132,6 +132,8 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
 
         $urlRouterProvider.otherwise('/home');
     })
+
+
     .config(function (RestangularProvider) {
         RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setDefaultHeaders({Authorization: "Token " + sessionStorage.getItem('token')});
@@ -157,4 +159,15 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
          });
          */
 
+    })
+
+
+    .config(function ($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .warnPalette('red', {
+                //  'default': '400', // by default use shade 400 from the pink palette for primary intentions
+                'hue-1': '100', // use shade 100 for the <code>md-hue-1</code> class
+                'hue-2': '900', // use shade 600 for the <code>md-hue-2</code> class
+                'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
+            })
     });

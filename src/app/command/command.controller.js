@@ -114,7 +114,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['命令管理']
         };
     }
 );

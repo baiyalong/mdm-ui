@@ -23,9 +23,14 @@ var chalk = require('chalk');
  */
 var proxyTarget = 'http://10.192.17.95:8080/';
 //var proxyTarget = 'http://localhost:8080/';
+var proxyTarget2 = 'http://10.192.17.95:8089/';
 
 var proxy = httpProxy.createProxyServer({
     target: proxyTarget
+});
+
+var proxy2 = httpProxy.createProxyServer({
+    target: proxyTarget2
 });
 
 proxy.on('error', function (error, req, res) {
@@ -34,6 +39,14 @@ proxy.on('error', function (error, req, res) {
     });
 
     console.error(chalk.red('[Proxy]'), error);
+});
+
+proxy2.on('error', function (error, req, res) {
+    res.writeHead(500, {
+        'Content-Type': 'text/plain'
+    });
+
+    console.error(chalk.red('[Proxy2]'), error);
 });
 
 /*
@@ -60,12 +73,13 @@ function proxyMiddleware(req, res, next) {
 
     if (req.url.indexOf('/api') == 0) {
         proxy.web(req, res);
+    } else if (req.url.indexOf('/mdm') == 0) {
+        proxy2.web(req, res);
     } else {
         next();
     }
 
 }
-
 /*
  * This is where you activate or not your proxy.
  *

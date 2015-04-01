@@ -46,8 +46,8 @@ i {
 }
 
 .md-table tbody tr:hover, .md-table tbody tr:focus {
-  cursor: pointer;
-  background-color: rgba(193, 194, 255, 0.20);
+  // cursor: pointer;
+  // background-color: rgba(193, 194, 255, 0.20);
 }
 
 .md-table-header {
@@ -163,5 +163,27 @@ md-input-container.hFilter {
 .elementHeader {
   margin-bottom: 8px;
   margin-right: 8px;
+}
+
+tr.md-table-content-row:nth-child(odd) {
+  background-color: rgb(243, 221, 223);
+}
+
+#search::-webkit-input-placeholder {
+  color: #fffdfd;
+}
+
+#search ::-moz-placeholder {
+  color: #fffdfd;
+}
+
+/* firefox 19+ */
+#search :-ms-input-placeholder {
+  color: #fffdfd;
+}
+
+/* ie */
+#search input:-moz-placeholder {
+  color: #fffdfd;
 }
 

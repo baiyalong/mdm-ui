@@ -60,8 +60,9 @@ angular.module('mdmUi')
             ],
             sortable: ['commandId', 'commandName', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
-            detail: detail
+            detail: detail,
             // remove: remove
+            title: ['操作记录', '命令发送记录']
         };
     })
 
@@ -118,7 +119,8 @@ angular.module('mdmUi')
             ],
             sortable: ['title', 'messageContent', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
-            detail: detail
+            detail: detail,
             // remove: remove
+            title: ['操作记录', '消息发送记录']
         };
     });

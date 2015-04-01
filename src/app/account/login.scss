@@ -1,44 +1,118 @@
-//@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
-
-/*
-md-content {
-  margin-top: 200px;
-  background-color: #ffffff;
-  /* for IE */
-//filter: alpha(opacity=60);
-/* CSS3 standard */
-// opacity: 0.6;
-//}
-
 .backgroundImage {
   background: url("/assets/images/login.jpg") no-repeat fixed;
   background-size: cover;
 }
 
-#loginPanel {
-  background-color: #91ab91;
-  opacity: 0.6;
-  border: solid 1px;
-  border-radius: 5px;
+@charset "utf-8";
+/* CSS Document */
+
+* {
+  padding: 0px;
+  margin: 0px;
 }
 
-#loginPanel div {
-  //width: 200%;
+body {
+  background: #FFF;
+  width: 100%;
 }
 
-/*
-.loginInput {
-  background-color: #000101;
-  //opacity: 0.8;
-  border: solid 1px;
-  border-radius: 25px;
-  width: 100px;
-  heigth: 20px
+a {
+  color: #a79d9c;
+  text-decoration: none;
+  font-size: 14px;
+  float: left;
+  height: 40px;
+  font-family: Arial, "Î¢ÈíÑÅºÚ";
 }
-*/
 
-h1.title {
-  font-weight: bolder;
-  font-size: 50px;
-  text-shadow: 2px 2px 1px #455645;
+ul, ol, li {
+  list-style-type: none;
 }
+
+.bj_into3 {
+  background: url(/assets/images/dlk.png);
+  width: 668px;
+  height: 195px;
+}
+
+.bj_into3 ul {
+  width: 265px;
+  height: 165px;
+  margin-left: 181px;
+  margin-top: 27px;
+}
+
+.bj_into3 ul li {
+  height: 43px;
+  width: 267px;
+  text-align: center;
+}
+
+.bj_into3 ul li input.Username {
+  background: url(/assets/images/Username.png) no-repeat;
+  width: 265px;
+  height: 43px;
+  border: none;
+  color: #90807e;
+  text-indent: 3.5em;
+  font-size: 14px;
+}
+
+.bj_into3 ul li input.password {
+  background: url(/assets/images/Password.png) repeat-x;
+  margin-top: 17px;
+  height: 43px;
+  border: none;
+  color: #90807e;
+  text-indent: 3.5em;
+  width: 205px;
+  float: left;
+  font-size: 14px;
+}
+
+.bj_into3 ul li span a {
+  background: url(/assets/images/login.png) no-repeat;
+  float: left;
+  line-height: 41px;
+  color: #fff;
+  text-align: center;
+  width: 61px;
+  height: 43px;
+  margin-top: 17px;
+  font-size: 16px;
+}
+
+.bj_into3 ul li#mima {
+  float: left;
+  padding-top: 17px;
+  line-height: 30px;
+  height: 30px;
+  margin-left: 60px;
+}
+
+.bj_into3 ul li.mima p {
+  cursor: pointer;
+  float: left;
+  line-height: 30px;
+  font-size: 14px;
+  background: url(/assets/images/anniu.png) no-repeat left center;
+  text-indent: 3.5em;
+  color: #90807e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

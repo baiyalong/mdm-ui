@@ -16,7 +16,7 @@ angular.module('mdmUi')
         var y = document.querySelector("[role='main']");
 
         $rootScope.$on("$locationChangeSuccess", function () {
-            self.closeMenu(), this && this.autoFocusContent && (self.focusMainContent(), this.autoFocusContent = !1)
+            self.closeMenu(), this && this.autoFocusContent && (self.focusMainContent(), this.autoFocusContent = false)
         });
 
         self.userName = AccountService.userName();
@@ -29,10 +29,13 @@ angular.module('mdmUi')
         this.isSelected = function (e) {
             return menu.isPageSelected(e);
         };
+        this.select = function (e) {
+            menu.pageSelect(e);
+        };
         self.isSectionSelected = function (e) {
-            var t = !1, n = i.openedSection;
-            return n === e ? t = !0 : e.children && e.children.forEach(function (e) {
-                e === n && (t = !0)
+            var t = false, n = i.openedSection;
+            return n === e ? t = true : e.children && e.children.forEach(function (e) {
+                e === n && (t = true)
             }), t
         };
 
@@ -67,7 +70,7 @@ angular.module('mdmUi')
             })
         };
 
-        this.autoFocusContent = !1;
+        this.autoFocusContent = false;
         self.menu = menu;
         self.path = $location.path();
         // self.sections = SidenavService.sections;

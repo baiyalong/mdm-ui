@@ -9,13 +9,28 @@ angular.module('mdmUi')
     .directive("menuLink", function () {
         return {
             restrict: 'E',
-            scope: {section: "="}, templateUrl: "/app/main/menu-link.tmpl.html", link: function (e, t) {
+            scope: {section: "="},
+            templateUrl: "/app/main/menu-link.tmpl.html",
+            link: function (e, t) {
                 var n = t.parent().controller();
                 e.isSelected = function () {
                     return n.isSelected(e.section)
-                }, e.focusSection = function () {
-                    n.autoFocusContent = !0
-                }
+                },
+                    e.focusSection = function () {
+                        n.select(e.section);
+                        n.autoFocusContent = true;
+                    },
+                    e.isSubmenu = function () {
+                        return e.section.submenu;
+                    },
+                    e.menuIcon = function () {
+                        return e.section.icon !== undefined
+                    },
+                    e.selectedColor = function () {
+                        if (n.isSelected(e.section)) {
+                            return {'background-color': '#b63745'}
+                        }
+                    }
             }
         }
     })
@@ -24,12 +39,16 @@ angular.module('mdmUi')
     .directive("menuToggle", function () {
         return {
             restrict: 'E',
-            scope: {section: "="}, templateUrl: "/app/main/menu-toggle.tmpl.html", link: function (e, t) {
+            scope: {section: "="},
+            templateUrl: "/app/main/menu-toggle.tmpl.html",
+            link: function (e, t) {
                 var n = t.parent().controller();
                 e.isOpen = function () {
                     return n.isOpen(e.section)
                 }, e.toggle = function () {
                     n.toggleOpen(e.section)
+                }, e.menuIcon = function () {
+                    return e.section.icon !== undefined
                 };
                 var a = t[0].parentNode.parentNode.parentNode;
                 if (a.classList.contains("parent-list-item")) {
@@ -61,7 +80,7 @@ angular.module('mdmUi')
                 collection: '='
             },
             controller: function ($scope, $filter, $window) {
-                $scope.collection.count = $scope.collection.count || 100;
+                $scope.collection.count = $scope.collection.count || 12;
                 $scope.search = {};
                 var orderBy = $filter('orderBy');
                 $scope.tablePage = 0;

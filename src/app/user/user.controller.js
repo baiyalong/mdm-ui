@@ -117,7 +117,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['用户管理', '用户']
         };
     })
 
@@ -289,7 +290,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             edit: edit,
-            remove: remove
+            remove: remove,
+            title: ['用户管理', '用户组']
         };
         $scope.subCollection = {
             toggleSearch: false,
