@@ -126,6 +126,11 @@ angular.module('mdmUi')
                         }
                     }
                 };
+                $scope.dialogCheck = function (title) {
+                    if (title === undefined) {
+                        return {'margin-top': '-12px'};
+                    }
+                };
             },
             templateUrl: '/app/main/md-table.tmpl.html'
         }

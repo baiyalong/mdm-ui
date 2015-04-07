@@ -105,11 +105,13 @@ angular.module('mdmUi')
                             }
                         });
                     };
-                    $scope.subCollection.refresh = refresh;
+                    //      $scope.subCollection.refresh = refresh;
                     $scope.subCollection.detail = detail;
                     $scope.subCollection.check = false;
                     $scope.subCollection.edit = undefined;
                     $scope.subCollection.remove = undefined;
+                    $scope.subCollection.add = undefined;
+                    $scope.subCollection.addItem = undefined;
                     $scope.confirm = function () {
                         $mdDialog.hide();
                     };
@@ -238,14 +240,14 @@ angular.module('mdmUi')
                             }
                         });
                     };
-                    var remove = function (element) {
+                    var remove = function (event, element) {
                         element.remove().then(function () {
                             refresh();
                         });
                     };
 
-                    $scope.subCollection.refresh = refresh;
-                    $scope.subCollection.add = add;
+                    //     $scope.subCollection.refresh = refresh;
+                    $scope.subCollection.addItem = add;
                     $scope.subCollection.detail = detail;
                     $scope.subCollection.edit = edit;
                     $scope.subCollection.remove = remove;
@@ -260,9 +262,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '策略组 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -290,7 +314,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['策略管理', '策略组']
+            title: ['策略管理', '策略组'],
+            search: true
         };
         $scope.subCollection = {
             toggleSearch: false,
@@ -393,9 +418,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '用户项 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -513,9 +560,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '策略 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -544,7 +613,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['策略管理', '策略']
+            title: ['策略管理', '策略'],
+            search: true
         };
     })
 
@@ -628,9 +698,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '惩罚 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -659,7 +751,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['策略管理', '惩罚']
+            title: ['策略管理', '惩罚'],
+            search: true
         };
     });
 

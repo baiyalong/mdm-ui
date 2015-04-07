@@ -1,11 +1,11 @@
 <md-dialog>
     <md-toolbar>
-        <div class="md-toolbar-tools">
+        <div class="md-toolbar-tools dialogHeader">
             <span>{{items.title}}</span>
         </div>
     </md-toolbar>
 
-    <md-content layout="row" layout-wrap>
+    <md-content layout="row" layout-wrap class="dialogSize">
         <md-input-container>
             <label>开始时间</label>
             <input type="text" ng-model="element.startTime" ng-disabled="items.state=='detail'">
@@ -22,19 +22,19 @@
             <label>参数</label>
             <input type="text" ng-model="element.parameters" ng-disabled="items.state=='detail'">
         </md-input-container>
-        <div flex="33">
+        <div style="height: 30px;margin-bottom: 10px" flex="100">
             <label>策略</label>
             <md-select ng-model="element.strategyID" ng-disabled="items.state=='detail'">
                 <md-option ng-repeat="s in items.strategy" ng-value="s.iD">{{s.name}}</md-option>
             </md-select>
         </div>
-        <div flex="33">
+        <div style="height: 30px;margin-bottom: 10px" flex="100">
             <label>惩罚</label>
             <md-select ng-model="element.punishmentID" ng-disabled="items.state=='detail'">
                 <md-option ng-repeat="p in items.punishment" ng-value="p.iD">{{p.name}}</md-option>
             </md-select>
         </div>
-        <div flex="33">
+        <div style="height: 30px;margin-bottom: 10px" flex="100">
             <label>策略组</label>
             <md-select ng-model="element.groupID" ng-disabled="items.state=='detail'">
                 <md-option ng-repeat="g in items.strategyGroup" ng-value="g.iD">{{g.name}}</md-option>
@@ -46,13 +46,13 @@
 
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="cancel()" ng-if="cancel!==undefined">
             取消
         </md-button>
-        <md-button ng-click="save(element)" ng-if="save!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="save(element)" ng-if="save!==undefined">
             保存
         </md-button>
-        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="confirm()" ng-if="confirm!==undefined">
             确定
         </md-button>
     </div>

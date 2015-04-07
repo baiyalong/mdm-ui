@@ -62,7 +62,8 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             // remove: remove
-            title: ['操作记录', '命令发送记录']
+            title: ['操作记录', '命令发送记录'],
+            search: true
         };
     })
 
@@ -121,6 +122,7 @@ angular.module('mdmUi')
             refresh: refresh,
             detail: detail,
             // remove: remove
-            title: ['操作记录', '消息发送记录']
+            title: ['操作记录', '消息发送记录'],
+            search: true
         };
     });

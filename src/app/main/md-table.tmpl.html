@@ -8,43 +8,48 @@
     </div>
 </div>
 
+<md-button ng-click="collection.addItem($event)" ng-if="collection.addItem!==undefined"
+           class="md-raised md-warn md-hue-2 tableButtonSize" style="width: 100px">
+    添加策略项
+</md-button>
+
 <div layout="row">
-    <md-button ng-click="collection.add($event)" ng-if="collection.add!==undefined" class="md-raised md-warn"
-               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+    <md-button ng-click="collection.add($event)"
+               ng-if="collection.add!==undefined"
+               class="md-raised md-warn md-hue-2 tableButtonSize">
         添加
     </md-button>
-    <span style="width: 10px" ng-if="collection.add!==undefined"></span>
-    <md-button ng-click="collection.refresh($event)" ng-if="collection.refresh!==undefined" class="md-raised md-warn"
-               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+    <md-button ng-click="collection.refresh($event)"
+               ng-if="collection.refresh!==undefined"
+               class="md-raised md-warn md-hue-2 tableButtonSize">
         刷新
     </md-button>
-    <span style="width: 10px" ng-if="collection.sendCommand!==undefined"></span>
     <md-button ng-click="collection.sendCommand($event)"
-               ng-if="collection.sendCommand!==undefined" class="md-raised md-warn"
-               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+               ng-if="collection.sendCommand!==undefined"
+               class="md-raised md-warn md-hue-2 tableButtonSize">
         发命令
     </md-button>
-    <span style="width: 10px" ng-if="collection.sendMessage!==undefined"></span>
     <md-button ng-click="collection.sendMessage($event)"
-               ng-if="collection.sendMessage!==undefined" class="md-raised md-warn"
-               style="background-color: rgb(182,55,69);width: 105px;height: 40px;font-size: small">
+               ng-if="collection.sendMessage!==undefined"
+               class="md-raised md-warn md-hue-2 tableButtonSize">
         发消息
     </md-button>
     <span flex></span>
 
-    <embed src="/assets/images/icons/9.svg" width="40" height="40" type='image/svg+xml'
-           style="background-color: rgb(174,173,173);border:0;border-radius: 3px 0 0 3px"/>
-    <input ng-model="search.$" placeholder="请输入关键字" id="search"
-           style="padding:0;color:rgb(255,253,253);background-color: rgb(174,173,173);border:0;border-radius:0 3px 3px 0;width: 200px;height: 40px">
+    <div ng-if="collection.search!==undefined" layout="row">
+        <embed src="/assets/images/icons/9.svg" width="30" height="30" type='image/svg+xml'
+               style="background-color: rgb(174,173,173);border:0;border-radius: 3px 0 0 3px"/>
+        <input ng-model="search.$" placeholder="请输入关键字" id="search"
+               style="padding:0;color:rgb(255,253,253);background-color: rgb(174,173,173);border:0;border-radius:0 3px 3px 0;width: 200px;height: 30px;font-size:small">
+    </div>
 </div>
-
 <table class="md-table">
     <thead>
     <tr class="md-table-header-row">
         <th ng-if="collection.check" class="md-table-header checkbox">
             <div style="margin-top: -15px">
                 <md-checkbox aria-label="checkAll" ng-model="checkAll" ng-change="checkChange(null,checkAll)"
-                             ng-init="false"></md-checkbox>
+                             ng-init="false" class="md-warn md-hue-2"></md-checkbox>
             </div>
         </th>
         <th class="md-table-header" ng-repeat='h in collection.header'>
@@ -88,7 +93,10 @@
     <tr class="md-table-content-row"
         ng-repeat='c in collection.content | filter:search | startFrom:tablePage*collection.count | limitTo: collection.count'>
         <td ng-if="collection.check" class="md-table-content checkbox">
-            <md-checkbox aria-label="check" ng-model="c.check" ng-change="checkChange(c)"></md-checkbox>
+            <div style="margin-top: -5px" ng-style="dialogCheck(collection.title)">
+                <md-checkbox aria-label="check" ng-model="c.check" ng-change="checkChange(c)"
+                             class="md-warn md-hue-2"></md-checkbox>
+            </div>
         </td>
         <td class="md-table-content" ng-repeat='h in collection.header' ng-class='customClass[h.field]'>
             <!--  {{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}-->
@@ -96,18 +104,15 @@
         </td>
         <td class="md-table-td-more">
             <md-button flex ng-click="collection.detail($event,c)" ng-if="collection.detail!==undefined"
-                       class='md-raised'
-                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 详情
             </md-button>
             <md-button flex ng-click="collection.edit($event,c)" ng-if="collection.edit!==undefined"
-                       class='md-raised'
-                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 修改
             </md-button>
-            <md-button flex ng-click="collection.remove(c)" ng-if="collection.remove!==undefined"
-                       class='md-raised'
-                       style="background-color:#fffdfd;border:solid 2px #c35a65;color: #912c2c;padding:0px 5px">
+            <md-button flex ng-click="collection.remove($event,c)" ng-if="collection.remove!==undefined"
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 删除
             </md-button>
         </td>
@@ -118,17 +123,18 @@
 <div class="md-table-footer" layout="row">
     <span flex></span>
     <span ng-show='nbOfPages() > 1'>
-        <md-button class="md-primary md-hue-2" ng-disabled='tablePage==0' ng-click='tablePage=tablePage-1'
+        <md-button ng-disabled='tablePage==0' ng-click='tablePage=tablePage-1'
                    aria-label='Previous Page'>
             <i class="ion-chevron-left" style="font-size:16px;"></i>
         </md-button>
         <a href='#' ng-repeat='i in getNumber(nbOfPages()) track by $index'>
-            <md-button class="md-primary md-hue-2 md-table-footer-item" ng-click='goToPage($index)'>
+            <md-button class=" md-table-footer-item" ng-click='goToPage($index)'>
                 <span ng-class="{ 'md-table-active-page': tablePage==$index}"> {{$index+1}}
                 </span>
             </md-button>
         </a>
-        <md-button class="md-primary md-hue-2" ng-disabled='tablePage==nbOfPages()-1' ng-click='tablePage=tablePage+1'
+        <md-button ng-disabled='tablePage==nbOfPages()-1'
+                   ng-click='tablePage=tablePage+1'
                    aria-label='Next Page'>
             <i class="ion-chevron-right" style="font-size:16px;"></i>
         </md-button>

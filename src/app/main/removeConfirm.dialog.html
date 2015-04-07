@@ -5,14 +5,8 @@
         </div>
     </md-toolbar>
 
-    <md-content layout="row" layout-wrap>
-        <md-input-container>
-            <label>应用模版名称</label>
-            <input type="text" ng-model="element.name" ng-disabled="items.state=='detail'">
-        </md-input-container>
-        <md-input-container flex="100">
-            <md-table collection="subCollection"></md-table>
-        </md-input-container>
+    <md-content layout="row" layout-wrap class="dialogSize">
+        <p>确认要删除<span>“{{name}}”</span>吗？</p>
     </md-content>
 
 
@@ -20,9 +14,6 @@
         <span flex></span>
         <md-button class="md-raised md-warn md-hue-2" ng-click="cancel()" ng-if="cancel!==undefined">
             取消
-        </md-button>
-        <md-button class="md-raised md-warn md-hue-2" ng-click="save(element)" ng-if="save!==undefined">
-            保存
         </md-button>
         <md-button class="md-raised md-warn md-hue-2" ng-click="confirm()" ng-if="confirm!==undefined">
             确定

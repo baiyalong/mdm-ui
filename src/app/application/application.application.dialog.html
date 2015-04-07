@@ -1,37 +1,24 @@
 <md-dialog>
     <md-toolbar>
-        <div class="md-toolbar-tools">
+        <div class="md-toolbar-tools dialogHeader">
             <span>{{items.title}}</span>
         </div>
     </md-toolbar>
 
-    <md-content layout="row" layout-wrap>
-        <md-input-container>
+    <md-content layout="row" layout-wrap class="dialogSize">
+        <md-input-container flex="50">
             <label>应用名称</label>
             <input type="text" ng-model="element.appName" ng-disabled="items.state=='detail'">
         </md-input-container>
-
-        <md-input-container>
+        <md-input-container flex="50">
             <label>版本</label>
             <input type="text" ng-model="element.version" ng-disabled="items.state=='detail'">
         </md-input-container>
-        <md-input-container>
-            <md-checkbox ng-model="element.isMandatory" ng-disabled="items.state=='detail'">强制</md-checkbox>
-        </md-input-container>
-        <md-input-container>
-            <md-checkbox ng-model="element.isRecommended" ng-disabled="items.state=='detail'">推荐</md-checkbox>
-        </md-input-container>
-        <div flex="33">
-            <label>目录</label>
-            <md-select ng-model="element.classify" ng-disabled="items.state=='detail'">
-                <md-option ng-repeat="p in items.classification" ng-value="p.iD">{{p.classifyName}}</md-option>
-            </md-select>
-        </div>
-        <md-input-container>
+        <md-input-container flex="50">
             <label>授权</label>
             <input type="text" ng-model="element.authorizedby" ng-disabled="items.state=='detail'">
         </md-input-container>
-        <md-input-container>
+        <md-input-container flex="50">
             <label>制作</label>
             <input type="text" ng-model="element.producers" ng-disabled="items.state=='detail'">
         </md-input-container>
@@ -39,22 +26,52 @@
             <label>描述</label>
             <textarea ng-model="element.description" ng-disabled="items.state=='detail'"></textarea>
         </md-input-container>
-        <div layout="column" flex="100" style="height: 100px">
-            <div style="height: 30px">
+        <md-input-container flex="25">
+            <md-checkbox ng-model="element.isMandatory" ng-disabled="items.state=='detail'" class="appDialogCheck"
+                         style="margin-left: 0">
+                <span style="margin-left: 5px"> 强制</span>
+            </md-checkbox>
+        </md-input-container>
+        <md-input-container flex="25">
+            <md-checkbox ng-model="element.isRecommended" ng-disabled="items.state=='detail'" class="appDialogCheck"
+                         style="margin-left: 0">
+                <span style="margin-left: 5px"> 推荐</span>
+            </md-checkbox>
+        </md-input-container>
+        <div flex="100" class="appDialogSelect">
+            <label>目录</label>
+            <md-select ng-model="element.classify" ng-disabled="items.state=='detail'"
+                       style="width: 100px;margin-top: 0">
+                <md-option ng-repeat="p in items.classification" ng-value="p.iD">{{p.classifyName}}</md-option>
+            </md-select>
+        </div>
+        <div layout="column" flex="100"
+             ng-class="{'appDialogUploadY':iconUrl!==undefined,'appDialogUploadN':iconUrl===undefined}">
+            <div ng-class="{'appDialogIconY':iconUrl!==undefined,'appDialogIconN':iconUrl===undefined}">
                 <label>图标</label>
-                <md-button ng-file-select ng-model="icon">选择文件</md-button>
-                <span>{{iconName}}</span>
-                <span>{{iconProgress}}</span>
+                <md-button class="md-raised" ng-file-select ng-model="icon" ng-if="items.state!='detail'">选择文件
+                </md-button>
+                <br/>
+                <img ng-if="iconUrl!==undefined" ng-src="{{iconUrl}}" alt="icon"
+                     style="width:50px;height: 50px;margin: 10px"/>
                 <span flex></span>
             </div>
-            <div style="height: 30px">
+            <div ng-class="{'appDialogImagesY':iconUrl!==undefined,'appDialogImagesN':iconUrl===undefined}">
                 <label>图片</label>
-                <md-button ng-file-select ng-multiple="true" ng-model="images">选择文件</md-button>
+                <md-button class="md-raised" ng-file-select ng-multiple="true" ng-model="images"
+                           ng-if="items.state!='detail'">选择文件
+                </md-button>
+                <br/>
+                <img ng-if="imagesUrl!==undefined" ng-repeat="url in imagesUrl" ng-src="{{url}}" alt="images"
+                     style="width:150px;height: 200px;margin: 10px"/>
                 <span flex></span>
             </div>
-            <div style="height: 30px">
+            <div ng-class="{'appDialogPkgY':iconUrl!==undefined,'appDialogPkgN':iconUrl===undefined}">
                 <label>安装包</label>
-                <md-button ng-file-select ng-model="pkg">选择文件</md-button>
+                <md-button class="md-raised" ng-file-select ng-model="pkg" ng-if="items.state!='detail'">选择文件
+                </md-button>
+                <br/>
+                <a ng-if="pkgUrl!==undefined" ng-href="{{pkgUrl}}" target="_blank" style="margin: 10px">{{element.downloadUrl}}</a>
                 <span flex></span>
             </div>
         </div>
@@ -63,13 +80,13 @@
 
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="cancel()" ng-if="cancel!==undefined">
             取消
         </md-button>
-        <md-button ng-click="save(element)" ng-if="save!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="save(element)" ng-if="save!==undefined">
             保存
         </md-button>
-        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="confirm()" ng-if="confirm!==undefined">
             确定
         </md-button>
     </div>

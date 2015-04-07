@@ -1,5 +1,5 @@
 'use strict';
-
+var addressConf = 'http://10.192.17.95:8089';
 angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileUpload'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider

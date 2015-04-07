@@ -40,7 +40,6 @@ angular.module('mdmUi')
                 }
             });
         };
-
         var detail = function (event, element) {
             $mdDialog.show({
                 templateUrl: templateUrl,
@@ -86,9 +85,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '用户 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -118,12 +139,15 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['用户管理', '用户']
+            title: ['用户管理', '用户'],
+            search: true
         };
-    })
+    }
+)
 
 
-    .controller('UserGroupCtrl', function ($scope, $mdDialog, Restangular) {
+    .
+    controller('UserGroupCtrl', function ($scope, $mdDialog, Restangular) {
 
         var Rest = Restangular.all('userGroup');
         var templateUrl = 'app/user/user.userGroup.dialog.html';
@@ -143,7 +167,7 @@ angular.module('mdmUi')
                         title: '用户组 添加',
                         state: 'add',
                         subCollection: $scope.subCollection,
-                        refresh: refresh
+                        //refresh: refresh
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
@@ -155,7 +179,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    // $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = true;
                     $scope.save = function () {
                         var e = $scope.element;
@@ -199,7 +223,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    // $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = false;
                     $scope.confirm = function () {
                         $mdDialog.hide();
@@ -240,7 +264,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //   $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = true;
                     $scope.save = function () {
                         var e = $scope.element;
@@ -260,9 +284,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '用户组 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -291,7 +337,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['用户管理', '用户组']
+            title: ['用户管理', '用户组'],
+            search: true
         };
         $scope.subCollection = {
             toggleSearch: false,

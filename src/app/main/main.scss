@@ -187,3 +187,19 @@ tr.md-table-content-row:nth-child(odd) {
   color: #fffdfd;
 }
 
+//-----------------------------
+.tableButtonSize {
+  width: 60px;
+  height: 30px;
+  margin-right: 10px;
+  font-size: small
+}
+
+.tableButtonRight {
+  background-color: #fffdfd;
+  border: solid 2px #c35a65;
+  color: #912c2c;
+  padding: 0px 5px;
+  margin-right: 5px;
+}
+

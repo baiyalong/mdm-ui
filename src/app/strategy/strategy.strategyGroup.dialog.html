@@ -1,11 +1,11 @@
 <md-dialog>
     <md-toolbar>
-        <div class="md-toolbar-tools">
+        <div class="md-toolbar-tools dialogHeader">
             <span>{{items.title}}</span>
         </div>
     </md-toolbar>
 
-    <md-content layout="row" layout-wrap>
+    <md-content layout="row" layout-wrap style="max-width:800px">
         <md-input-container>
             <label>策略组名</label>
             <input type="text" ng-model="element.name" ng-disabled="items.state=='detail'">
@@ -14,7 +14,7 @@
             <label>版本</label>
             <input type="text" ng-model="element.version" ng-disabled="items.state=='detail'">
         </md-input-container>
-        <md-input-container flex="100" ng-if="items.state!='add'">
+        <md-input-container ng-if="items.state!='add'" flex="100">
             <md-table collection="subCollection"></md-table>
         </md-input-container>
     </md-content>
@@ -22,13 +22,13 @@
 
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="cancel()" ng-if="cancel!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="cancel()" ng-if="cancel!==undefined">
             取消
         </md-button>
-        <md-button ng-click="save(element)" ng-if="save!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="save(element)" ng-if="save!==undefined">
             保存
         </md-button>
-        <md-button ng-click="confirm()" ng-if="confirm!==undefined">
+        <md-button class="md-raised md-warn md-hue-2" ng-click="confirm()" ng-if="confirm!==undefined">
             确定
         </md-button>
     </div>

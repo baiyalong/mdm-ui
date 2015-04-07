@@ -84,9 +84,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '命令 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.code;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -115,7 +137,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['命令管理']
+            title: ['命令管理'],
+            search: true
         };
     }
 );

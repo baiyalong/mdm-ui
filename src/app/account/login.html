@@ -30,7 +30,12 @@
                             </a>
                         </span>
                     </li>
-                    <li id="mima" class="mima" ng-model="remember"><p>记住密码</p></li>
+                    <li id="mima" class="mima">
+                        <p ng-model="remember" ng-click="switch()"
+                           ng-class="{switchY:remember,switchN:!remember}">
+                            记住密码
+                        </p>
+                    </li>
                 </ul>
             </div>
         </div>

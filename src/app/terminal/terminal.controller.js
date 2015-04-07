@@ -28,6 +28,14 @@ angular.module('mdmUi')
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
+                    var getStrategyName = function () {
+                        Restangular.one('strategyGroup', items.element.policyID).get().then(
+                            function (res) {
+                                $scope.element.strategyGroupName = res.name;
+                            }
+                        );
+                    };
+                    getStrategyName();
                     $scope.items = items;
                     $scope.element = items.element;
                     $scope.subCollection = items.subCollection;
@@ -37,7 +45,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    // $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = false;
                     $scope.confirm = function () {
                         $mdDialog.hide();
@@ -45,9 +53,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '终端 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.iMEI;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var sendCommand = function (event, collection) {
@@ -154,7 +184,8 @@ angular.module('mdmUi')
             sendCommand: sendCommand,
             sendMessage: sendMessage,
             check: true,
-            title: ['终端管理']
+            title: ['终端管理'],
+            search: true
         };
         $scope.subCollection = {
             toggleSearch: false,

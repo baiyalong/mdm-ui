@@ -19,4 +19,7 @@ angular.module('mdmUi')
                 // alert("error");
             });
         };
+        self.switch = function () {
+            self.remember = !self.remember;
+        };
     });

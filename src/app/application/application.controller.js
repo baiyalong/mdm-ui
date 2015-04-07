@@ -62,7 +62,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //     $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = false;
                     $scope.confirm = function () {
                         $mdDialog.hide();
@@ -93,7 +93,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //        $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = false;
                     $scope.save = function () {
                         items.save($scope.element);
@@ -105,9 +105,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '应用目录 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.classifyName;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -136,7 +158,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['应用管理', '应用目录']
+            title: ['应用管理', '应用目录'],
+            search: true
         };
         $scope.subCollection = {
             toggleSearch: false,
@@ -189,39 +212,49 @@ angular.module('mdmUi')
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
+                    $scope.element = {};
                     $scope.items = items;
-                    $scope.iconProgress = 0;
                     $scope.$watch('icon', function () {
-                        //$scope.upload($scope.icon);
                         var files = $scope.icon;
-                        $upload.upload({url: 'api/files', file: files})
-                            .progress(function (evt) {
-                                $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
-                            })
-                            .success(function (data, status, headers, config) {
-                                $scope.element.iconId = data;
-
-
-                            });
-                    });
-                    $scope.$watch('images', function () {
-                        $scope.upload($scope.images);
-                    });
-                    $scope.$watch('pkg', function () {
-                        $scope.upload($scope.pkg);
-                    });
-                    $scope.upload = function (files) {
                         if (files && files.length) {
-                            $upload.upload({url: 'api/files', file: files})
+                            $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
-                                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+                                    $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
                                 })
                                 .success(function (data, status, headers, config) {
-                                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                                    $scope.element.iconUrl = data[0];
+                                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
                                 });
                         }
-                    };
+                    });
+                    $scope.$watch('images', function () {
+                        var files = $scope.images;
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/file', file: files})
+                                .progress(function (evt) {
+                                    $scope.imagesProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    $scope.element.appDetailImageUrl = JSON.stringify(data);
+                                    $scope.imagesUrl = data.map(function (c, i, a) {
+                                        return addressConf + '/mdm/' + c;
+                                    });
+                                });
+                        }
+                    });
+                    $scope.$watch('pkg', function () {
+                        var files = $scope.pkg;
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/file', file: files})
+                                .progress(function (evt) {
+                                    $scope.pkgProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    $scope.element.downloadUrl = data[0];
+                                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+                                });
+                        }
+                    });
                     $scope.save = function () {
                         items.save($scope.element);
                         $mdDialog.hide();
@@ -232,7 +265,6 @@ angular.module('mdmUi')
                 }
             });
         };
-
         var detail = function (event, element) {
             $mdDialog.show({
                 templateUrl: templateUrl,
@@ -248,6 +280,11 @@ angular.module('mdmUi')
                 controller: function ($scope, $mdDialog, items) {
                     $scope.items = items;
                     $scope.element = items.element;
+                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                    $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+                        return addressConf + '/mdm/' + c;
+                    });
+                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
                     $scope.confirm = function () {
                         $mdDialog.hide();
                     };
@@ -270,6 +307,52 @@ angular.module('mdmUi')
                 controller: function ($scope, $mdDialog, items) {
                     $scope.items = items;
                     $scope.element = items.element;
+                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                    $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+                        return addressConf + '/mdm/' + c;
+                    });
+                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+                    $scope.$watch('icon', function () {
+                        var files = $scope.icon;
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/file', file: files})
+                                .progress(function (evt) {
+                                    $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    $scope.element.iconUrl = data[0];
+                                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                                });
+                        }
+                    });
+                    $scope.$watch('images', function () {
+                        var files = $scope.images;
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/file', file: files})
+                                .progress(function (evt) {
+                                    $scope.imagesProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    $scope.element.appDetailImageUrl = JSON.stringify(data);
+                                    $scope.imagesUrl = data.map(function (c, i, a) {
+                                        return addressConf + '/mdm/' + c;
+                                    });
+                                });
+                        }
+                    });
+                    $scope.$watch('pkg', function () {
+                        var files = $scope.pkg;
+                        if (files && files.length) {
+                            $upload.upload({url: 'api/file', file: files})
+                                .progress(function (evt) {
+                                    $scope.pkgProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                })
+                                .success(function (data, status, headers, config) {
+                                    $scope.element.downloadUrl = data[0];
+                                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+                                });
+                        }
+                    });
                     $scope.save = function () {
                         items.save($scope.element);
                         $mdDialog.hide();
@@ -280,9 +363,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '应用 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.appName;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -317,7 +422,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['应用管理', '应用列表']
+            title: ['应用管理', '应用列表'],
+            search: true
 
         };
     })
@@ -356,7 +462,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //   $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = true;
                     $scope.save = function () {
                         var e = $scope.element;
@@ -401,7 +507,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //         $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = false;
                     $scope.confirm = function () {
                         $mdDialog.hide();
@@ -442,7 +548,7 @@ angular.module('mdmUi')
                         });
                     };
                     refresh();
-                    $scope.subCollection.refresh = refresh;
+                    //    $scope.subCollection.refresh = refresh;
                     $scope.subCollection.check = true;
                     $scope.save = function () {
                         var e = $scope.element;
@@ -462,9 +568,31 @@ angular.module('mdmUi')
                 }
             });
         };
-        var remove = function (element) {
-            element.remove().then(function () {
-                refresh();
+        var remove = function (event, element) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: '应用模版 删除',
+                        state: 'remove',
+                        element: Restangular.copy(element),
+                        refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.name = items.element.name;
+                    $scope.confirm = function () {
+                        element.remove().then(function () {
+                            items.refresh();
+                        });
+                        $mdDialog.hide();
+                    };
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    }
+                }
             });
         };
         var save = function (element) {
@@ -492,7 +620,8 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['应用管理', '应用模版']
+            title: ['应用管理', '应用模版'],
+            search: true
         };
         $scope.subCollection = {
             toggleSearch: false,

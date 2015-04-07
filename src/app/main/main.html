@@ -1,7 +1,7 @@
 <div layout="row" class="maxHeight">
     <md-sidenav class="site-sidenav md-sidenav-left" md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-sm')" class="maxHeight">
-        <md-toolbar style="background-color: rgb(255,255,255);">
+        <md-toolbar style="background-color: #fefdfd;">
             <div class="md-toolbar-tools">
                 <!--a ui-sref="." layout="row" flex>
                     MDM
@@ -51,19 +51,20 @@
 
 
     <div layout="column" tabindex="-1" role="main" flex style="height: 100%">
-        <md-toolbar style="background-color: rgb(255,255,255);">
+        <md-toolbar style="background-color:#fefdfd;">
             <div class="md-toolbar-tools">
                 <button ng-click="openMenu()" class="docs-menu-icon" hide-gt-sm aria-label="Toggle Menu">
                     <md-icon md-svg-src="assets/images/icons/ic_menu_24px.svg"></md-icon>
                 </button>
                 <span flex></span>
 
-                <div style="background-color:#ececec;border-radius: 15px;padding: 3px 15px 0;color:#535353;font-size:small">
+                <div style="background-color:#ececec;border-radius: 15px;padding: 5px 15px;color:#535353;font-size:small">
                     <span>用户 : </span>
-                    <md-select ng-model="userName" style="margin: 0;border:0">
-                        <md-select-label style="margin: 0;border:0">{{userName}}</md-select-label>
-                        <md-option ng-click="logout()" value="">注销</md-option>
-                    </md-select>
+                    <select ng-model="userName" style="margin: 0;border:0;background-color:#ececec;"
+                            ng-change="logout()">
+                        <option selected="selected" style="margin: 0;border:0">{{userName}}</option>
+                        <option ng-click="logout()" value="">注销</option>
+                    </select>
                 </div>
             </div>
         </md-toolbar>

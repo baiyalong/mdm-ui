@@ -90,12 +90,22 @@ ul, ol, li {
   margin-left: 60px;
 }
 
-.bj_into3 ul li.mima p {
+.switchY {
   cursor: pointer;
   float: left;
   line-height: 30px;
   font-size: 14px;
   background: url(/assets/images/anniu.png) no-repeat left center;
+  text-indent: 3.5em;
+  color: #90807e;
+}
+
+.switchN {
+  cursor: pointer;
+  float: left;
+  line-height: 30px;
+  font-size: 14px;
+  background: url(/assets/images/anniu2.png) no-repeat left center;
   text-indent: 3.5em;
   color: #90807e;
 }
