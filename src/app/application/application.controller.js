@@ -424,6 +424,7 @@ angular.module('mdmUi')
         };
     })
 
+
     .controller('ApplicationTemplateCtrl', function ($scope, $mdDialog, Restangular) {
 
 

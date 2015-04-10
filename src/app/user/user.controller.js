@@ -167,7 +167,7 @@ angular.module('mdmUi')
                         title: '用户组 添加',
                         state: 'add',
                         subCollection: $scope.subCollection,
-                        //refresh: refresh
+                        refresh: refresh
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
