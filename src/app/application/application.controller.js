@@ -214,21 +214,20 @@ angular.module('mdmUi')
                 controller: function ($scope, $mdDialog, items) {
                     $scope.element = {};
                     $scope.items = items;
-                    $scope.$watch('icon', function () {
-                        var files = $scope.icon;
+                    $scope.uploadIcon = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
-                                    $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                    var iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                    console.log(iconProgress);
                                 })
                                 .success(function (data, status, headers, config) {
                                     $scope.element.iconUrl = data[0];
                                     $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
                                 });
                         }
-                    });
-                    $scope.$watch('images', function () {
-                        var files = $scope.images;
+                    };
+                    $scope.uploadImages = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
@@ -241,9 +240,8 @@ angular.module('mdmUi')
                                     });
                                 });
                         }
-                    });
-                    $scope.$watch('pkg', function () {
-                        var files = $scope.pkg;
+                    };
+                    $scope.uploadPkg = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
@@ -254,7 +252,7 @@ angular.module('mdmUi')
                                     $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
                                 });
                         }
-                    });
+                    };
                     $scope.save = function () {
                         items.save($scope.element);
                         $mdDialog.hide();
@@ -312,21 +310,20 @@ angular.module('mdmUi')
                         return addressConf + '/mdm/' + c;
                     });
                     $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
-                    $scope.$watch('icon', function () {
-                        var files = $scope.icon;
+                    $scope.uploadIcon = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
-                                    $scope.iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                    var iconProgress = parseInt(100.0 * evt.loaded / evt.total);
+                                    console.log(iconProgress);
                                 })
                                 .success(function (data, status, headers, config) {
                                     $scope.element.iconUrl = data[0];
                                     $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
                                 });
                         }
-                    });
-                    $scope.$watch('images', function () {
-                        var files = $scope.images;
+                    };
+                    $scope.uploadImages = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
@@ -339,9 +336,8 @@ angular.module('mdmUi')
                                     });
                                 });
                         }
-                    });
-                    $scope.$watch('pkg', function () {
-                        var files = $scope.pkg;
+                    };
+                    $scope.uploadPkg = function (files) {
                         if (files && files.length) {
                             $upload.upload({url: 'api/file', file: files})
                                 .progress(function (evt) {
@@ -352,7 +348,7 @@ angular.module('mdmUi')
                                     $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
                                 });
                         }
-                    });
+                    };
                     $scope.save = function () {
                         items.save($scope.element);
                         $mdDialog.hide();

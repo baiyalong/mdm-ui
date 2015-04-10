@@ -49,7 +49,8 @@
              ng-class="{'appDialogUploadY':iconUrl!==undefined,'appDialogUploadN':iconUrl===undefined}">
             <div ng-class="{'appDialogIconY':iconUrl!==undefined,'appDialogIconN':iconUrl===undefined}">
                 <label>图标</label>
-                <md-button class="md-raised" ng-file-select ng-model="icon" ng-if="items.state!='detail'">选择文件
+                <md-button class="md-raised" ng-file-select ng-file-change="uploadIcon($files)"
+                           ng-if="items.state!='detail'">选择文件
                 </md-button>
                 <br/>
                 <img ng-if="iconUrl!==undefined" ng-src="{{iconUrl}}" alt="icon"
@@ -58,7 +59,7 @@
             </div>
             <div ng-class="{'appDialogImagesY':iconUrl!==undefined,'appDialogImagesN':iconUrl===undefined}">
                 <label>图片</label>
-                <md-button class="md-raised" ng-file-select ng-multiple="true" ng-model="images"
+                <md-button class="md-raised" ng-file-select ng-multiple="true" ng-file-change="uploadImages($files)"
                            ng-if="items.state!='detail'">选择文件
                 </md-button>
                 <br/>
@@ -68,7 +69,8 @@
             </div>
             <div ng-class="{'appDialogPkgY':iconUrl!==undefined,'appDialogPkgN':iconUrl===undefined}">
                 <label>安装包</label>
-                <md-button class="md-raised" ng-file-select ng-model="pkg" ng-if="items.state!='detail'">选择文件
+                <md-button class="md-raised" ng-file-select ng-file-change="uploadPkg($files)"
+                           ng-if="items.state!='detail'">选择文件
                 </md-button>
                 <br/>
                 <a ng-if="pkgUrl!==undefined" ng-href="{{pkgUrl}}" target="_blank" style="margin: 10px">{{element.downloadUrl}}</a>
