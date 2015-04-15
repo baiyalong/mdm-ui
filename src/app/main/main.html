@@ -58,13 +58,13 @@
                 </button>
                 <span flex></span>
 
-                <div style="background-color:#ececec;border-radius: 15px;padding: 5px 15px;color:#535353;font-size:small">
+                <div style="background-color:#ececec;border-radius: 15px;padding: 3px 15px 0;color:#535353;font-size:small">
                     <span>用户 : </span>
-                    <select ng-model="userName" style="margin: 0;border:0;background-color:#ececec;"
-                            ng-change="logout()">
-                        <option selected="selected" style="margin: 0;border:0">{{userName}}</option>
-                        <option ng-click="logout()" value="">注销</option>
-                    </select>
+                    <md-select ng-model="userName" style="margin: 0;border:0">
+                        <md-select-label style="margin: 0;border:0">{{userName}}</md-select-label>
+                        <md-option ng-value="userName">设置</md-option>
+                        <md-option ng-click="logout()">注销</md-option>
+                    </md-select>
                 </div>
             </div>
         </md-toolbar>
