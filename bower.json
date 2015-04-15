@@ -8,6 +8,7 @@
     "angular-sanitize": "latest",
     "restangular": "latest",
     "angular-ui-router": "latest",
+    "angular-ui-select": "latest",
     "angular-material": "latest",
     "angular": "latest",
     "ng-file-upload-shim":"latest",
