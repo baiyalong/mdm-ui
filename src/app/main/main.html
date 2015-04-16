@@ -58,8 +58,9 @@
                 </button>
                 <span flex></span>
 
-                <div style="background-color:#ececec;border-radius: 15px;padding: 3px 15px 0;color:#535353;font-size:small">
-                    <span>用户 : </span>
+                <div layout="row"
+                     style="background-color:#ececec;border-radius: 15px;padding: 3px 15px 0;color:#535353;font-size:small">
+                    <p style="padding-top: 2px;margin-right: 5px">用户 : </p>
                     <md-select ng-model="userName" style="margin: 0;border:0">
                         <md-select-label style="margin: 0;border:0">{{userName}}</md-select-label>
                         <md-option ng-value="userName">设置</md-option>
