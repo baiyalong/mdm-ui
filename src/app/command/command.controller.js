@@ -128,8 +128,8 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {name: '命令编码', field: 'code'},
-                {name: '描述', field: 'description'},
+                //{name: '命令编码', field: 'code'},
+                {name: '命令描述', field: 'description'},
             ],
             sortable: ['code', 'description'],
             add: add,

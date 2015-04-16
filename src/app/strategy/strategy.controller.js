@@ -605,7 +605,7 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'name', name: '策略名称'},
-                {field: 'code', name: '编码'},
+                //  {field: 'code', name: '编码'},
             ],
             sortable: ['name', 'code'],
             add: add,
@@ -613,7 +613,7 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['策略管理', '策略'],
+            title: ['策略管理', '策略列表'],
             search: true
         };
     })
@@ -743,7 +743,7 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'name', name: '惩罚名称'},
-                {field: 'code', name: '编码'},
+                // {field: 'code', name: '编码'},
             ],
             sortable: ['name', 'code'],
             add: add,
@@ -751,7 +751,7 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['策略管理', '惩罚'],
+            title: ['策略管理', '惩罚列表'],
             search: true
         };
     });

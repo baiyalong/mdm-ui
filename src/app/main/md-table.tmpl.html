@@ -52,6 +52,15 @@
                              ng-init="false" class="md-warn md-hue-2"></md-checkbox>
             </div>
         </th>
+        <th class="md-table-header">
+            <div layout="column" style="height: 35px">
+                <p class="elementHeader" style="margin-bottom: 0">
+                    <a href="#" class="ng-binding ng-scope" style="text-decoration: none" tabindex="0">
+                        序号
+                    </a>
+                </p>
+            </div>
+        </th>
         <th class="md-table-header" ng-repeat='h in collection.header'>
             <div layout="column" style="height: 35px">
                 <p class="elementHeader" style="margin-bottom: 0">
@@ -98,6 +107,9 @@
                              class="md-warn md-hue-2"></md-checkbox>
             </div>
         </td>
+        <td class="md-table-content ng-binding ng-scope" style="padding-left: 10px">
+            {{collection.content.indexOf(c)+1}}
+        </td>
         <td class="md-table-content" ng-repeat='h in collection.header' ng-class='customClass[h.field]'>
             <!--  {{(h.field.indexOf('date') > 0) ? $filter('date')(c[h.field]) : c[h.field];}}-->
             {{c[h.field]}}
@@ -114,6 +126,10 @@
             <md-button flex ng-click="collection.remove($event,c)" ng-if="collection.remove!==undefined"
                        class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 删除
+            </md-button>
+            <md-button flex ng-click="collection.publish($event,c)" ng-if="collection.publish!==undefined"
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
+                发布
             </md-button>
         </td>
     </tr>

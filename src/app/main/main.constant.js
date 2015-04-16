@@ -66,7 +66,7 @@ angular.module('mdmUi')
             icon: '/assets/images/icons/2.svg',
             submenu: [
                 {
-                    label: '应用目录',
+                    label: '应用分类',
                     state: 'home.application.classify',
                     submenu: true
 
@@ -77,12 +77,14 @@ angular.module('mdmUi')
                     submenu: true
 
                 },
-                {
-                    label: '应用模版',
-                    state: 'home.application.template',
-                    submenu: true
+                /*
+                 {
+                 label: '应用模版',
+                 state: 'home.application.template',
+                 submenu: true
 
-                }
+                 }
+                 */
             ]
         },
         {
@@ -102,13 +104,13 @@ angular.module('mdmUi')
                  },
                  */
                 {
-                    label: '策略',
+                    label: '策略列表',
                     state: 'home.strategy.strategy',
                     submenu: true
 
                 },
                 {
-                    label: '惩罚',
+                    label: '惩罚列表',
                     state: 'home.strategy.punishment',
                     submenu: true
 

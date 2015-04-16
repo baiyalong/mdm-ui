@@ -22,7 +22,7 @@ angular.module('mdmUi')
                 targetEvent: event,
                 locals: {
                     items: {
-                        title: '应用目录 添加',
+                        title: '应用分类 添加',
                         state: 'add',
                         save: save
                     }
@@ -46,7 +46,7 @@ angular.module('mdmUi')
                 targetEvent: event,
                 locals: {
                     items: {
-                        title: '应用目录 详情',
+                        title: '应用分类 详情',
                         state: 'detail',
                         element: Restangular.copy(element),
                         subCollection: $scope.subCollection
@@ -76,7 +76,7 @@ angular.module('mdmUi')
                 targetEvent: event,
                 locals: {
                     items: {
-                        title: '应用目录 编辑',
+                        title: '应用分类 编辑',
                         state: 'edit',
                         element: Restangular.copy(element),
                         subCollection: $scope.subCollection,
@@ -111,7 +111,7 @@ angular.module('mdmUi')
                 targetEvent: event,
                 locals: {
                     items: {
-                        title: '应用目录 删除',
+                        title: '应用分类 删除',
                         state: 'remove',
                         element: Restangular.copy(element),
                         refresh: refresh
@@ -149,8 +149,8 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'classifyName', name: '应用目录名称'},
-                {field: 'classifyID', name: '编码'},
+                {field: 'classifyName', name: '应用分类名称'},
+                // {field: 'classifyID', name: '编码'},
             ],
             sortable: ['classifyName', 'classifyID'],
             add: add,
@@ -158,7 +158,7 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
-            title: ['应用管理', '应用目录'],
+            title: ['应用管理', '应用分类'],
             search: true
         };
         $scope.subCollection = {
@@ -168,7 +168,7 @@ angular.module('mdmUi')
                 {field: 'version', name: '版本'},
                 {field: 'isMandatory', name: '强制'},
                 {field: 'isRecommended', name: '推荐'},
-                {field: 'classification', name: '目录'},
+                {field: 'classification', name: '分类'},
                 {field: 'authorizedby', name: '授权'},
                 {field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},
@@ -398,19 +398,21 @@ angular.module('mdmUi')
                 });
             }
         };
-
+        var publish = functions;
 
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'appName', name: '应用名称'},
+                {field: 'appName', name: '图标'},
+                {field: 'appName', name: '名称'},
                 //  {field: 'version', name: '版本'},
                 //  {field: 'isMandatory', name: '强制'},
                 //  {field: 'isRecommended', name: '推荐'},
-                {field: 'classification', name: '目录'},
-                {field: 'authorizedby', name: '授权'},
-                {field: 'producers', name: '制作'},
+                {field: 'classification', name: '分类'},
+                //{field: 'authorizedby', name: '授权'},
+                //{field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},
+                {field: 'appName', name: '状态'},
             ],
             sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description'],
             add: add,
@@ -423,7 +425,6 @@ angular.module('mdmUi')
 
         };
     })
-
 
     .controller('ApplicationTemplateCtrl', function ($scope, $mdDialog, Restangular) {
 
@@ -623,11 +624,11 @@ angular.module('mdmUi')
         $scope.subCollection = {
             toggleSearch: false,
             header: [
-                {field: 'appName', name: '应用名称'},
+                {field: 'appName', name: '名称'},
                 {field: 'version', name: '版本'},
                 {field: 'isMandatory', name: '强制'},
                 {field: 'isRecommended', name: '推荐'},
-                {field: 'classification', name: '目录'},
+                {field: 'classification', name: '分类'},
                 {field: 'authorizedby', name: '授权'},
                 {field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},

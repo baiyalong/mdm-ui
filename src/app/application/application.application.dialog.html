@@ -37,7 +37,7 @@
             </md-checkbox>
         </md-input-container>
         <div flex="100" class="appDialogSelect">
-            <label>目录</label>
+            <label>分类</label>
             <md-select ng-model="element.classify" ng-disabled="items.state=='detail'"
                        style="width: 100px;margin-top: 0">
                 <md-option ng-repeat="p in items.classification" ng-value="p.iD">{{p.classifyName}}</md-option>
