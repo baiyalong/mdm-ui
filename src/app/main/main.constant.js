@@ -11,13 +11,13 @@ angular.module('mdmUi')
             icon: '/assets/images/icons/1.svg',
             submenu: [
                 {
-                    label: '用户组',
-                    state: 'home.user.userGroup',
+                    label: '用户',
+                    state: 'home.user.user',
                     submenu: true
                 },
                 {
-                    label: '用户',
-                    state: 'home.user.user',
+                    label: '用户组',
+                    state: 'home.user.userGroup',
                     submenu: true
 
                 },
@@ -62,6 +62,11 @@ angular.module('mdmUi')
              */
         },
         {
+            label: '消息管理',
+            state: 'home.command',
+            icon: '/assets/images/icons/3.svg'
+        },
+        {
             label: '应用管理',
             icon: '/assets/images/icons/2.svg',
             submenu: [
@@ -89,33 +94,36 @@ angular.module('mdmUi')
         },
         {
             label: '策略管理',
-            icon: '/assets/images/icons/4.svg',
-            submenu: [
-                {
-                    label: '策略组',
-                    state: 'home.strategy.strategyGroup',
-                    submenu: true
+            state: 'home.strategy.strategyGroup',
+            icon: '/assets/images/icons/4.svg'
+            /*
+             submenu: [
+             {
+             label: '策略组',
+             state: 'home.strategy.strategyGroup',
+             submenu: true
 
-                },
-                /*
-                 {
-                 label: '策略项',
-                 state: 'home.strategy.strategyItem'
-                 },
-                 */
-                {
-                    label: '策略列表',
-                    state: 'home.strategy.strategy',
-                    submenu: true
+             },
 
-                },
-                {
-                    label: '惩罚列表',
-                    state: 'home.strategy.punishment',
-                    submenu: true
+             {
+             label: '策略项',
+             state: 'home.strategy.strategyItem'
+             },
 
-                }
-            ]
+             {
+             label: '策略列表',
+             state: 'home.strategy.strategy',
+             submenu: true
+
+             },
+             {
+             label: '惩罚列表',
+             state: 'home.strategy.punishment',
+             submenu: true
+
+             }
+
+             ]*/
         },
         {
             label: '操作记录',

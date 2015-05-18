@@ -21,7 +21,8 @@
     </md-button>
     <md-button ng-click="collection.refresh($event)"
                ng-if="collection.refresh!==undefined"
-               class="md-raised md-warn md-hue-2 tableButtonSize">
+               class="md-raised md-warn md-hue-2 tableButtonSize"
+               style="display:none">
         刷新
     </md-button>
     <md-button ng-click="collection.sendCommand($event)"

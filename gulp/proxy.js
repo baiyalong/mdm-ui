@@ -21,7 +21,7 @@ var chalk = require('chalk');
 /*
  * Location of your backend server
  */
-var proxyTarget = 'http://10.192.17.95:8080/';
+var proxyTarget = 'http://10.192.17.78:8081/';
 //var proxyTarget = 'http://localhost:8080/';
 var proxyTarget2 = 'http://10.192.17.95:8089/';
 
