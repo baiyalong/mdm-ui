@@ -173,7 +173,7 @@ angular.module('mdmUi')
                 {field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},
             ],
-            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description'],
+            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description']
             //add: add,
             //  refresh: refresh,
             //  detail: detail,
@@ -398,8 +398,34 @@ angular.module('mdmUi')
                 });
             }
         };
-        var publish = functions;
-
+        /*
+         var publish = function (event, element) {
+         $mdDialog.show({
+         templateUrl: templateUrl,
+         targetEvent: event,
+         locals: {
+         items: {
+         title: '应用 详情',
+         state: 'detail',
+         element: Restangular.copy(element),
+         classification: classification
+         }
+         },
+         controller: function ($scope, $mdDialog, items) {
+         $scope.items = items;
+         $scope.element = items.element;
+         $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+         $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+         return addressConf + '/mdm/' + c;
+         });
+         $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+         $scope.confirm = function () {
+         $mdDialog.hide();
+         };
+         }
+         });
+         };
+         */
         $scope.collection = {
             toggleSearch: false,
             header: [
@@ -420,6 +446,7 @@ angular.module('mdmUi')
             detail: detail,
             edit: edit,
             remove: remove,
+            //publish: publish,
             title: ['应用管理', '应用列表'],
             search: true
 
@@ -633,7 +660,7 @@ angular.module('mdmUi')
                 {field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},
             ],
-            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description'],
+            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description']
             //add: add,
             //  refresh: refresh,
             //  detail: detail,
