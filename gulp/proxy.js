@@ -23,7 +23,7 @@ var chalk = require('chalk');
  */
 var proxyTarget = 'http://10.192.17.78:8081/';
 //var proxyTarget = 'http://localhost:8080/';
-var proxyTarget2 = 'http://10.192.17.95:8089/';
+var proxyTarget2 = 'http://10.192.17.95:8088/';
 
 var proxy = httpProxy.createProxyServer({
     target: proxyTarget

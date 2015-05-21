@@ -130,7 +130,7 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'name', name: '用户名'},
-                {field: 'phoneNumber', name: '手机号'},
+                {field: 'phoneNumber', name: '联系电话'},
                 {field: 'email', name: '电子邮箱'},
             ],
             sortable: ['name', 'phoneNumber', 'email'],
@@ -140,12 +140,30 @@ angular.module('mdmUi')
             edit: edit,
             remove: remove,
             title: ['用户管理', '用户'],
-            search: true
+            search: true,
+            addS: 'home.user.userAdd'
         };
-    }
-)
+    })
 
-
+    .controller('UserAddCtrl', function ($scope, Restangular) {
+        var Rest = Restangular.all('user');
+        var url = '/#/home/user/user';
+        $scope.title = ['用户管理', '用户', '添加'];
+        $scope.element = {};
+        $scope.save = function (element) {
+            //delete element.passwordConfirm;
+            Rest.post(element).then(function () {
+                window.location.href = url;
+            });
+        };
+        $scope.cancel = function () {
+            window.location.href = url;
+        };
+    })
+    .controller('UserDetailCtrl', function ($scope, Restangular) {
+    })
+    .controller('UserEditCtrl', function ($scope, Restangular) {
+    })
     .
     controller('UserGroupCtrl', function ($scope, $mdDialog, Restangular) {
 

@@ -19,6 +19,11 @@
                class="md-raised md-warn md-hue-2 tableButtonSize">
         添加
     </md-button>
+    <md-button ui-sref={{collection.addS}}
+               ng-if="collection.add!==undefined"
+               class="md-raised md-warn md-hue-2 tableButtonSize">
+        添加
+    </md-button>
     <md-button ng-click="collection.refresh($event)"
                ng-if="collection.refresh!==undefined"
                class="md-raised md-warn md-hue-2 tableButtonSize"

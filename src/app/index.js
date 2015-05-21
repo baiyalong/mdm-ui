@@ -1,5 +1,5 @@
 'use strict';
-var addressConf = 'http://10.192.17.95:8089';
+var addressConf = 'http://10.192.17.95:8088';
 angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileUpload'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
@@ -37,6 +37,21 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 url: '/user',
                 templateUrl: 'app/user/user.user.html',
                 controller: 'UserCtrl'
+            })
+            .state('home.user.userAdd', {
+                url: '/userAdd',
+                templateUrl: 'app/user/user.user.detail.html',
+                controller: 'UserAddCtrl'
+            })
+            .state('home.user.userDetail', {
+                url: '/userDetail/:userId',
+                templateUrl: 'app/user/user.user.detail.html',
+                controller: 'UserDetailCtrl'
+            })
+            .state('home.user.userEdit', {
+                url: '/userEdit/:userId',
+                templateUrl: 'app/user/user.user.detail.html',
+                controller: 'UserEditCtrl'
             })
             .state('home.user.userGroup', {
                 url: '/userGroup',

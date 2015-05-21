@@ -1,0 +1,50 @@
+<div>
+    <div ng-if="title!=undefined">
+        <p style="margin:0;color: rgb(198,111,119)">
+            <span>{{title[0]}}</span>
+            <span ng-if="title[1]!=undefined">  >  {{title[1]}}</span>
+            <span ng-if="title[2]!=undefined">  >  {{title[2]}}</span>
+        </p>
+
+        <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+        </div>
+    </div>
+
+    <md-content layout="column" layout-margin layout-padding>
+        <md-input-container>
+            <label>用户名</label>
+            <input type="text" ng-model="element.name" ng-disabled="state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>密码</label>
+            <input type="password" ng-model="element.password" ng-disabled="state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>确认密码</label>
+            <input type="password" ng-model="element.passwordConfirm" ng-disabled="state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>联系电话</label>
+            <input type="text" ng-model="element.phoneNumber" ng-disabled="state=='detail'">
+        </md-input-container>
+        <md-input-container>
+            <label>电子邮箱</label>
+            <input type="text" ng-model="element.email" ng-disabled="state=='detail'">
+        </md-input-container>
+    </md-content>
+
+    <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</div>
