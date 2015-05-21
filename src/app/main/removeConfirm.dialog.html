@@ -3,10 +3,12 @@
         <h3>{{items.title}}</h3>
     </div>
 
-    <md-content layout="row" layout-wrap class="dialogSize">
+    <md-content layout="row" layout-wrap class="dialogSize" ng-if="alert==undefined">
         <p>确认要删除<span>“{{name}}”</span>吗？</p>
     </md-content>
-
+    <md-content layout="row" layout-wrap class="dialogSize" ng-if="alert!=undefined">
+        <p>{{msg}}</p>
+    </md-content>
 
     <div class="md-actions" layout="row">
         <span flex></span>

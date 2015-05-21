@@ -4,16 +4,17 @@
 'use strict';
 
 angular.module('mdmUi')
-    .controller('RecordCtrl', function ($scope) {
-
+    .controller('RecordCtrl', function ($scope, Restangular) {
+        $scope.commandRest = Restangular.all('commandRecord');
+        $scope.messageRest = Restangular.all('message');
     })
 
-    .controller('RecordCommandCtrl', function ($scope, $mdDialog, Restangular) {
+    .controller('RecordCommandCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
         var Rest = Restangular.all('commandRecord');
         var templateUrl = 'app/record/record.command.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.commandRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -60,19 +61,30 @@ angular.module('mdmUi')
             ],
             sortable: ['commandId', 'commandName', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
-            detail: detail,
+            detail: function (event, element) {
+                $state.go('^.commandDetail', {id: element.iD});
+            },
             // remove: remove
             title: ['操作记录', '命令发送记录'],
             search: true
         };
     })
-
-    .controller('RecordMessageCtrl', function ($scope, $mdDialog, Restangular) {
+    .controller('RecordCommandDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['操作记录', '命令发送记录', '详情'];
+        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.confirm = function (element) {
+            $state.go('^.command');
+        };
+        $scope.cancel = function () {
+            $state.go('^.command');
+        };
+    })
+    .controller('RecordMessageCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
         var Rest = Restangular.all('message');
         var templateUrl = 'app/record/record.message.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.messageRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -120,9 +132,21 @@ angular.module('mdmUi')
             ],
             sortable: ['title', 'messageContent', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
-            detail: detail,
+            detail: function (event, element) {
+                $state.go('^.messageDetail', {id: element.iD});
+            },
             // remove: remove
             title: ['操作记录', '消息发送记录'],
             search: true
+        };
+    })
+    .controller('RecordMessageDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['操作记录', '消息发送记录', '详情'];
+        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.confirm = function (element) {
+            $state.go('^.message');
+        };
+        $scope.cancel = function () {
+            $state.go('^.message');
         };
     });

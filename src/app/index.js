@@ -30,8 +30,8 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
             .state('home.user', {
                 abstract: true,
                 url: '/user',
-                templateUrl: 'app/user/user.html'
-                // controller: 'UserCtrl'
+                templateUrl: 'app/user/user.html',
+                controller: 'UserMenuCtrl'
             })
             .state('home.user.user', {
                 url: '/user',
@@ -44,12 +44,12 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 controller: 'UserAddCtrl'
             })
             .state('home.user.userDetail', {
-                url: '/userDetail/:userId',
+                url: '/userDetail/:id',
                 templateUrl: 'app/user/user.user.detail.html',
                 controller: 'UserDetailCtrl'
             })
             .state('home.user.userEdit', {
-                url: '/userEdit/:userId',
+                url: '/userEdit/:id',
                 templateUrl: 'app/user/user.user.detail.html',
                 controller: 'UserEditCtrl'
             })
@@ -58,11 +58,36 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 templateUrl: 'app/user/user.userGroup.html',
                 controller: 'UserGroupCtrl'
             })
-
+            .state('home.user.userGroupAdd', {
+                url: '/userGroupAdd',
+                templateUrl: 'app/user/user.userGroup.detail.html',
+                controller: 'UserGroupAddCtrl'
+            })
+            .state('home.user.userGroupDetail', {
+                url: '/userGroupDetail/:id',
+                templateUrl: 'app/user/user.userGroup.detail.html',
+                controller: 'UserGroupDetailCtrl'
+            })
+            .state('home.user.userGroupEdit', {
+                url: '/userGroupEdit/:id',
+                templateUrl: 'app/user/user.userGroup.detail.html',
+                controller: 'UserGroupEditCtrl'
+            })
             .state('home.terminal', {
+                abstract: true,
+                url: '/terminal',
+                template: '<ui-view></ui-view>',
+                controller: 'TerminalMenuCtrl'
+            })
+            .state('home.terminal.terminal', {
                 url: '/terminal',
                 templateUrl: 'app/terminal/terminal.html',
                 controller: 'TerminalCtrl'
+            })
+            .state('home.terminal.terminalDetail', {
+                url: '/terminalDetail/:id',
+                templateUrl: 'app/terminal/terminal.detail.html',
+                controller: 'TerminalDetailCtrl'
             })
             /*
              .state('home.terminal.info', {
@@ -139,10 +164,20 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 templateUrl: 'app/record/record.command.html',
                 controller: 'RecordCommandCtrl'
             })
+            .state('home.record.commandDetail', {
+                url: '/commandDetail/:id',
+                templateUrl: 'app/record/record.command.detail.html',
+                controller: 'RecordCommandDetailCtrl'
+            })
             .state('home.record.message', {
                 url: '/message',
                 templateUrl: 'app/record/record.message.html',
                 controller: 'RecordMessageCtrl'
+            })
+            .state('home.record.messageDetail', {
+                url: '/messageDetail/:id',
+                templateUrl: 'app/record/record.message.detail.html',
+                controller: 'RecordMessageDetailCtrl'
             });
 
         $urlRouterProvider.otherwise('/home');
@@ -185,4 +220,9 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 'hue-2': '900', // use shade 600 for the <code>md-hue-2</code> class
                 'hue-3': 'A100' // use shade A100 for the <code>md-hue-3</code> class
             })
+    })
+
+    .run(function ($rootScope, $state, $stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
     });

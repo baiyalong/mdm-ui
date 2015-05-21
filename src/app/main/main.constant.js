@@ -25,7 +25,7 @@ angular.module('mdmUi')
         },
         {
             label: '终端管理',
-            state: 'home.terminal',
+            state: 'home.terminal.terminal',
             icon: '/assets/images/icons/6.svg'
             /*
              submenu: [
@@ -64,7 +64,7 @@ angular.module('mdmUi')
         {
             label: '消息管理',
             state: 'home.command',
-            icon: '/assets/images/icons/3.svg'
+            icon: '/assets/images/icons/10.svg'
         },
         {
             label: '应用管理',

@@ -4,12 +4,15 @@
 'use strict';
 
 angular.module('mdmUi')
-    .controller('TerminalCtrl', function ($scope, $mdDialog, Restangular) {
+    .controller('TerminalMenuCtrl', function ($scope, $mdDialog, Restangular, $state, $stateParams) {
+        $scope.terminalRest = Restangular.all('terminal');
+    })
+    .controller('TerminalCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
         var Rest = Restangular.all('terminal');
         var templateUrl = 'app/terminal/terminal.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.terminalRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -156,16 +159,16 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'user', name: '用户名'},
+                {field: 'deviceName', name: '设备名'},
                 {field: 'iMEI', name: 'IMEI'},
-                {field: 'phoneNumber', name: '手机号'},
+                {field: 'user', name: '用户名'},
+//                {field: 'phoneNumber', name: '手机号'},
                 {field: 'operator', name: '运营商'},
                 //{field: 'appID', name: '应用ID'},
                 //{field: 'deviceSN', name: '设备号'},
                 // {field: 'oSType', name: '操作系统'},
                 //  {field: 'oSVersion', name: '操作系统版本'},
                 //   {field: 'kernelVersion', name: '内核版本'},
-                {field: 'deviceName', name: '设备名'},
                 // {field: 'deviceType', name: '设备型号'},
                 // {field: 'wifiMac', name: 'Wifi Mac地址'},
                 //  {field: 'blueTooth', name: '蓝牙地址'},
@@ -179,12 +182,14 @@ angular.module('mdmUi')
             ],
             sortable: ['user', 'iMEI', 'phoneNumber', 'deviceSN', 'deviceName', 'deviceType', 'operator'],
             refresh: refresh,
-            detail: detail,
+            detail: function (event, element) {
+                $state.go('^.terminalDetail', {id: element.iD});
+            },
             remove: remove,
             sendCommand: sendCommand,
             sendMessage: sendMessage,
             check: true,
-            title: ['终端管理'],
+            title: ['终端管理', '终端'],
             search: true
         };
         $scope.subCollection = {
@@ -231,4 +236,15 @@ angular.module('mdmUi')
             sortable: ['appName', 'appVersionName', 'firstInstallTime', 'lastUpdateTime', 'packageName'],
             check: false
         };
+    })
+    .controller('TerminalDetailCtrl', function ($scope, $mdDialog, Restangular, $state, $stateParams) {
+        $scope.title = ['终端管理', '终端', '详情'];
+        $scope.element = {};
+        $scope.confirm = function (element) {
+            $state.go('^.terminal');
+        };
+        $scope.cancel = function () {
+            $state.go('^.terminal');
+        };
+
     });

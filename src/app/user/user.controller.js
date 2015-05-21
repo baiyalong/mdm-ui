@@ -4,14 +4,40 @@
 'use strict';
 
 angular.module('mdmUi')
-
-    .controller('UserCtrl', function ($scope, $mdDialog, Restangular) {
+    .controller('UserMenuCtrl', function ($scope, Restangular, $state, $mdDialog) {
+        $scope.userRest = Restangular.all('user');
+        $scope.userGroupRest = Restangular.all('userGroup');
+        $scope.terminalRest = Restangular.all('terminal');
+        $scope.alert = function (title, msg) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.confirm = function () {
+                        $mdDialog.cancel();
+                    };
+                }
+            });
+        }
+    })
+    .controller('UserCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
 
         var Rest = Restangular.all('user');
         var templateUrl = 'app/user/user.user.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.userRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -134,43 +160,79 @@ angular.module('mdmUi')
                 {field: 'email', name: '电子邮箱'},
             ],
             sortable: ['name', 'phoneNumber', 'email'],
-            add: add,
+            add: function (event) {
+                $state.go('^.userAdd');
+            },
             refresh: refresh,
-            detail: detail,
-            edit: edit,
+            detail: function (event, element) {
+                $state.go('^.userDetail', {id: element.iD})
+            },
+            edit: function (event, element) {
+                $state.go('^.userEdit', {id: element.iD})
+            },
             remove: remove,
             title: ['用户管理', '用户'],
-            search: true,
-            addS: 'home.user.userAdd'
+            search: true
         };
     })
-
-    .controller('UserAddCtrl', function ($scope, Restangular) {
-        var Rest = Restangular.all('user');
-        var url = '/#/home/user/user';
+    .controller('UserAddCtrl', function ($scope, Restangular, $state, $mdDialog) {
         $scope.title = ['用户管理', '用户', '添加'];
         $scope.element = {};
         $scope.save = function (element) {
+            var title = '用户 添加';
+            if (element.name == undefined || element.name.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
+                $scope.alert(title, '请输入用户名!');
+            }
+            else if (element.password == undefined || element.password.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
+                $scope.alert(title, '请输入密码!');
+            }
+            else if (element.password != element.passwordConfirm) {
+                $scope.alert(title, '两次输入密码不一致!');
+            } else {
+                //delete element.passwordConfirm;
+                $scope.userRest.post(element).then(function (res) {
+                    if (res != undefined) {
+                        //$scope.alert(title, res);
+                        alert(res);
+                    } else {
+                        $state.go('^.user');
+                    }
+                });
+            }
+        };
+        $scope.cancel = function () {
+            $state.go('^.user');
+        };
+    })
+    .controller('UserDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['用户管理', '用户', '详情'];
+        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.confirm = function (element) {
+            $state.go('^.user');
+        };
+        $scope.cancel = function () {
+            $state.go('^.user');
+        };
+    })
+    .controller('UserEditCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['用户管理', '用户', '修改'];
+        $scope.element = {};
+        $scope.save = function (element) {
             //delete element.passwordConfirm;
-            Rest.post(element).then(function () {
-                window.location.href = url;
+            $scope.userRest.post(element).then(function () {
+                $state.go('^.user');
             });
         };
         $scope.cancel = function () {
-            window.location.href = url;
+            $state.go('^.user');
         };
     })
-    .controller('UserDetailCtrl', function ($scope, Restangular) {
-    })
-    .controller('UserEditCtrl', function ($scope, Restangular) {
-    })
-    .
-    controller('UserGroupCtrl', function ($scope, $mdDialog, Restangular) {
+    .controller('UserGroupCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
         var Rest = Restangular.all('userGroup');
         var templateUrl = 'app/user/user.userGroup.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.userGroupRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -350,10 +412,16 @@ angular.module('mdmUi')
                 {field: 'description', name: '描述'}
             ],
             sortable: ['name', 'description'],
-            add: add,
+            add: function (event) {
+                $state.go('^.userGroupAdd');
+            },
             refresh: refresh,
-            detail: detail,
-            edit: edit,
+            detail: function (event, element) {
+                $state.go('^.userGroupDetail', {id: element.iD})
+            },
+            edit: function (event, element) {
+                $state.go('^.userGroupEdit', {id: element.iD})
+            },
             remove: remove,
             title: ['用户管理', '用户组'],
             search: true
@@ -372,6 +440,42 @@ angular.module('mdmUi')
             //detail: detail,
             //edit: edit,
             //remove: remove
+        };
+    })
+    .controller('UserGroupAddCtrl', function ($scope, Restangular, $state) {
+        $scope.title = ['用户管理', '用户组', '添加'];
+        $scope.element = {};
+        $scope.save = function (element) {
+            //delete element.passwordConfirm;
+            $scope.userGroupRest.post(element).then(function () {
+                $state.go('^.userGroup');
+            });
+        };
+        $scope.cancel = function () {
+            $state.go('^.userGroup');
+        };
+    })
+    .controller('UserGroupDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['用户管理', '用户组', '详情'];
+        $scope.element = {};
+        $scope.confirm = function (element) {
+            $state.go('^.userGroup');
+        };
+        $scope.cancel = function () {
+            $state.go('^.userGroup');
+        };
+    })
+    .controller('UserGroupEditCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['用户管理', '用户组', '修改'];
+        $scope.element = {};
+        $scope.save = function (element) {
+            //delete element.passwordConfirm;
+            $scope.userGroupRest.post(element).then(function () {
+                $state.go('^.userGroup');
+            });
+        };
+        $scope.cancel = function () {
+            $state.go('^.userGroup');
         };
     });
 

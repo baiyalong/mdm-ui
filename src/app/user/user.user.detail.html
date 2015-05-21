@@ -10,28 +10,37 @@
         </div>
     </div>
 
-    <md-content layout="column" layout-margin layout-padding>
+    <div layout="column" layout-margin layout-padding>
         <md-input-container>
             <label>用户名</label>
-            <input type="text" ng-model="element.name" ng-disabled="state=='detail'">
+            <input type="text" required ng-model="element.name"
+                   ng-disabled="$state.is('^.userDetail')||$state.is('^.userEdit')">
         </md-input-container>
-        <md-input-container>
+        <md-input-container ng-if="$state.is('^.userAdd')">
             <label>密码</label>
-            <input type="password" ng-model="element.password" ng-disabled="state=='detail'">
+            <input type="password" required ng-model="element.password" ng-disabled="$state.is('^.userDetail')">
         </md-input-container>
-        <md-input-container>
+        <md-input-container ng-if="$state.is('^.userAdd')">
             <label>确认密码</label>
-            <input type="password" ng-model="element.passwordConfirm" ng-disabled="state=='detail'">
+            <input type="password" required ng-model="element.passwordConfirm" ng-disabled="$state.is('^.userDetail')">
         </md-input-container>
         <md-input-container>
             <label>联系电话</label>
-            <input type="text" ng-model="element.phoneNumber" ng-disabled="state=='detail'">
+            <input type="text" ng-model="element.phoneNumber" ng-disabled="$state.is('^.userDetail')">
         </md-input-container>
         <md-input-container>
             <label>电子邮箱</label>
-            <input type="text" ng-model="element.email" ng-disabled="state=='detail'">
+            <input type="text" ng-model="element.email" ng-disabled="$state.is('^.userDetail')">
         </md-input-container>
-    </md-content>
+        <md-input-container ng-if="$state.is('^.userDetail')">
+            <label>用户组</label>
+            <input type="text" ng-model="element.userGroup" ng-disabled="$state.is('^.userDetail')">
+        </md-input-container>
+        <md-input-container ng-if="$state.is('^.userDetail')">
+            <label>终端</label>
+            <input type="text" ng-model="element.terminal" ng-disabled="$state.is('^.userDetail')">
+        </md-input-container>
+    </div>
 
     <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
     </div>
