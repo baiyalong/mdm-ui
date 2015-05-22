@@ -71,7 +71,9 @@ angular.module('mdmUi')
     })
     .controller('RecordCommandDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['操作记录', '命令发送记录', '详情'];
-        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.commandRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.confirm = function (element) {
             $state.go('^.command');
         };
@@ -142,7 +144,9 @@ angular.module('mdmUi')
     })
     .controller('RecordMessageDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['操作记录', '消息发送记录', '详情'];
-        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.messageRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.confirm = function (element) {
             $state.go('^.message');
         };

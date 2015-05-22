@@ -109,13 +109,28 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
             .state('home.application', {
                 abstract: true,
                 url: '/application',
-                templateUrl: 'app/application/application.html'
-                //controller: 'ApplicationCtrl'
+                templateUrl: 'app/application/application.html',
+                controller: 'ApplicationMenuCtrl'
             })
             .state('home.application.classify', {
                 url: '/classify',
                 templateUrl: 'app/application/application.classify.html',
                 controller: 'ApplicationClassifyCtrl'
+            })
+            .state('home.application.classifyAdd', {
+                url: '/classifyAdd',
+                templateUrl: 'app/application/application.classify.detail.html',
+                controller: 'ApplicationClassifyAddCtrl'
+            })
+            .state('home.application.classifyDetail', {
+                url: '/classifyDetail/:id',
+                templateUrl: 'app/application/application.classify.detail.html',
+                controller: 'ApplicationClassifyDetailCtrl'
+            })
+            .state('home.application.classifyEdit', {
+                url: '/classifyEdit/:id',
+                templateUrl: 'app/application/application.classify.detail.html',
+                controller: 'ApplicationClassifyEditCtrl'
             })
             .state('home.application.application', {
                 url: '/application',

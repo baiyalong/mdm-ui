@@ -124,13 +124,21 @@
                        class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 修改
             </md-button>
-            <md-button flex ng-click="collection.remove($event,c)" ng-if="collection.remove!==undefined"
-                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
-                删除
-            </md-button>
             <md-button flex ng-click="collection.publish($event,c)" ng-if="collection.publish!==undefined"
                        class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
                 发布
+            </md-button>
+            <md-button flex ng-click="collection.off($event,c)" ng-if="collection.off!==undefined"
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
+                禁用
+            </md-button>
+            <md-button flex ng-click="collection.on($event,c)" ng-if="collection.on!==undefined"
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
+                开启
+            </md-button>
+            <md-button flex ng-click="collection.remove($event,c)" ng-if="collection.remove!==undefined"
+                       class='md-raised tableButtonRight' style="color: #912c2c;  background-color: #fffdfd;">
+                删除
             </md-button>
         </td>
     </tr>

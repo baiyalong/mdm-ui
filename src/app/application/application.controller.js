@@ -4,13 +4,64 @@
 'use strict';
 
 angular.module('mdmUi')
+    .controller('ApplicationMenuCtrl', function ($scope, Restangular, $state, $mdDialog) {
+        $scope.appClassifyRest = Restangular.all('appClassify');
 
-    .controller('ApplicationClassifyCtrl', function ($scope, $mdDialog, Restangular) {
+        $scope.alert = function (title, msg) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.confirm = function () {
+                        $mdDialog.cancel();
+                    };
+                }
+            });
+        };
+        $scope.editConfirm = function (title, msg, fn) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function () {
+                        fn();
+                        $mdDialog.hide();
+                    };
+                }
+            });
+        }
+    })
+    .controller('ApplicationClassifyCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
         var Rest = Restangular.all('appClassify');
         var templateUrl = 'app/application/application.classify.dialog.html';
         var refresh = function () {
-            Rest.getList().then(function (res) {
+            $scope.appClassifyRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
         };
@@ -149,14 +200,20 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'classifyName', name: '应用分类名称'},
-                // {field: 'classifyID', name: '编码'},
+                {field: 'classifyName', name: '类别'},
+                {field: 'description', name: '描述'},
             ],
-            sortable: ['classifyName', 'classifyID'],
-            add: add,
+            sortable: ['classifyName', 'description'],
+            add: function (event) {
+                $state.go('^.classifyAdd');
+            },
             refresh: refresh,
-            detail: detail,
-            edit: edit,
+            detail: function (event, element) {
+                $state.go('^.classifyDetail', {id: element.iD})
+            },
+            edit: function (event, element) {
+                $state.go('^.classifyEdit', {id: element.iD})
+            },
             remove: remove,
             title: ['应用管理', '应用分类'],
             search: true
@@ -181,7 +238,58 @@ angular.module('mdmUi')
             //  remove: remove
         };
     })
-
+    .controller('ApplicationClassifyAddCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['应用管理', '应用分类', '添加'];
+        $scope.element = {};
+        $scope.save = function (element) {
+            var title = '用户 添加';
+            if (element.classifyName == undefined || element.classifyName.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
+                $scope.alert(title, '请输入类别!');
+            }
+            else {
+                //delete element.passwordConfirm;
+                $scope.appClassifyRest.post(element).then(function (res) {
+                    if (res != undefined) {
+                        //$scope.alert(title, res);
+                        alert(res);
+                    } else {
+                        $state.go('^.classify');
+                    }
+                });
+            }
+        };
+        $scope.cancel = function () {
+            $state.go('^.classify');
+        };
+    })
+    .controller('ApplicationClassifyDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['应用管理', '应用分类', '详情'];
+        $scope.appClassifyRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
+        $scope.confirm = function (element) {
+            $state.go('^.classify');
+        };
+        $scope.cancel = function () {
+            $state.go('^.classify');
+        };
+    })
+    .controller('ApplicationClassifyEditCtrl', function ($scope, Restangular, $state, $stateParams) {
+        $scope.title = ['应用管理', '应用分类', '修改'];
+        $scope.appClassifyRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
+        $scope.save = function (element) {
+            $scope.editConfirm('应用分类 修改', '确认要修改吗？', function () {
+                element.save().then(function () {
+                    $state.go('^.classify');
+                });
+            });
+        };
+        $scope.cancel = function () {
+            $state.go('^.classify');
+        };
+    })
     .controller('ApplicationCtrl', function ($scope, $upload, $mdDialog, Restangular) {
 
         var Rest = Restangular.all('app');
@@ -429,22 +537,23 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'appName', name: '图标'},
                 {field: 'appName', name: '名称'},
                 //  {field: 'version', name: '版本'},
                 //  {field: 'isMandatory', name: '强制'},
                 //  {field: 'isRecommended', name: '推荐'},
-                {field: 'classification', name: '分类'},
+                {field: 'classification', name: '类别'},
                 //{field: 'authorizedby', name: '授权'},
                 //{field: 'producers', name: '制作'},
                 // {field: 'description', name: '描述'},
-                {field: 'appName', name: '状态'},
+                {field: 'state', name: '状态'},
             ],
-            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description'],
+            sortable: ['appName', 'version', 'isMandatory', 'isRecommended', 'classification', 'authorizedby', 'producers', 'description', 'state'],
             add: add,
             refresh: refresh,
             detail: detail,
             edit: edit,
+            publish: function () {
+            },
             remove: remove,
             //publish: publish,
             title: ['应用管理', '应用列表'],

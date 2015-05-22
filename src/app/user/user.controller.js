@@ -29,6 +29,32 @@ angular.module('mdmUi')
                     };
                 }
             });
+        };
+        $scope.editConfirm = function (title, msg, fn) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function () {
+                        fn();
+                        $mdDialog.hide();
+                    };
+                }
+            });
         }
     })
     .controller('UserCtrl', function ($scope, $mdDialog, Restangular, $state) {
@@ -218,11 +244,14 @@ angular.module('mdmUi')
     })
     .controller('UserEditCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['用户管理', '用户', '修改'];
-        $scope.element = {};
+        $scope.userRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.save = function (element) {
-            //delete element.passwordConfirm;
-            $scope.userRest.post(element).then(function () {
-                $state.go('^.user');
+            $scope.editConfirm('用户 修改', '确认要修改吗？', function () {
+                element.save().then(function () {
+                    $state.go('^.user');
+                });
             });
         };
         $scope.cancel = function () {
@@ -448,10 +477,19 @@ angular.module('mdmUi')
         $scope.title = ['用户管理', '用户组', '添加'];
         $scope.element = {};
         $scope.save = function (element) {
-            //delete element.passwordConfirm;
-            $scope.userGroupRest.post(element).then(function () {
-                $state.go('^.userGroup');
-            });
+            var title = '用户组 添加';
+            if (element.name == undefined || element.name.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
+                $scope.alert(title, '请输入用户组名!');
+            }
+            else {
+                $scope.userGroupRest.post(element).then(function (res) {
+                    if (res != undefined) {
+                        alert(res);
+                    } else {
+                        $state.go('^.userGroup');
+                    }
+                });
+            }
         };
         $scope.cancel = function () {
             $state.go('^.userGroup');
@@ -459,7 +497,9 @@ angular.module('mdmUi')
     })
     .controller('UserGroupDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['用户管理', '用户组', '详情'];
-        $scope.element = {};
+        $scope.userGroupRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.confirm = function (element) {
             $state.go('^.userGroup');
         };
@@ -469,11 +509,14 @@ angular.module('mdmUi')
     })
     .controller('UserGroupEditCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['用户管理', '用户组', '修改'];
-        $scope.element = {};
+        $scope.userGroupRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.save = function (element) {
-            //delete element.passwordConfirm;
-            $scope.userGroupRest.post(element).then(function () {
-                $state.go('^.userGroup');
+            $scope.editConfirm('用户组 修改', '确认要修改吗？', function () {
+                element.save().then(function () {
+                    $state.go('^.userGroup');
+                });
             });
         };
         $scope.cancel = function () {

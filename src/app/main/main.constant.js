@@ -64,7 +64,7 @@ angular.module('mdmUi')
         {
             label: '消息管理',
             state: 'home.command',
-            icon: '/assets/images/icons/10.svg'
+            icon: '/assets/images/icons/11.png'
         },
         {
             label: '应用管理',
@@ -77,7 +77,7 @@ angular.module('mdmUi')
 
                 },
                 {
-                    label: '应用列表',
+                    label: '我的应用',
                     state: 'home.application.application',
                     submenu: true
 

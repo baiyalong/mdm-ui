@@ -132,13 +132,14 @@ angular.module('mdmUi')
                 {name: '命令描述', field: 'description'},
             ],
             sortable: ['code', 'description'],
-            add: add,
-            refresh: refresh,
-            detail: detail,
-            edit: edit,
-            remove: remove,
+            //add: add,
+            //refresh: refresh,
+            //detail: detail,
+            //edit: edit,
+            //remove: remove,
             title: ['命令管理'],
-            search: true
+            search: true,
+            check: true
         };
     }
 );

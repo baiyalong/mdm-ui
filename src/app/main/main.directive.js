@@ -80,6 +80,9 @@ angular.module('mdmUi')
                 collection: '='
             },
             controller: function ($scope, $filter, $window) {
+                if ($scope.collection == undefined) {
+                    $scope.collection = {}
+                }
                 $scope.collection.count = $scope.collection.count || 12;
                 $scope.search = {};
                 var orderBy = $filter('orderBy');
@@ -99,7 +102,8 @@ angular.module('mdmUi')
                     $scope.collection.content = orderBy($scope.collection.content, predicate, reverse);
                     $scope.predicate = predicate;
                 };
-                $scope.order($scope.collection.sortable[0], false);
+                if ($scope.collection.sortable != undefined)
+                    $scope.order($scope.collection.sortable[0], false);
                 $scope.getNumber = function (num) {
                     return new Array(num);
                 };

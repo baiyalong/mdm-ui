@@ -305,15 +305,19 @@ angular.module('mdmUi')
         $scope.collection = {
             toggleSearch: false,
             header: [
-                {field: 'name', name: '策略组名'},
-                {field: 'version', name: '版本'},
+                {field: 'name', name: '策略组'},
+                {field: 'description', name: '描述'},
             ],
-            sortable: ['name', 'version'],
+            sortable: ['name', 'description'],
             add: add,
             refresh: refresh,
             detail: detail,
             edit: edit,
             remove: remove,
+            off: function () {
+            },
+            on: function () {
+            },
             title: ['策略管理', '策略组'],
             search: true
         };

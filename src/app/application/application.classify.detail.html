@@ -12,13 +12,16 @@
 
     <div layout="column" layout-margin layout-padding>
         <md-input-container>
-            <label>用户组名</label>
-            <input type="text" required ng-model="element.name"
-                   ng-disabled="$state.is('^.userGroupDetail')||$state.is('^.userGroupEdit')">
+            <label>类别</label>
+            <input type="text" required ng-model="element.classifyName"
+                   ng-disabled="$state.is('^.classifyDetail')||$state.is('^.classifyEdit')">
         </md-input-container>
         <md-input-container>
             <label>描述</label>
-            <input type="text" ng-model="element.description" ng-disabled="$state.is('^.userGroupDetail')">
+            <input type="text" ng-model="element.description" ng-disabled="$state.is('^.classifyDetail')">
+        </md-input-container>
+        <md-input-container flex="100" ng-if="items.state!='add'">
+            <md-table collection="subCollection"></md-table>
         </md-input-container>
     </div>
 

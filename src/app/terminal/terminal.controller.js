@@ -239,7 +239,9 @@ angular.module('mdmUi')
     })
     .controller('TerminalDetailCtrl', function ($scope, $mdDialog, Restangular, $state, $stateParams) {
         $scope.title = ['终端管理', '终端', '详情'];
-        $scope.element = {};
+        $scope.terminalRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.confirm = function (element) {
             $state.go('^.terminal');
         };
