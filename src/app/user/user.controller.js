@@ -206,7 +206,9 @@ angular.module('mdmUi')
     })
     .controller('UserDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['用户管理', '用户', '详情'];
-        $scope.element = {};//$scope.collection.content[$stateParams.id];
+        $scope.userRest.get($stateParams.id).then(function (res) {
+            $scope.element = res;
+        });
         $scope.confirm = function (element) {
             $state.go('^.user');
         };
