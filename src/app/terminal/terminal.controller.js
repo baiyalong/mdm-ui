@@ -15,6 +15,9 @@ angular.module('mdmUi')
             $scope.terminalRest.getList().then(function (res) {
                 $scope.collection.content = res;
             });
+            Restangular.all('Command').getList().then(function (res) {
+                $scope.command = res;
+            })
         };
         refresh();
 
@@ -65,17 +68,25 @@ angular.module('mdmUi')
                         title: '终端 删除',
                         state: 'remove',
                         element: Restangular.copy(element),
-                        refresh: refresh
+                        refresh: refresh,
+                        command: $scope.command
                     }
                 },
                 controller: function ($scope, $mdDialog, items) {
                     $scope.items = items;
                     $scope.name = items.element.iMEI;
                     $scope.confirm = function () {
-                        element.remove().then(function () {
-                            items.refresh();
+                        //command logout
+                        var arr = [element.iD];
+                        var cid = items.command.filter(function (e, i, a) {
+                            return e.code == 'logout';
+                        })[0].iD;
+                        Restangular.all('Command').customPOST(arr, cid).then(function () {
+                            element.remove().then(function () {
+                                items.refresh();
+                            });
+                            $mdDialog.hide();
                         });
-                        $mdDialog.hide();
                     };
                     $scope.cancel = function () {
                         $mdDialog.cancel();
@@ -239,8 +250,23 @@ angular.module('mdmUi')
     })
     .controller('TerminalDetailCtrl', function ($scope, $mdDialog, Restangular, $state, $stateParams) {
         $scope.title = ['终端管理', '终端', '详情'];
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'appName', name: '应用'},
+                {field: 'appVersionName', name: '版本'},
+                {field: 'firstInstallTime', name: '初始安装时间'},
+                {field: 'lastUpdateTime', name: '最后更新时间'},
+                {field: 'packageName', name: '软件包'},
+            ],
+            sortable: ['appName', 'appVersionName', 'firstInstallTime', 'lastUpdateTime', 'packageName'],
+            check: false
+        };
         $scope.terminalRest.get($stateParams.id).then(function (res) {
             $scope.element = res;
+            $scope.element.getList('terminalapp').then(function (res) {
+                $scope.subCollection.content = res;
+            });
         });
         $scope.confirm = function (element) {
             $state.go('^.terminal');

@@ -1,6 +1,6 @@
 'use strict';
 var addressConf = 'http://10.192.17.95:8088';
-angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileUpload'])
+angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileUpload', 'ngJsTree'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
@@ -106,6 +106,11 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 templateUrl: 'app/command/command.html',
                 controller: 'CommandCtrl'
             })
+            .state('home.message', {
+                url: '/message',
+                templateUrl: 'app/message/message.html',
+                controller: 'MessageCtrl'
+            })
             .state('home.application', {
                 abstract: true,
                 url: '/application',
@@ -137,6 +142,26 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 templateUrl: 'app/application/application.application.html',
                 controller: 'ApplicationCtrl'
             })
+            .state('home.application.applicationAdd', {
+                url: '/applicationAdd',
+                templateUrl: 'app/application/application.application.detail.html',
+                controller: 'ApplicationAddCtrl'
+            })
+            .state('home.application.applicationDetail', {
+                url: '/applicationDetail/:id',
+                templateUrl: 'app/application/application.application.detail.html',
+                controller: 'ApplicationDetailCtrl'
+            })
+            .state('home.application.applicationEdit', {
+                url: '/applicationEdit/:id',
+                templateUrl: 'app/application/application.application.detail.html',
+                controller: 'ApplicationEditCtrl'
+            })
+            .state('home.application.applicationPublish', {
+                url: '/applicationPublish/:id',
+                templateUrl: 'app/application/application.application.detail.html',
+                controller: 'ApplicationPublishCtrl'
+            })
             .state('home.application.template', {
                 url: '/template',
                 templateUrl: 'app/application/application.template.html',
@@ -152,6 +177,26 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 url: '/strategyGroup',
                 templateUrl: 'app/strategy/strategy.strategyGroup.html',
                 controller: 'StrategyGroupCtrl'
+            })
+            .state('home.strategy.strategyGroupAdd', {
+                url: '/strategyGroupAdd',
+                templateUrl: 'app/strategy/strategy.strategyGroup.detail.html',
+                controller: 'StrategyGroupAddCtrl'
+            })
+            .state('home.strategy.strategyGroupDetail', {
+                url: '/strategyGroupDetail/:id',
+                templateUrl: 'app/strategy/strategy.strategyGroup.detail.html',
+                controller: 'StrategyGroupDetailCtrl'
+            })
+            .state('home.strategy.strategyGroupEdit', {
+                url: '/strategyGroupEdit/:id',
+                templateUrl: 'app/strategy/strategy.strategyGroup.detail.html',
+                controller: 'StrategyGroupEditCtrl'
+            })
+            .state('home.strategy.strategyGroupPublish', {
+                url: '/strategyGroupPublish',
+                templateUrl: 'app/strategy/strategy.strategyGroup.detail.html',
+                controller: 'StrategyGroupPublishCtrl'
             })
             .state('home.strategy.strategyItem', {
                 url: '/strategyItem',
@@ -176,7 +221,7 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
             })
             .state('home.record.command', {
                 url: '/command',
-                templateUrl: 'app/record/record.command.html',
+                templateUrl: 'app/record/record.message.html',
                 controller: 'RecordCommandCtrl'
             })
             .state('home.record.commandDetail', {

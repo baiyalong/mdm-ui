@@ -40,32 +40,33 @@ angular.module('mdmUi')
              ]
              */
         },
-        {
-            label: '命令管理',
-            state: 'home.command',
-            icon: '/assets/images/icons/3.svg'
-            /*
-             submenu: [
-             {
-             label: '命令发送',
-             state: 'home.command.sendCommand'
-             },
-             {
-             label: '消息发送',
-             state: 'home.command.sendMessage'
-             },
-             {
-             label: '命令列表',
-             state: 'home.command.commandInfo'
-             }
-             ]
-             */
-        },
-        {
-            label: '消息管理',
-            state: 'home.command',
-            icon: '/assets/images/icons/11.png'
-        },
+        /*
+         {
+         label: '命令管理',
+         state: 'home.command',
+         icon: '/assets/images/icons/3.svg'
+         /*
+         submenu: [
+         {
+         label: '命令发送',
+         state: 'home.command.sendCommand'
+         },
+         {
+         label: '消息发送',
+         state: 'home.command.sendMessage'
+         },
+         {
+         label: '命令列表',
+         state: 'home.command.commandInfo'
+         }
+         ]
+
+         },
+         {
+         label: '消息管理',
+         state: 'home.message',
+         icon: '/assets/images/icons/11.png'
+         }, */
         {
             label: '应用管理',
             icon: '/assets/images/icons/2.svg',

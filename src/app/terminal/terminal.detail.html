@@ -10,8 +10,7 @@
         </div>
     </div>
 
-
-    <div layout="row" layout-wrap layout-margin layout-padding>
+    <md-content layout="row" layout-wrap layout-margin layout-padding class="contentMaxHeight">
         <md-input-container>
             <label>用户名</label>
             <input type="text" ng-model="element.user" ng-disabled="$state.is('^.terminalDetail')">
@@ -95,7 +94,7 @@
         <md-input-container flex="100">
             <md-table collection="subCollection"></md-table>
         </md-input-container>
-    </div>
+    </md-content>
 
     <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
     </div>

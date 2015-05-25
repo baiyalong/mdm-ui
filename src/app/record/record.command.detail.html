@@ -10,13 +10,13 @@
         </div>
     </div>
 
-    <div layout="row" layout-wrap class="dialogSize">
-        <md-input-container>
+    <md-content layout="row" layout-wrap layout-padding layout-margin class="contentMaxHeight">
+        <md-input-container style="display:none">
             <label>命令编码</label>
             <input type="text" ng-model="element.commandId" ng-disabled="$state.is('^.commandDetail')">
         </md-input-container>
         <md-input-container>
-            <label>描述</label>
+            <label>命令描述</label>
             <input type="text" ng-model="element.commandName" ng-disabled="$state.is('^.commandDetail')">
         </md-input-container>
         <md-input-container>
@@ -47,7 +47,7 @@
             <label>状态</label>
             <input type="text" ng-model="element.statusName" ng-disabled="$state.is('^.commandDetail')">
         </md-input-container>
-    </div>
+    </md-content>
 
     <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
     </div>

@@ -1,0 +1,82 @@
+<div>
+    <div ng-if="title!=undefined">
+        <p style="margin:0;color: rgb(198,111,119)">
+            <span>{{title[0]}}</span>
+            <span ng-if="title[1]!=undefined">  >  {{title[1]}}</span>
+            <span ng-if="title[2]!=undefined">  >  {{title[2]}}</span>
+        </p>
+
+        <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+        </div>
+    </div>
+
+    <md-content layout="column" layout-wrap layout-margin layout-padding class="contentMaxHeight">
+        <md-input-container>
+            <label>策略组名</label>
+            <input type="text" required ng-model="element.name"
+                   ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupEdit')">
+        </md-input-container>
+        <md-input-container>
+            <label>描述</label>
+            <input type="text" ng-model="element.description" ng-disabled="$state.is('^.strategyGroupDetail')">
+        </md-input-container>
+        <md-input-container>
+            <md-table collection="subCollection"></md-table>
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="addItem()"
+                       ng-if="addItem!==undefined">
+                添加策略
+            </md-button>
+        </div>
+        <div layout="row" layout-wrap ng-if="showItem">
+            <md-input-container flex="30">
+                <label>时间围栏</label>
+                <input type="text" ng-model="item.timeInterval"
+                       ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupEdit')">
+            </md-input-container>
+            <md-input-container flex="30">
+                <label>地理围栏</label>
+                <input type="text" ng-model="item.reginalInterval"
+                       ng-disabled="$state.is('^.strategyGroupDetail')">
+            </md-input-container>
+            <md-input-container flex="30">
+                <label>参数</label>
+                <input type="text" ng-model="item.parameters" ng-disabled="$state.is('^.strategyGroupDetail')">
+            </md-input-container>
+            <div class="appDialogSelect" flex="30">
+                <label>策略</label>
+                <md-select ng-model="item.strategy"
+                           style="width: 100px;margin-top: 0">
+                    <md-option ng-repeat="p in strategy" ng-value="p.iD">{{p.name}}</md-option>
+                </md-select>
+            </div>
+            <div class="appDialogSelect" flex="30">
+                <label>惩罚</label>
+                <md-select ng-model="item.punishment"
+                           style="width: 100px;margin-top: 0">
+                    <md-option ng-repeat="p in punishment" ng-value="p.iD">{{p.name}}</md-option>
+                </md-select>
+            </div>
+            <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="saveItem()"
+                       ng-if="saveItem!==undefined">
+                保存策略
+            </md-button>
+        </div>
+    </md-content>
+
+    <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+    </div>
+</div>

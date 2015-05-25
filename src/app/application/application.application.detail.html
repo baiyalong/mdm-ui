@@ -1,0 +1,122 @@
+<div>
+    <div ng-if="title!=undefined">
+        <p style="margin:0;color: rgb(198,111,119)">
+            <span>{{title[0]}}</span>
+            <span ng-if="title[1]!=undefined">  >  {{title[1]}}</span>
+            <span ng-if="title[2]!=undefined">  >  {{title[2]}}</span>
+        </p>
+
+        <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+        </div>
+    </div>
+
+    <md-content layout="row" layout-wrap class="contentMaxHeight">
+        <md-input-container flex="50" ng-if="!$state.is('^.applicationPublish')">
+            <label>应用名称</label>
+            <input type="text" required ng-model="element.appName"
+                   ng-disabled="$state.is('^.applicationDetail')||$state.is('^.applicationEdit')">
+        </md-input-container>
+        <md-input-container flex="25" ng-if="!$state.is('^.applicationPublish')">
+            <label>包名</label>
+            <input type="text" ng-model="element.packageName" ng-disabled="$state.is('^.applicationDetail')">
+        </md-input-container>
+        <md-input-container flex="25" ng-if="!$state.is('^.applicationPublish')">
+            <label>版本</label>
+            <input type="text" ng-model="element.version" ng-disabled="$state.is('^.applicationDetail')">
+        </md-input-container>
+        <md-input-container flex="50" ng-if="!$state.is('^.applicationPublish')">
+            <label>授权</label>
+            <input type="text" ng-model="element.authorizedby" ng-disabled="$state.is('^.applicationDetail')">
+        </md-input-container>
+        <md-input-container flex="50" ng-if="!$state.is('^.applicationPublish')">
+            <label>制作</label>
+            <input type="text" ng-model="element.producers" ng-disabled="$state.is('^.applicationDetail')">
+        </md-input-container>
+        <md-input-container flex="100" ng-if="!$state.is('^.applicationPublish')">
+            <label>描述</label>
+            <textarea ng-model="element.description" ng-disabled="$state.is('^.applicationDetail')"></textarea>
+        </md-input-container>
+        <md-input-container flex="25" ng-if="!$state.is('^.applicationPublish')">
+            <md-checkbox ng-model="element.isMandatory" ng-disabled="$state.is('^.applicationDetail')"
+                         class="appDialogCheck"
+                         style="margin-left: 0">
+                <span style="margin-left: 5px"> 强制</span>
+            </md-checkbox>
+        </md-input-container>
+        <md-input-container flex="25" ng-if="!$state.is('^.applicationPublish')">
+            <md-checkbox ng-model="element.isRecommended" ng-disabled="$state.is('^.applicationDetail')"
+                         class="appDialogCheck"
+                         style="margin-left: 0">
+                <span style="margin-left: 5px"> 推荐</span>
+            </md-checkbox>
+        </md-input-container>
+        <div flex="100" class="appDialogSelect" ng-if="!$state.is('^.applicationPublish')">
+            <label>分类</label>
+            <md-select ng-model="element.classify" ng-disabled="$state.is('^.applicationDetail')"
+                       style="width: 100px;margin-top: 0">
+                <md-option ng-repeat="p in classification" ng-value="p.iD">{{p.classifyName}}</md-option>
+            </md-select>
+        </div>
+        <div layout="column" flex="100" ng-if="!$state.is('^.applicationPublish')"
+             ng-class="{'appDialogUploadY':iconUrl!==undefined,'appDialogUploadN':iconUrl===undefined}">
+            <div ng-class="{'appDialogIconY':iconUrl!==undefined,'appDialogIconN':iconUrl===undefined}">
+                <label>图标</label>
+                <md-button class="md-raised" ng-file-select ng-file-change="uploadIcon($files)"
+                           ng-if="!$state.is('^.applicationDetail')">选择文件
+                </md-button>
+                <br/>
+                <img ng-if="iconUrl!==undefined" ng-src="{{iconUrl}}" alt="icon"
+                     style="width:50px;height: 50px;margin: 10px"/>
+                <span flex></span>
+            </div>
+            <div ng-class="{'appDialogImagesY':iconUrl!==undefined,'appDialogImagesN':iconUrl===undefined}">
+                <label>图片</label>
+                <md-button class="md-raised" ng-file-select ng-multiple="true" ng-file-change="uploadImages($files)"
+                           ng-if="!$state.is('^.applicationDetail')">选择文件
+                </md-button>
+                <br/>
+                <img ng-if="imagesUrl!==undefined" ng-repeat="url in imagesUrl" ng-src="{{url}}" alt="images"
+                     style="width:150px;height: 200px;margin: 10px"/>
+                <span flex></span>
+            </div>
+            <div ng-class="{'appDialogPkgY':iconUrl!==undefined,'appDialogPkgN':iconUrl===undefined}">
+                <label>安装包</label>
+                <md-button class="md-raised" ng-file-select ng-file-change="uploadPkg($files)"
+                           ng-if="!$state.is('^.applicationDetail')">选择文件
+                </md-button>
+                <br/>
+                <a ng-if="pkgUrl!==undefined" ng-href="{{pkgUrl}}" target="_blank" style="margin: 10px">{{element.downloadUrl}}</a>
+                <span flex></span>
+            </div>
+        </div>
+        <md-input-container ng-if="$state.is('^.applicationPublish')" flex="100">
+            <h3>选择应用发布范围：</h3>
+            <md-table collection="subCollection"></md-table>
+        </md-input-container>
+    </md-content>
+
+    <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
+    </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="cancel()" ng-if="cancel!==undefined">
+            取消
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="save(element)" ng-if="save!==undefined">
+            保存
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="confirm()" ng-if="confirm!==undefined">
+            确定
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="next()" ng-if="next!==undefined">
+            下一步
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="publish()" ng-if="publish!==undefined">
+            发布
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="publishConfirm()"
+                   ng-if="publishConfirm!==undefined">
+            确认发布
+        </md-button>
+    </div>
+</div>

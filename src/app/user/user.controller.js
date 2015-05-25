@@ -235,6 +235,35 @@ angular.module('mdmUi')
         $scope.userRest.get($stateParams.id).then(function (res) {
             $scope.element = res;
         });
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'deviceName', name: '设备名'},
+                {field: 'deviceType', name: '设备型号'},
+                {field: 'oSType', name: '操作系统'},
+                {field: 'phoneNumber', name: '手机号'},
+            ],
+            sortable: ['deviceName', 'deviceType', 'oSType', 'phoneNumber']
+            //check: true
+            //add: add,
+            //refresh: refresh
+            //detail: detail,
+            //edit: edit,
+            //remove: remove
+        };
+        Restangular.all('userGroup').customGETLIST('/' + $stateParams.id + '/usergroup').then(function (res) {
+            var g = '';
+            res.forEach(function (e, i, a) {
+                g += e.name + '  ';
+            });
+            $scope.userGroup = g;
+        });
+        Restangular.all('terminal').customGETLIST('/' + $stateParams.id + '/userterminal').then(function (res) {
+            $scope.subCollection.content = res;
+            $scope.hasTerminal = res.length == 0 ? false : true;
+        });
+
+        $scope.subCollection.check = false;
         $scope.confirm = function (element) {
             $state.go('^.user');
         };
@@ -411,6 +440,7 @@ angular.module('mdmUi')
                     $scope.items = items;
                     $scope.name = items.element.name;
                     $scope.confirm = function () {
+                        delete element.usersHelper;
                         element.remove().then(function () {
                             items.refresh();
                         });
@@ -476,6 +506,25 @@ angular.module('mdmUi')
     .controller('UserGroupAddCtrl', function ($scope, Restangular, $state) {
         $scope.title = ['用户管理', '用户组', '添加'];
         $scope.element = {};
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'name', name: '用户名'},
+                {field: 'phoneNumber', name: '联系电话'},
+                {field: 'email', name: '电子邮箱'},
+            ],
+            sortable: ['name', 'phoneNumber', 'email'],
+            check: true
+            //add: add,
+            //refresh: refresh
+            //detail: detail,
+            //edit: edit,
+            //remove: remove
+        };
+        $scope.userRest.getList().then(function (res) {
+            $scope.subCollection.content = res;
+            $scope.hasUser = res.length == 0 ? false : true;
+        });
         $scope.save = function (element) {
             var title = '用户组 添加';
             if (element.name == undefined || element.name.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
@@ -483,9 +532,15 @@ angular.module('mdmUi')
             }
             else {
                 $scope.userGroupRest.post(element).then(function (res) {
-                    if (res != undefined) {
+                    if (res == '当前用户组名称已存在！') {
                         alert(res);
                     } else {
+                        var id = res;
+                        $scope.subCollection.content.forEach(function (v) {
+                            if (v.check) {
+                                $scope.userGroupRest.customPOST(null, id + '/user/' + v.iD);
+                            }
+                        });
                         $state.go('^.userGroup');
                     }
                 });
@@ -499,7 +554,26 @@ angular.module('mdmUi')
         $scope.title = ['用户管理', '用户组', '详情'];
         $scope.userGroupRest.get($stateParams.id).then(function (res) {
             $scope.element = res;
+            $scope.element.getList('user').then(function (res) {
+                $scope.subCollection.content = res;
+                $scope.hasUser = res.length == 0 ? false : true;
+            });
         });
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'name', name: '用户名'},
+                {field: 'phoneNumber', name: '联系电话'},
+                {field: 'email', name: '电子邮箱'},
+            ],
+            sortable: ['name', 'phoneNumber', 'email'],
+            check: false
+            //add: add,
+            //refresh: refresh
+            //detail: detail,
+            //edit: edit,
+            //remove: remove
+        };
         $scope.confirm = function (element) {
             $state.go('^.userGroup');
         };
@@ -509,13 +583,75 @@ angular.module('mdmUi')
     })
     .controller('UserGroupEditCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['用户管理', '用户组', '修改'];
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'name', name: '用户名'},
+                {field: 'phoneNumber', name: '联系电话'},
+                {field: 'email', name: '电子邮箱'},
+            ],
+            sortable: ['name', 'phoneNumber', 'email'],
+            check: true
+            //add: add,
+            //refresh: refresh
+            //detail: detail,
+            //edit: edit,
+            //remove: remove
+        };
+        var refresh = function () {
+            var all, some;
+            Restangular.all('user').getList().then(function (res) {
+                all = res;
+                $scope.hasUser = res.length == 0 ? false : true;
+                $scope.element.getList('user').then(function (res) {
+                    some = res;
+                    all.forEach(function (v) {
+                        v.check = some.some(function (vv) {
+                            return v.iD === vv.iD;
+                        }) ? true : false;
+                    });
+                    $scope.subCollection.content = all;
+                });
+            });
+        };
         $scope.userGroupRest.get($stateParams.id).then(function (res) {
             $scope.element = res;
+            refresh();
         });
         $scope.save = function (element) {
             $scope.editConfirm('用户组 修改', '确认要修改吗？', function () {
+                delete element.usersHelper;
                 element.save().then(function () {
-                    $state.go('^.userGroup');
+                    var id = $stateParams.id;
+                    var arr1 = [];
+                    var arr2 = [];
+                    $scope.element.getList('user').then(function (res) {
+                        res.forEach(function (v) {
+                            arr1.push(v.iD);
+                        });
+                        $scope.subCollection.content.forEach(function (v) {
+                            if (v.check) {
+                                arr2.push(v.iD);
+                            }
+                        });
+                        arr1.forEach(function (v) {
+                            var r = arr2.some(function (vv) {
+                                return vv == v;
+                            });
+                            if (!r) {
+                                $scope.userGroupRest.customDELETE(id + '/user/' + v);
+                            }
+                        });
+                        arr2.forEach(function (v) {
+                            var r = arr1.some(function (vv) {
+                                return vv == v;
+                            });
+                            if (!r) {
+                                $scope.userGroupRest.customPOST(null, '/' + id + '/user/' + v);
+                            }
+                        });
+                        $state.go('^.userGroup');
+                    });
                 });
             });
         };

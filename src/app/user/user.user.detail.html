@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div layout="column" layout-margin layout-padding>
+    <md-content layout="column" layout-margin layout-padding class="contentMaxHeight">
         <md-input-container>
             <label>用户名</label>
             <input type="text" required ng-model="element.name"
@@ -34,13 +34,12 @@
         </md-input-container>
         <md-input-container ng-if="$state.is('^.userDetail')">
             <label>用户组</label>
-            <input type="text" ng-model="element.userGroup" ng-disabled="$state.is('^.userDetail')">
+            <input type="text" ng-model="userGroup" ng-disabled="$state.is('^.userDetail')">
         </md-input-container>
-        <md-input-container ng-if="$state.is('^.userDetail')">
-            <label>终端</label>
-            <input type="text" ng-model="element.terminal" ng-disabled="$state.is('^.userDetail')">
+        <md-input-container ng-if="$state.is('^.userDetail')&&hasTerminal">
+            <md-table collection="subCollection"></md-table>
         </md-input-container>
-    </div>
+    </md-content>
 
     <div style="width:100%;height:1px;margin:5px 0;background-color:rgb(215,214,214);overflow:hidden;">
     </div>
