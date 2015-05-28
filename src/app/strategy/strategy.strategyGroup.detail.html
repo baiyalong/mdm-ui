@@ -10,48 +10,51 @@
         </div>
     </div>
 
-    <md-content layout="column" layout-wrap layout-margin layout-padding class="contentMaxHeight">
-        <md-input-container>
+    <md-content layout="row" layout-wrap class="contentMaxHeight">
+        <md-input-container ng-if="$state.is('^.strategyGroupPublish')" flex="100">
+            <h3>选择策略组发布范围：</h3>
+            <md-table collection="Collection"></md-table>
+        </md-input-container>
+        <md-input-container flex="100">
             <label>策略组名</label>
             <input type="text" required ng-model="element.name"
-                   ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupEdit')">
+                   ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupEdit')||$state.is('^.strategyGroupPublish')">
         </md-input-container>
-        <md-input-container>
+        <md-input-container flex="100">
             <label>描述</label>
-            <input type="text" ng-model="element.description" ng-disabled="$state.is('^.strategyGroupDetail')">
+            <input type="text" ng-model="element.description"
+                   ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupPublish')">
         </md-input-container>
-        <md-input-container>
+        <md-input-container flex="100">
             <md-table collection="subCollection"></md-table>
         </md-input-container>
-        <div layout="row">
+        <div layout="row" layout-wrap flex="100">
             <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="addItem()"
                        ng-if="addItem!==undefined">
                 添加策略
             </md-button>
-        </div>
-        <div layout="row" layout-wrap ng-if="showItem">
-            <md-input-container flex="30">
+            <md-input-container ng-if="showItem">
                 <label>时间围栏</label>
                 <input type="text" ng-model="item.timeInterval"
-                       ng-disabled="$state.is('^.strategyGroupDetail')||$state.is('^.strategyGroupEdit')">
+                       ng-disabled="$state.is('^.strategyGroupDetail')">
             </md-input-container>
-            <md-input-container flex="30">
+            <md-input-container ng-if="showItem">
                 <label>地理围栏</label>
                 <input type="text" ng-model="item.reginalInterval"
                        ng-disabled="$state.is('^.strategyGroupDetail')">
             </md-input-container>
-            <md-input-container flex="30">
+            <md-input-container ng-if="showItem">
                 <label>参数</label>
                 <input type="text" ng-model="item.parameters" ng-disabled="$state.is('^.strategyGroupDetail')">
             </md-input-container>
-            <div class="appDialogSelect" flex="30">
+            <div class="appDialogSelect" ng-if="showItem">
                 <label>策略</label>
                 <md-select ng-model="item.strategy"
                            style="width: 100px;margin-top: 0">
                     <md-option ng-repeat="p in strategy" ng-value="p.iD">{{p.name}}</md-option>
                 </md-select>
             </div>
-            <div class="appDialogSelect" flex="30">
+            <div class="appDialogSelect" ng-if="showItem">
                 <label>惩罚</label>
                 <md-select ng-model="item.punishment"
                            style="width: 100px;margin-top: 0">
@@ -59,7 +62,11 @@
                 </md-select>
             </div>
             <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="saveItem()"
-                       ng-if="saveItem!==undefined">
+                       ng-if="showItem">
+                取消编辑
+            </md-button>
+            <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="saveItem()"
+                       ng-if="showItem">
                 保存策略
             </md-button>
         </div>
@@ -77,6 +84,13 @@
         </md-button>
         <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="confirm()" ng-if="confirm!==undefined">
             确定
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="next(element)" ng-if="next!==undefined">
+            下一步
+        </md-button>
+        <md-button class="md-raised md-warn md-hue-2 tableButtonSize" ng-click="publish(element)"
+                   ng-if="publish!==undefined">
+            发布
         </md-button>
     </div>
 </div>

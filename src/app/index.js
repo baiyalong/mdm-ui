@@ -170,8 +170,8 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
             .state('home.strategy', {
                 abstract: true,
                 url: '/strategy',
-                templateUrl: 'app/strategy/strategy.html'
-                // controller: 'StrategyCtrl'
+                templateUrl: 'app/strategy/strategy.html',
+                controller: 'StrategyMenuCtrl'
             })
             .state('home.strategy.strategyGroup', {
                 url: '/strategyGroup',
@@ -194,7 +194,7 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 controller: 'StrategyGroupEditCtrl'
             })
             .state('home.strategy.strategyGroupPublish', {
-                url: '/strategyGroupPublish',
+                url: '/strategyGroupPublish/:id',
                 templateUrl: 'app/strategy/strategy.strategyGroup.detail.html',
                 controller: 'StrategyGroupPublishCtrl'
             })

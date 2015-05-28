@@ -6,6 +6,54 @@
 angular.module('mdmUi')
     .controller('TerminalMenuCtrl', function ($scope, $mdDialog, Restangular, $state, $stateParams) {
         $scope.terminalRest = Restangular.all('terminal');
+        $scope.alert = function (title, msg) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.confirm = function () {
+                        $mdDialog.cancel();
+                    };
+                }
+            });
+        };
+        $scope.editConfirm = function (title, msg, fn) {
+            $mdDialog.show({
+                templateUrl: 'app/main/removeConfirm.dialog.html',
+                targetEvent: event,
+                locals: {
+                    items: {
+                        title: title
+                        //  state: 'alert',
+                        // element: Restangular.copy(element)
+                        // refresh: refresh
+                    }
+                },
+                controller: function ($scope, $mdDialog, items) {
+                    $scope.items = items;
+                    $scope.alert = true;
+                    $scope.msg = msg;
+                    $scope.cancel = function () {
+                        $mdDialog.cancel();
+                    };
+                    $scope.confirm = function () {
+                        fn();
+                        $mdDialog.hide();
+                    };
+                }
+            });
+        }
     })
     .controller('TerminalCtrl', function ($scope, $mdDialog, Restangular, $state) {
 
@@ -153,6 +201,13 @@ angular.module('mdmUi')
                         return v.check;
                     });
                     $scope.confirm = function () {
+                        if ($scope.items.header == undefined && $scope.items.content == undefined) {
+                            alert('请输入消息标题！');
+                            return;
+                        }
+                        if ($scope.items.header == undefined) {
+                            $scope.items.header = $scope.items.content;
+                        }
                         var arr = [];
                         $scope.subCollection.content.forEach(function (v) {
                             arr.push(v.iD);

@@ -7,7 +7,7 @@ angular.module('mdmUi')
     .controller('ApplicationMenuCtrl', function ($scope, Restangular, $state, $mdDialog) {
         $scope.appClassifyRest = Restangular.all('appClassify');
         $scope.appRest = Restangular.all('app');
-        $scope.alert = function (title, msg) {
+        $scope.alert = function (title, msg, fn) {
             $mdDialog.show({
                 templateUrl: 'app/main/removeConfirm.dialog.html',
                 targetEvent: event,
@@ -24,7 +24,10 @@ angular.module('mdmUi')
                     $scope.alert = true;
                     $scope.msg = msg;
                     $scope.confirm = function () {
-                        $mdDialog.cancel();
+                        if (fn != undefined) {
+                            fn();
+                        }
+                        $mdDialog.hide();
                     };
                 }
             });
@@ -677,10 +680,13 @@ angular.module('mdmUi')
                     });
             }
         };
-        $scope.save = function (element) {
+        var savef = function (element, fn) {
             var title = '我的应用 添加';
             if (element.appName == undefined || element.appName.replace(/(^\s*)|(\s*$)/g, "").length == 0) {
                 $scope.alert(title, '请输入应用名称!');
+            }
+            else if (element.classify == undefined) {
+                $scope.alert(title, '请选择应用分类!');
             }
             else {
                 element.classification = (function () {
@@ -697,16 +703,25 @@ angular.module('mdmUi')
                 $scope.appRest.post(element).then(function (res) {
                     if (res) {
                         $scope.appRest.customPOST(null, res + '/classify/' + cc).then(function () {
-                            $state.go('^.application');
+                            fn(res);
                         });
                     }
                 });
             }
         };
+        $scope.save = function (element) {
+            savef(element, function () {
+                $state.go('^.application');
+            })
+        };
         $scope.cancel = function () {
             $state.go('^.application');
         };
-
+        $scope.next = function (element) {
+            savef(element, function (res) {
+                $state.go('^.applicationPublish', {id: res});
+            })
+        }
     })
     .controller('ApplicationDetailCtrl', function ($scope, Restangular, $state, $stateParams) {
         $scope.title = ['应用管理', '我的应用', '详情'];
@@ -714,12 +729,14 @@ angular.module('mdmUi')
             $scope.classification = res;
             $scope.appRest.get($stateParams.id).then(function (res) {
                 $scope.element = res;
-
-                $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
-                $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
-                    return addressConf + '/mdm/' + c;
-                });
-                $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+                if (res.iconUrl != null)
+                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                if (res.appDetailImageUrl != null)
+                    $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+                        return addressConf + '/mdm/' + c;
+                    });
+                if (res.downloadUrl != null)
+                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
             });
         });
         /*
@@ -765,12 +782,14 @@ angular.module('mdmUi')
             $scope.classification = res;
             $scope.appRest.get($stateParams.id).then(function (res) {
                 $scope.element = res;
-
-                $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
-                $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
-                    return addressConf + '/mdm/' + c;
-                });
-                $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+                if (res.iconUrl != null)
+                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                if (res.appDetailImageUrl != null)
+                    $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+                        return addressConf + '/mdm/' + c;
+                    });
+                if (res.downloadUrl != null)
+                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
             });
         });
         $scope.uploadIcon = function (files) {
@@ -838,6 +857,20 @@ angular.module('mdmUi')
     })
     .controller('ApplicationPublishCtrl', function ($scope, $upload, Restangular, $state, $stateParams) {
         $scope.title = ['应用管理', '我的应用', '发布'];
+        $scope.appClassifyRest.getList().then(function (res) {
+            $scope.classification = res;
+            $scope.appRest.get($stateParams.id).then(function (res) {
+                $scope.element = res;
+                if (res.iconUrl != null)
+                    $scope.iconUrl = addressConf + '/mdm/' + $scope.element.iconUrl;
+                if (res.appDetailImageUrl != null)
+                    $scope.imagesUrl = JSON.parse($scope.element.appDetailImageUrl).map(function (c, i, a) {
+                        return addressConf + '/mdm/' + c;
+                    });
+                if (res.downloadUrl != null)
+                    $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+            });
+        });
         $scope.subCollection = {
             toggleSearch: false,
             header: [
@@ -851,11 +884,13 @@ angular.module('mdmUi')
             $scope.subCollection.content = res;
         });
 
-        $scope.save = function (element) {
+        $scope.publish = function (element) {
             $scope.editConfirm('我的应用 发布', '确认要发布吗？', function () {
-                // element.publish();
-                alert('发布成功！');
-                $state.go('^.application');
+                element.status = 0;
+                element.save().then(function () {
+                    $state.go('^.application');
+                });
+                $scope.alert('我的应用  发布', '发布成功!');
             });
         };
         $scope.cancel = function () {
