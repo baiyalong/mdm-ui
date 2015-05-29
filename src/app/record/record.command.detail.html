@@ -20,7 +20,11 @@
             <input type="text" ng-model="element.commandName" ng-disabled="$state.is('^.commandDetail')">
         </md-input-container>
         <md-input-container>
-            <label>用户名</label>
+            <label>管理员</label>
+            <input type="text" ng-model="element.sendCommndUser" ng-disabled="$state.is('^.commandDetail')">
+        </md-input-container>
+        <md-input-container>
+            <label>终端用户</label>
             <input type="text" ng-model="element.user" ng-disabled="$state.is('^.commandDetail')">
         </md-input-container>
         <md-input-container>

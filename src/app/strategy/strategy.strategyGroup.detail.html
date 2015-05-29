@@ -38,7 +38,7 @@
                 <input type="text" ng-model="item.timeInterval"
                        ng-disabled="$state.is('^.strategyGroupDetail')">
             </md-input-container>
-            <md-input-container ng-if="showItem">
+            <md-input-container ng-if="showItem" style="display:none">
                 <label>地理围栏</label>
                 <input type="text" ng-model="item.reginalInterval"
                        ng-disabled="$state.is('^.strategyGroupDetail')">
@@ -49,14 +49,14 @@
             </md-input-container>
             <div class="appDialogSelect" ng-if="showItem">
                 <label>策略</label>
-                <md-select ng-model="item.strategy"
+                <md-select ng-model="item.strategyID"
                            style="width: 100px;margin-top: 0">
                     <md-option ng-repeat="p in strategy" ng-value="p.iD">{{p.name}}</md-option>
                 </md-select>
             </div>
-            <div class="appDialogSelect" ng-if="showItem">
+            <div class="appDialogSelect" ng-if="showItem" style="display:none">
                 <label>惩罚</label>
-                <md-select ng-model="item.punishment"
+                <md-select ng-model="item.punishmentID"
                            style="width: 100px;margin-top: 0">
                     <md-option ng-repeat="p in punishment" ng-value="p.iD">{{p.name}}</md-option>
                 </md-select>

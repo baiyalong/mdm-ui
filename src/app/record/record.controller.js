@@ -51,7 +51,8 @@ angular.module('mdmUi')
             header: [
                 // {field: 'commandId', name: '命令编码'},
                 {field: 'commandName', name: '命令'},
-                {field: 'user', name: '用户名'},
+                {field: 'sendCommndUser', name: '管理员'},
+                {field: 'user', name: '终端用户'},
                 // {field: 'phoneNumber', name: '手机号'},
                 {field: 'deviceName', name: '终端'},
                 {field: 'imei', name: 'IMEI'},
@@ -59,7 +60,7 @@ angular.module('mdmUi')
                 //{field: 'updateTime', name: '更新时间'},
                 //       {field: 'statusName', name: '状态'},
             ],
-            sortable: ['commandId', 'commandName', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
+            sortable: ['sendCommndUser', 'commandId', 'commandName', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
             detail: function (event, element) {
                 $state.go('^.commandDetail', {id: element.iD});
@@ -124,7 +125,8 @@ angular.module('mdmUi')
             header: [
                 {field: 'title', name: '消息标题'},
                 //{field: 'messageContent', name: '内容'},
-                {field: 'user', name: '用户名'},
+                {field: 'currentUser', name: '管理员'},
+                {field: 'user', name: '终端用户'},
                 //   {field: 'phoneNumber', name: '手机号'},
                 {field: 'deviceName', name: '终端'},
                 {field: 'imei', name: 'IMEI'},
@@ -132,7 +134,7 @@ angular.module('mdmUi')
                 //{field: 'updateTime', name: '更新时间'},
                 //     {field: 'statusName', name: '状态'},
             ],
-            sortable: ['title', 'messageContent', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
+            sortable: ['currentUser', 'title', 'messageContent', 'user', 'phoneNumber', 'deviceName', 'imei', 'sendTime', 'updateTime', 'statusName'],
             refresh: refresh,
             detail: function (event, element) {
                 $state.go('^.messageDetail', {id: element.iD});

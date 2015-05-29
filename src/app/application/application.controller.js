@@ -857,6 +857,15 @@ angular.module('mdmUi')
     })
     .controller('ApplicationPublishCtrl', function ($scope, $upload, Restangular, $state, $stateParams) {
         $scope.title = ['应用管理', '我的应用', '发布'];
+        $scope.subCollection = {
+            toggleSearch: false,
+            header: [
+                {field: 'name', name: '用户组名'},
+                {field: 'description', name: '描述'}
+            ],
+            sortable: ['name', 'description'],
+            check: true
+        };
         $scope.appClassifyRest.getList().then(function (res) {
             $scope.classification = res;
             $scope.appRest.get($stateParams.id).then(function (res) {
@@ -869,28 +878,47 @@ angular.module('mdmUi')
                     });
                 if (res.downloadUrl != null)
                     $scope.pkgUrl = addressConf + '/mdm/' + $scope.element.downloadUrl;
+
+                var groups = res.userGroup;
+                Restangular.all('userGroup').getList().then(function (res) {
+                    $scope.subCollection.content = res;
+                    if (groups != null) {
+                        res.forEach(function (e) {
+                            if (groups.indexOf(e.iD) != -1) {
+                                e.check = true;
+                            }
+                        });
+                    }
+                });
             });
         });
-        $scope.subCollection = {
-            toggleSearch: false,
-            header: [
-                {field: 'name', name: '用户组名'},
-                {field: 'description', name: '描述'}
-            ],
-            sortable: ['name', 'description'],
-            check: true
-        };
-        Restangular.all('userGroup').getList().then(function (res) {
-            $scope.subCollection.content = res;
-        });
+
 
         $scope.publish = function (element) {
+            var groups = [];
+            $scope.subCollection.content.forEach(function (v) {
+                if (v.check) {
+                    groups.push(v.iD);
+                }
+            });
+            /*
+             if (groups.length == 0) {
+             $scope.alert('我的应用  发布', '请选择发布范围!');
+             return;
+             }*/
             $scope.editConfirm('我的应用 发布', '确认要发布吗？', function () {
-                element.status = 0;
-                element.save().then(function () {
+                if (groups.length == 0) {
+                    element.status = 1;
+                } else {
+                    element.status = 0;
+                }
+                element.save();//.then(function () {
+
+                Restangular.all('app').customPOST(groups, 'publish/' + element.iD).then(function () {
                     $state.go('^.application');
                 });
-                $scope.alert('我的应用  发布', '发布成功!');
+                // });
+                // $scope.alert('我的应用  发布', '发布成功!');
             });
         };
         $scope.cancel = function () {

@@ -451,11 +451,11 @@ angular.module('mdmUi')
             header: [
                 {field: 'startTime', name: '开始时间'},
                 {field: 'endTime', name: '结束时间'},
-                {field: 'reginalInterval', name: '地理围栏'},
+                // {field: 'reginalInterval', name: '地理围栏'},
                 {field: 'parameters', name: '参数'},
                 //{field: 'groupName', name: '策略组'},
                 {field: 'strategyName', name: '策略'},
-                {field: 'punishmentName', name: '惩罚'},
+                // {field: 'punishmentName', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'strategyName', 'punishmentName']
             // add: add,
@@ -478,11 +478,11 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'timeInterval', name: '时间围栏'},
-                {field: 'reginalInterval', name: '地理围栏'},
+                // {field: 'reginalInterval', name: '地理围栏'},
                 {field: 'parameters', name: '参数'},
                 //{field: 'groupName', name: '策略组'},
                 {field: 'strategyName', name: '策略'},
-                {field: 'punishmentName', name: '惩罚'},
+                //  {field: 'punishmentName', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'strategyName', 'punishmentName', 'timeInterval'],
             //refresh: refresh,
@@ -546,7 +546,7 @@ angular.module('mdmUi')
                 element.status = 1;
                 Restangular.all('strategyGroup').post(element).then(function (res) {
                     if (res != undefined) {
-                        $scope.subCollection.content.each(function (e, i, a) {
+                        $scope.subCollection.content.forEach(function (e, i, a) {
                             Restangular.all('strategyItem').post(e).then(function (r) {
                                 Restangular.all('strategyItem').customPOST(null, r + '/setrelation/' + res).then(function () {
                                 });
@@ -578,11 +578,11 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'timeInterval', name: '时间围栏'},
-                {field: 'reginalInterval', name: '地理围栏'},
+                // {field: 'reginalInterval', name: '地理围栏'},
                 {field: 'parameters', name: '参数'},
                 //{field: 'groupName', name: '策略组'},
                 {field: 'strategyName', name: '策略'},
-                {field: 'punishmentName', name: '惩罚'},
+                // {field: 'punishmentName', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'strategyName', 'punishmentName', 'timeInterval']
             // add: add,
@@ -625,11 +625,11 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'timeInterval', name: '时间围栏'},
-                {field: 'reginalInterval', name: '地理围栏'},
+                // {field: 'reginalInterval', name: '地理围栏'},
                 {field: 'parameters', name: '参数'},
                 //{field: 'groupName', name: '策略组'},
                 {field: 'strategyName', name: '策略'},
-                {field: 'punishmentName', name: '惩罚'},
+                // {field: 'punishmentName', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'strategyName', 'punishmentName', 'timeInterval']
             ,
@@ -776,11 +776,11 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'timeInterval', name: '时间围栏'},
-                {field: 'reginalInterval', name: '地理围栏'},
+                //  {field: 'reginalInterval', name: '地理围栏'},
                 {field: 'parameters', name: '参数'},
                 //{field: 'groupName', name: '策略组'},
                 {field: 'strategyName', name: '策略'},
-                {field: 'punishmentName', name: '惩罚'},
+                // {field: 'punishmentName', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'strategyName', 'punishmentName', 'timeInterval']
             // add: add,
@@ -811,12 +811,24 @@ angular.module('mdmUi')
             $scope.subCollection.content = res;
         });
         $scope.publish = function (element) {
+            var groups = [];
+            $scope.subCollection.content.forEach(function (v) {
+                if (v.check) {
+                    groups.push(v.iD);
+                }
+            });
             $scope.editConfirm('策略组  发布', '确认要发布吗？', function () {
-                element.status = 0;
-                element.save().then(function () {
-                    $state.go('^.strategyGroup');
-                });
-                $scope.alert('策略组  发布', '发布成功!');
+                if (groups.length == 0) {
+                    element.status = 1;
+                } else {
+                    element.status = 0;
+                }
+                element.save();//.then(function () {
+                // Restangular.all('app').customPOST(groups, 'publish/' + element.iD).then(function () {
+                $state.go('^.strategyGroup');
+                // });
+                //  });
+                // $scope.alert('策略组  发布', '发布成功!');
             });
         };
         $scope.cancel = function () {
@@ -954,7 +966,7 @@ angular.module('mdmUi')
                 {field: 'parameters', name: '参数'},
                 {field: 'groupID', name: '策略组'},
                 {field: 'strategyID', name: '策略'},
-                {field: 'punishmentID', name: '惩罚'},
+                //  {field: 'punishmentID', name: '惩罚'},
             ],
             sortable: ['startTime', 'endTime', 'reginalInterval', 'parameters', 'groupID', 'strategyID', 'punishmentID'],
             add: add,

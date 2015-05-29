@@ -201,12 +201,13 @@ angular.module('mdmUi')
                         return v.check;
                     });
                     $scope.confirm = function () {
-                        if ($scope.items.header == undefined && $scope.items.content == undefined) {
+                        if ($scope.items.header == undefined) {
                             alert('请输入消息标题！');
                             return;
                         }
-                        if ($scope.items.header == undefined) {
-                            $scope.items.header = $scope.items.content;
+                        if ($scope.items.content == undefined) {
+                            alert('请输入消息内同！');
+                            return;
                         }
                         var arr = [];
                         $scope.subCollection.content.forEach(function (v) {
