@@ -43,6 +43,11 @@ angular.module('mdmUi', ['ui.router', 'restangular', 'ngMaterial', 'angularFileU
                 templateUrl: 'app/user/user.user.detail.html',
                 controller: 'UserAddCtrl'
             })
+            .state('home.user.userBatchImport', {
+                url: '/userBatchImport',
+                templateUrl: 'app/user/user.user.batchImport.html',
+                controller: 'UserBatchImportCtrl'
+            })
             .state('home.user.userDetail', {
                 url: '/userDetail/:id',
                 templateUrl: 'app/user/user.user.detail.html',

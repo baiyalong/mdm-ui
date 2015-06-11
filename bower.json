@@ -11,8 +11,10 @@
     "angular-ui-select": "latest",
     "angular-material": "latest",
     "angular": "latest",
-    "ng-file-upload-shim":"latest",
-    "ng-file-upload":"latest"
+    "ng-file-upload-shim": "latest",
+    "ng-file-upload": "latest",
+    "ng-js-tree": "~0.0.5",
+    "papaparse": "latest"
   },
   "devDependencies": {
     "angular-mocks": "latest"
