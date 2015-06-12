@@ -658,43 +658,107 @@ angular.module('mdmUi')
             toggleSearch: false,
             header: [
                 {field: 'userName', name: '用户名'},
-                {field: 'password', name: '用户名'},
+                {field: 'password', name: '密码'},
                 {field: 'phoneNumber', name: '联系电话'},
                 {field: 'email', name: '电子邮箱'},
-                {field: 'GroupName', name: '用户组'},
-                {field: 'GroupDescription', name: '用户描述'},
+                {field: 'groupName', name: '用户组'},
+                {field: 'result', name: '导入结果'},
             ],
-            sortable: ['name', 'password', 'phoneNumber', 'email', 'GroupName', 'GroupDescription'],
+            sortable: ['userName', 'password', 'phoneNumber', 'email', 'groupName', 'result'],
+            content: []
         };
         $scope.uploaded = false;
-        $scope.uploadTemp = function (files) {
-            if (files && files.length) {
-                Papa.parse(files[0], {
-                    header: false,
-                    complete: function (results) {
-                        console.log(results);
-                        var content = [];
-                        results.data.forEach(function (e, i, a) {
-                            if (i == 0)return;//header
-                            content.push({
+        var pp = function (file, fn) {
+            Papa.parse(file, {
+                header: false,
+                worker: true,
+                complete: function (results) {
+                    console.log(results);
+                    $scope.uploaded = true;
+                    results.data.forEach(function (e, i, a) {
+                        if (i == 0);//header
+                        else {
+                            $scope.subCollection.content.push({
                                 userName: e[0],
                                 password: e[1],
                                 phoneNumber: e[2],
                                 email: e[3],
-                                GroupName: e[4],
-                                GroupDescription: e[5]
+                                groupName: e[4],
+                                result: '未导入'
                             });
-                        });
-                        $scope.subCollection.content = content;
-                    }
-                });
+                        }
+                    });
+                    $scope.$apply();
+                }
+            });
+        };
+        $scope.uploadTemp = function (files) {
+            if (files && files.length) {
+                pp(files[0]);
             }
         };
         $scope.tempDownload = function () {
             $('#MDMTemp').get(0).click();
         };
-        $scope.save = function () {
-            $state.go('^.user');
+        $scope.import = function () {
+            if (!$scope.subCollection.content.length) return;
+
+            var userGroup, group;
+            //import userGroup
+            var importUserGroup = function (fn1, fn2) {
+                var obj = {};
+                userGroup = $scope.subCollection.content.map(function (e) {
+                    return e.groupName;
+                }).forEach(function (e) {
+                    obj[e] = 1;
+                });
+                group = Object.keys(obj);
+                group.forEach(function (e) {
+                    $scope.userGroupRest.post({name: e});
+                });
+                fn1(fn2);
+            };
+            //import user
+            var getUserGroup = function (fn) {
+                $scope.userGroupRest.getList().then(function (res) {
+                    userGroup = res.plain().filter(function (e) {
+                        if (group.indexOf(e.name) != -1)return true;
+                        if (e.name == '默认分组')return true;
+                    });
+                    fn();
+                });
+            };
+            var importUser = function () {
+                $scope.subCollection.content.forEach(function (e) {
+                    var gid = userGroup.filter(function (ee) {
+                        if (ee.name == e.groupName)return true;
+                    })[0].iD;
+                    var gid0 = userGroup.filter(function (ee) {
+                        if (ee.name == '默认分组')return true;
+                    })[0].iD;
+
+                    var user = {
+                        name: e.userName.toLowerCase(),
+                        password: md5(e.password),
+                        phoneNumber: e.phoneNumber,
+                        email: e.email
+                    };
+
+                    $scope.userRest.post(user).then(function (res) {
+                        if (res != undefined && res.length < 24) {
+                            //$scope.alert(title, res);
+                            e.result = res;
+                        } else {
+                            $scope.userGroupRest.customPOST(null, gid0 + '/user/' + res);
+                            $scope.userGroupRest.customPOST(null, gid + '/user/' + res);
+                            e.result = '导入成功';
+                        }
+                        $scope.$apply();
+                    });
+                });
+            };
+
+            importUserGroup(getUserGroup, importUser);
         };
         $scope.cancel = function () {
             $state.go('^.user');
@@ -1002,7 +1066,7 @@ angular.module('mdmUi')
             }
             else {
                 $scope.userGroupRest.post(element).then(function (res) {
-                    if (res == '当前用户组名称已存在！') {
+                    if (res.length < 24) {
                         alert(res);
                     } else {
                         var id = res;
