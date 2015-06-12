@@ -769,9 +769,7 @@ angular.module('mdmUi')
             sortable: ['name', 'description'],
             check: true
         };
-        Restangular.all('userGroup').getList().then(function (res) {
-            $scope.Collection.content = res;
-        });
+
         $scope.subCollection = {
             toggleSearch: false,
             header: [
@@ -791,6 +789,17 @@ angular.module('mdmUi')
         };
         Restangular.all('strategyGroup').get($stateParams.id).then(function (res) {
             $scope.element = res;
+            var groups = res.userGroup;
+            Restangular.all('userGroup').getList().then(function (res) {
+                $scope.Collection.content = res;
+                if (groups != null) {
+                    res.forEach(function (e) {
+                        if (groups.indexOf(e.iD) != -1) {
+                            e.check = true;
+                        }
+                    });
+                }
+            });
         });
         Restangular.all('strategy').getList().then(function (res) {
             $scope.strategy = res;
@@ -812,7 +821,7 @@ angular.module('mdmUi')
         });
         $scope.publish = function (element) {
             var groups = [];
-            $scope.subCollection.content.forEach(function (v) {
+            $scope.Collection.content.forEach(function (v) {
                 if (v.check) {
                     groups.push(v.iD);
                 }
@@ -824,9 +833,9 @@ angular.module('mdmUi')
                     element.status = 0;
                 }
                 element.save();//.then(function () {
-                // Restangular.all('app').customPOST(groups, 'publish/' + element.iD).then(function () {
-                $state.go('^.strategyGroup');
-                // });
+                Restangular.all('strategyGroup').customPOST(groups, 'publish/' + element.iD).then(function () {
+                    $state.go('^.strategyGroup');
+                });
                 //  });
                 // $scope.alert('策略组  发布', '发布成功!');
             });
