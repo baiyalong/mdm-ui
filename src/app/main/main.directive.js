@@ -83,7 +83,7 @@ angular.module('mdmUi')
                 if ($scope.collection == undefined) {
                     $scope.collection = {}
                 }
-                $scope.collection.count = $scope.collection.count || 12;
+                $scope.collection.count = $scope.collection.count || 10;
                 $scope.search = {};
                 var orderBy = $filter('orderBy');
                 $scope.tablePage = 0;
