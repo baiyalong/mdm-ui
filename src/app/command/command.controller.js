@@ -10,7 +10,26 @@ angular.module('mdmUi')
         var templateUrl = 'app/command/command.dialog.html';
         var refresh = function () {
             Rest.getList().then(function (res) {
-                $scope.collection.content = res;
+                $scope.collection.content = res.filter(function (e, i, a) {
+                    var re = false;
+                    switch (e.description) {
+                        case '获取位置信息':
+                            break;
+                        case '设置屏幕锁密码':
+                            break;
+                        case '清除屏幕锁密码':
+                            break;
+                        case '存储加密':
+                            break;
+                        case '禁止存储加密':
+                            break;
+                        case '擦除外部存储数据':
+                            break;
+                        default :
+                            re = true;
+                    }
+                    return re;
+                });
             });
         };
         refresh();
